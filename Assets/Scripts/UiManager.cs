@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class UiManager : MonoBehaviour
 {
     // 싱글톤 패턴
-    public static UiManager Instancec{
+    public static UiManager Instance{
         get {
             if (instance == null) {
                 instance = FindObjectOfType<UiManager>();
