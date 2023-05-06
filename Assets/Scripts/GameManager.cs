@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         UiManager.SetStartUi(true);
+        UiManager.SetGameUi(false);
 
         background = GameObject.Find("Background");
         ground = GameObject.Find("Ground");
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart() {
         UiManager.SetStartUi(false);
+        UiManager.SetGameUi(true);
 
         background.GetComponent<InfiniteScrollingBackground>().backSpeed = this.backSpeed;
         background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = this.terrainSpeed;
