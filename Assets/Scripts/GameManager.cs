@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     GameObject background; // 백그라운드 스크롤링 오브젝트
     GameObject ground; // 그라운드 스크롤링 오브젝트
 
+    public Animator knightAnim;
+
     // --- 게임 변수
     float backSpeed = 0.2f;
     float terrainSpeed = 2f;
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameStart() {
+        knightAnim.SetBool("Start", true);
         UiManager.SetStartUi(false);
         UiManager.SetGameUi(true);
 
