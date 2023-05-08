@@ -19,12 +19,16 @@ public class GameManager : MonoBehaviour
     UiManager UiManager => UiManager.Instance;
 
     // --- 외부 오브젝트 변수
-    GameObject background; // 백그라운드 스크롤링 오브젝트
-    GameObject ground; // 그라운드 스크롤링 오브젝트
+    public GameObject monsterPrefab;
+
+    GameObject background;  // 백그라운드 스크롤링 오브젝트
+    GameObject ground;      // 그라운드 스크롤링 오브젝트
 
     public Animator knightAnim;
 
     // --- 게임 변수
+    bool isStart = false;   // 시작 확인
+    float currTime = 0;         // 시간을 측정할 변수
     float backSpeed = 0.2f;
     float terrainSpeed = 2f;
     float groundSpeed = 5f;
@@ -44,10 +48,22 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if (isStart)
+        {
+            currTime += Time.deltaTime;
+
+            if (currTime > 5)
+            {
+                GameObject monster = Instantiate(monsterPrefab);
+                monster.transform.position = new Vector3(14, -2, 0);
+
+                currTime = 0;
+            }
+        }
     }
 
     public void GameStart() {
+        isStart = true;
         knightAnim.SetBool("Start", true);
         UiManager.SetStartUi(false);
         UiManager.SetGameUi(true);
