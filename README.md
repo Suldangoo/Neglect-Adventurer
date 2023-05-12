@@ -1,4 +1,4 @@
-# Neglect-Adventurer
+# 방치모험가 (Neglect-Adventurer)
 유니티 2D 횡스크롤 방치게임 졸업작품
 
 
