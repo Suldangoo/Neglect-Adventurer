@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 228524417}
   - component: {fileID: 228524416}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: PVP_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -842,7 +842,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1706869557674664812, guid: 4c207583ff6f2de49b994ffcde1e27c5, type: 3}
+  m_Sprite: {fileID: -6385481937852893933, guid: 4c207583ff6f2de49b994ffcde1e27c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 519354666}
   - component: {fileID: 519354665}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Guild.Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2428,7 +2428,7 @@ GameObject:
   - component: {fileID: 1021129011}
   - component: {fileID: 1021129010}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Party_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3319,7 +3319,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6385481937852893933, guid: 4c207583ff6f2de49b994ffcde1e27c5, type: 3}
+  m_Sprite: {fileID: 1706869557674664812, guid: 4c207583ff6f2de49b994ffcde1e27c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3504,7 +3504,7 @@ GameObject:
   - component: {fileID: 1533658175}
   - component: {fileID: 1533658174}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Up_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3893,7 +3893,7 @@ GameObject:
   - component: {fileID: 1732007447}
   - component: {fileID: 1732007446}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: Ranking_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4015,7 +4015,7 @@ GameObject:
   - component: {fileID: 1765188936}
   - component: {fileID: 1765188935}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Dungeon_Btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
