@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     GameObject ground;      // 그라운드 스크롤링 오브젝트
 
     private Animator playerAnimator;
-    private Animator enemyAnimator;
 
     // --- 게임 변수
     public bool isStart = false;   // 시작 확인
@@ -42,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         background = GameObject.Find("Background");
         ground = GameObject.Find("Ground");
+        playerAnimator = GameObject.Find("Knight").GetComponent<Animator>();
 
         SetScrollOff();
     }
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void SetScrollOn() {
         isScroll = true;
+        playerAnimator.SetBool("Scroll", true);
         background.GetComponent<InfiniteScrollingBackground>().backSpeed = this.backSpeed;
         background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = this.terrainSpeed;
         ground.GetComponent<GroundScrolling>().speed = this.groundSpeed;
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void SetScrollOff() {
         isScroll = false;
+        playerAnimator.SetBool("Scroll", false);
         background.GetComponent<InfiniteScrollingBackground>().backSpeed = 0f;
         background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = 0f;
         ground.GetComponent<GroundScrolling>().speed = 0f;
