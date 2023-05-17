@@ -24,15 +24,23 @@ public class GameManager : MonoBehaviour
     GameObject background;  // 백그라운드 스크롤링 오브젝트
     GameObject ground;      // 그라운드 스크롤링 오브젝트
 
-    private Animator playerAnimator;
+    Animator playerAnimator; // 플레이어 캐릭터 애니메이터
 
     // --- 게임 변수
+    [HideInInspector]
     public bool isStart = false;   // 시작 확인
+    [HideInInspector]
     public bool isScroll = false;  // 스크롤 확인
+    [HideInInspector]
+    public bool isBattle = false;  // 전투 확인
+
     float currTime = 0;         // 시간을 측정할 변수
     float backSpeed = 0.2f;
     float terrainSpeed = 2f;
-    float groundSpeed = 5f;
+    public float scrollSpeed = 5f;      // 스크롤링 속도
+
+    public float power = 10f;           // 공격력
+    public float attackSpeed = 1f;      // 공격속도
 
     void Start()
     {
@@ -48,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isStart)
+        /*if (isStart)
         {
             currTime += Time.deltaTime;
 
@@ -57,6 +65,18 @@ public class GameManager : MonoBehaviour
                 GameObject monster = Instantiate(monsterPrefab);
                 monster.transform.position = new Vector3(14, -2, 0);
 
+                currTime = 0;
+            }
+        }*/
+
+        if (isBattle)
+        {
+            currTime += Time.deltaTime;
+
+            if (currTime >= attackSpeed)
+            {
+                playerAnimator.SetTrigger("Attack");
+                GameObject.Find("Skeleton").GetComponent<Monster>().hp -= this.power;
                 currTime = 0;
             }
         }
@@ -74,6 +94,12 @@ public class GameManager : MonoBehaviour
     public void StartBattle()
     {
         SetScrollOff();
+        isBattle = true;
+    }
+    public void EndBattle()
+    {
+        SetScrollOn();
+        isBattle = false;
     }
 
     public void SetScrollOn() {
@@ -81,7 +107,7 @@ public class GameManager : MonoBehaviour
         playerAnimator.SetBool("Scroll", true);
         background.GetComponent<InfiniteScrollingBackground>().backSpeed = this.backSpeed;
         background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = this.terrainSpeed;
-        ground.GetComponent<GroundScrolling>().speed = this.groundSpeed;
+        ground.GetComponent<GroundScrolling>().speed = this.scrollSpeed;
     }
 
     public void SetScrollOff() {
