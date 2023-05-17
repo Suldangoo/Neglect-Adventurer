@@ -24,10 +24,12 @@ public class GameManager : MonoBehaviour
     GameObject background;  // 백그라운드 스크롤링 오브젝트
     GameObject ground;      // 그라운드 스크롤링 오브젝트
 
-    public Animator knightAnim;
+    private Animator playerAnimator;
+    private Animator enemyAnimator;
 
     // --- 게임 변수
-    bool isStart = false;   // 시작 확인
+    public bool isStart = false;   // 시작 확인
+    public bool isScroll = false;  // 스크롤 확인
     float currTime = 0;         // 시간을 측정할 변수
     float backSpeed = 0.2f;
     float terrainSpeed = 2f;
@@ -41,9 +43,7 @@ public class GameManager : MonoBehaviour
         background = GameObject.Find("Background");
         ground = GameObject.Find("Ground");
 
-        background.GetComponent<InfiniteScrollingBackground>().backSpeed = 0f;
-        background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = 0f;
-        ground.GetComponent<GroundScrolling>().speed = 0f;
+        SetScrollOff();
     }
 
     void Update()
@@ -62,14 +62,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 게임 시작 함수
     public void GameStart() {
         isStart = true;
-        knightAnim.SetBool("Start", true);
         UiManager.SetStartUi(false);
         UiManager.SetGameUi(true);
+        SetScrollOn();
+    }
 
+    // 전투 시작 함수
+    public void StartBattle()
+    {
+        SetScrollOff();
+    }
+
+    public void SetScrollOn() {
+        isScroll = true;
         background.GetComponent<InfiniteScrollingBackground>().backSpeed = this.backSpeed;
         background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = this.terrainSpeed;
         ground.GetComponent<GroundScrolling>().speed = this.groundSpeed;
+    }
+
+    public void SetScrollOff() {
+        isScroll = false;
+        background.GetComponent<InfiniteScrollingBackground>().backSpeed = 0f;
+        background.GetComponent<InfiniteScrollingBackground>().terrainSpeed = 0f;
+        ground.GetComponent<GroundScrolling>().speed = 0f;
     }
 }
