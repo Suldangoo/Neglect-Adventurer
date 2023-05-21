@@ -13,15 +13,20 @@ public class Monster : MonoBehaviour
     public bool isLive;     // 몬스터의 생존 여부
     float speed;            // 몬스터의 속도
 
+    private void SetMonster()
+    {
+        hp = maxHp; // HP 초기화
+        isLive = true;
+        speed = GameManager.scrollSpeed;
+    }
+
     private void Start()
     {
         // 오브젝트 할당
         hpBar = GameObject.Find("HP").GetComponent<Image>();
         anim = GetComponent<Animator>();
 
-        hp = maxHp; // HP 초기화
-        isLive = true;
-        speed = GameManager.scrollSpeed;
+        SetMonster();
     }
 
     void Update()
@@ -52,10 +57,9 @@ public class Monster : MonoBehaviour
         if (transform.position.x <= -15f)
         {
             // x좌표가 -15까지 갔다면, 리스폰
-            hp = maxHp;
+            SetMonster();
             transform.position = new Vector3(15, -2, 0);
             transform.GetChild(0).gameObject.SetActive(true); // HP바 활성화
-            isLive = true;
             anim.SetTrigger("Respawn");
         }
     }

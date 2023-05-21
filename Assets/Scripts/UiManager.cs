@@ -21,7 +21,7 @@ public class UiManager : MonoBehaviour
     GameObject gameUI;      // 인게임 UI
 
     [SerializeField]
-    GameObject[] inGameUis; // 그 외 인게임 UI
+    GameObject UpgradeUI;   // 수련 UI
 
     public void SetStartUi(bool active)
     {
@@ -35,9 +35,9 @@ public class UiManager : MonoBehaviour
         gameUI.SetActive(active);
     }
 
-    public void SetInGameUIs(bool active)
+    public void SetUpgradeUi(bool active)
     {
-        // 그 외 인게임 UI 켜고 끄기
-        foreach (GameObject go in inGameUis) { go.SetActive(active); }
+        // 인게임 UI 켜고 끄기
+        UpgradeUI.SetActive(active);
     }
 }

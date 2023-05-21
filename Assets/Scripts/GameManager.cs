@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
         background = GameObject.Find("Background").GetComponent<InfiniteScrolling>(); // 백그라운드 오브젝트 할당
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
-        monster = GameObject.Find("Skeleton").GetComponent<Monster>(); // 몬스터 스크립트 할당
+        monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
 
         scrollSpeed = 5f;  // 스크롤링 속도
         backSpeed = 0.2f;  // 배경 스크롤링 속도
@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
 
         power = 50f;       // 공격력
         attackSpeed = 1f;  // 공격속도
+
+        SetScroll(false); // 스크롤 끄기
     }
 
     void Update()
