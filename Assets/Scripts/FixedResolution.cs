@@ -4,8 +4,7 @@ using UnityEngine;
 public class FixedResolution : MonoBehaviour
 {
     // 고정해상도를 적용하고 남는 부분(Letterbox)에 사용될 게임오브젝트(Prefab)
-    public GameObject m_objBackScissor;
-
+    [SerializeField] GameObject m_objBackScissor;
 
     void Awake()
     {
@@ -26,7 +25,6 @@ public class FixedResolution : MonoBehaviour
         if (fResolutionX > fResolutionY)
         {
             // 종횡비(Aspect Ratio) 구하기
-            // 16:9의 경우 1.77:1
             float fValue = (fResolutionX - fResolutionY) * 0.5f;
             fValue = fValue / fResolutionX;
 
@@ -67,8 +65,6 @@ public class FixedResolution : MonoBehaviour
                                     ((Screen.height * fValue) / Screen.height) + (obj.rect.y * (1.0f - (2.0f * fValue))),
                                     obj.rect.width,
                                     obj.rect.height * (1.0f - (2.0f * fValue)));
-
-                //obj.rect = new Rect( obj.rect.x , obj.rect.y + obj.rect.y * fValue, obj.rect.width, obj.rect.height - obj.rect.height * fValue );
             }
 
 

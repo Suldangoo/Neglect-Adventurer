@@ -24,12 +24,9 @@ public class GameManager : MonoBehaviour
     Monster monster;                // 몬스터 스크립트
 
     // --- 게임 변수
-    [HideInInspector]
-    public bool isStart = false;   // 시작 확인
-    [HideInInspector]
-    public bool isScroll = false;  // 스크롤 확인
-    [HideInInspector]
-    public bool isBattle = false;  // 전투 확인
+    [HideInInspector] public bool isStart = false;   // 시작 확인
+    [HideInInspector] public bool isScroll = false;  // 스크롤 확인
+    [HideInInspector] public bool isBattle = false;  // 전투 확인
 
     float currTime;             // 시간을 측정할 변수
     public float scrollSpeed;   // 스크롤링 속도
@@ -48,13 +45,10 @@ public class GameManager : MonoBehaviour
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
         monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
 
-        scrollSpeed = 5f;  // 스크롤링 속도
-        backSpeed = 0.2f;  // 배경 스크롤링 속도
-        terrainSpeed = 2f; // 지형 스크롤링 속도
-
-        power = 50f;       // 공격력
+        power = 10f;       // 공격력
         attackSpeed = 1f;  // 공격속도
 
+        SetScrollSpeed();
         SetScroll(false); // 스크롤 끄기
     }
 
@@ -71,7 +65,7 @@ public class GameManager : MonoBehaviour
                 if (monster.isLive)
                 {
                     playerAnimator.SetTrigger("Attack"); // 공격 애니메이션 재생
-                    monster.hp -= this.power; // 몬스터에게 데미지
+                    monster.Damage(power); // 몬스터에게 데미지
                     currTime = 0; // 시간 초기화
                 }
                 else
@@ -105,5 +99,11 @@ public class GameManager : MonoBehaviour
         background.speed = scrollSpeed * Convert.ToInt32(active);           // 땅 스크롤링
         background.backSpeed = backSpeed * Convert.ToInt32(active);         // 배경 스크롤링
         background.terrainSpeed = terrainSpeed * Convert.ToInt32(active);   // 지형 스크롤링
+    }
+    void SetScrollSpeed()
+    {
+        scrollSpeed = 5f;  // 스크롤링 속도
+        backSpeed = scrollSpeed / 20f;  // 배경 스크롤링 속도
+        terrainSpeed = scrollSpeed / 2f; // 지형 스크롤링 속도
     }
 }
