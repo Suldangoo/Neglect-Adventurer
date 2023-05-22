@@ -67,6 +67,7 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Dead");
             hpBar.SetActive(false); // HP바 비활성화
             isLive = false;
+            speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
         }
 
         // x좌표가 1까지 왔다면, 전투 시작

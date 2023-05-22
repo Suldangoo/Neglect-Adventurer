@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 66113864}
   - component: {fileID: 66113866}
   - component: {fileID: 66113865}
+  - component: {fileID: 66113867}
   m_Layer: 5
   m_Name: UpUI
   m_TagString: Untagged
@@ -315,6 +316,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 66113863}
   m_CullTransparentMesh: 1
+--- !u!114 &66113867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66113863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0154e527ebb71e947a17e46eb8b01513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  atkLevel: {fileID: 876600934}
+  atk: {fileID: 1381677315}
+  atkSpeed: {fileID: 576848457}
+  atkCost: {fileID: 1579491352}
+  defLevel: {fileID: 1490535646}
+  def: {fileID: 80585587}
+  defCost: {fileID: 281402900}
+  dexLevel: {fileID: 2020958001}
+  dex: {fileID: 71228739}
+  dexCost: {fileID: 1175152284}
+  lukLevel: {fileID: 704261196}
+  luk: {fileID: 1769214626}
+  lukCost: {fileID: 1065994097}
 --- !u!1 &67469461
 GameObject:
   m_ObjectHideFlags: 0
@@ -690,18 +716,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104251374}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children: []
-  m_Father: {fileID: 1288203064}
-  m_RootOrder: 7
+  m_Father: {fileID: 1579491351}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -40, y: 67}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -40, y: -2}
   m_SizeDelta: {x: 50, y: 50}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &104251376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,7 +1489,7 @@ GameObject:
   - component: {fileID: 365862836}
   - component: {fileID: 365862835}
   m_Layer: 5
-  m_Name: DEF_Panel
+  m_Name: DEFPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2238,7 +2264,7 @@ GameObject:
   - component: {fileID: 576848458}
   - component: {fileID: 576848457}
   m_Layer: 5
-  m_Name: NowAtkSpeed
+  m_Name: AtkSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2256,7 +2282,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1288203064}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2494,7 +2520,7 @@ GameObject:
   - component: {fileID: 685784692}
   - component: {fileID: 685784691}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2952,7 +2978,7 @@ GameObject:
   - component: {fileID: 725572168}
   - component: {fileID: 725572167}
   m_Layer: 5
-  m_Name: DEX_Panel
+  m_Name: DEXPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3543,7 +3569,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1288203064}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3749,7 +3775,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 870860621}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 66113867}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: upgradeDex
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &870860621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3800,7 +3838,7 @@ GameObject:
   - component: {fileID: 876600935}
   - component: {fileID: 876600934}
   m_Layer: 5
-  m_Name: Atk_Level
+  m_Name: AtkLevel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4325,8 +4363,9 @@ GameObject:
   - component: {fileID: 959247384}
   - component: {fileID: 959247386}
   - component: {fileID: 959247385}
+  - component: {fileID: 959247387}
   m_Layer: 5
-  m_Name: Text
+  m_Name: GoldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4393,6 +4432,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959247383}
   m_CullTransparentMesh: 1
+--- !u!114 &959247387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 959247383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90198b0171f3664187063541e498d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 959247385}
 --- !u!1 &964088570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,7 +4607,7 @@ GameObject:
   - component: {fileID: 990026802}
   - component: {fileID: 990026801}
   m_Layer: 5
-  m_Name: LUK_Panel
+  m_Name: LUKPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6044,7 +6096,7 @@ GameObject:
   - component: {fileID: 1288203066}
   - component: {fileID: 1288203065}
   m_Layer: 5
-  m_Name: ATK_Panel
+  m_Name: ATKPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6063,12 +6115,11 @@ RectTransform:
   m_Children:
   - {fileID: 1799146904}
   - {fileID: 876600933}
-  - {fileID: 836988345}
-  - {fileID: 1555676288}
   - {fileID: 1381677314}
   - {fileID: 576848456}
   - {fileID: 1579491351}
-  - {fileID: 104251375}
+  - {fileID: 836988345}
+  - {fileID: 1555676288}
   m_Father: {fileID: 32235642}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6398,7 +6449,7 @@ GameObject:
   - component: {fileID: 1381677316}
   - component: {fileID: 1381677315}
   m_Layer: 5
-  m_Name: NowAtk
+  m_Name: Atk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6416,7 +6467,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1288203064}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6555,7 +6606,7 @@ GameObject:
   - component: {fileID: 1428741855}
   - component: {fileID: 1428741854}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6629,8 +6680,9 @@ GameObject:
   - component: {fileID: 1446339347}
   - component: {fileID: 1446339349}
   - component: {fileID: 1446339348}
+  - component: {fileID: 1446339350}
   m_Layer: 5
-  m_Name: Text
+  m_Name: GoldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6697,6 +6749,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446339346}
   m_CullTransparentMesh: 1
+--- !u!114 &1446339350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446339346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90198b0171f3664187063541e498d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1446339348}
 --- !u!1 &1453190643
 GameObject:
   m_ObjectHideFlags: 0
@@ -7132,7 +7197,7 @@ RectTransform:
   m_Children:
   - {fileID: 1453190644}
   m_Father: {fileID: 1288203064}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -7182,7 +7247,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1555676290}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 66113867}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: upgradeAtk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1555676290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7233,7 +7310,7 @@ GameObject:
   - component: {fileID: 1579491353}
   - component: {fileID: 1579491352}
   m_Layer: 5
-  m_Name: Atk_Gold
+  m_Name: AtkGold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7249,14 +7326,15 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 104251375}
   m_Father: {fileID: 1288203064}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 80, y: 75}
-  m_SizeDelta: {x: 200, y: 30}
+  m_AnchoredPosition: {x: 17, y: 75}
+  m_SizeDelta: {x: 70, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1579491352
 MonoBehaviour:
@@ -7285,13 +7363,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999,999
+  m_Text: 1,000
 --- !u!222 &1579491353
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7600,9 +7678,12 @@ MonoBehaviour:
   isStart: 0
   isScroll: 0
   isBattle: 0
-  scrollSpeed: 5
+  atkLv: 0
+  dexLv: 0
+  gold: 0
   power: 50
   attackSpeed: 0.5
+  scrollSpeed: 5
 --- !u!4 &1671319883
 Transform:
   m_ObjectHideFlags: 0
@@ -8102,7 +8183,7 @@ GameObject:
   - component: {fileID: 1799146906}
   - component: {fileID: 1799146905}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

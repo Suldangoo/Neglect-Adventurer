@@ -17,11 +17,12 @@ public class GameManager : MonoBehaviour
 
     // --- 외부 오브젝트 변수
     UiManager UiManager => UiManager.Instance;
-    public GameObject monsterPrefab;
 
     InfiniteScrolling background;   // 백그라운드 스크롤링 오브젝트
     Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
     Monster monster;                // 몬스터 스크립트
+
+    [SerializeField] GameObject monsterPrefab; // 몬스터 프리팹
 
     // --- 게임 변수
     [HideInInspector] public bool isStart = false;   // 시작 확인
@@ -29,12 +30,17 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isBattle = false;  // 전투 확인
 
     float currTime;             // 시간을 측정할 변수
-    public float scrollSpeed;   // 스크롤링 속도
     float backSpeed;            // 배경 스크롤링 속도
     float terrainSpeed;         // 지형 스크롤링 속도
-    
+
+    // --- 플레이어 변수
+    public int atkLv;           // 검술 수련 레벨
+    public int dexLv;           // 민첩 수련 레벨
+    public int gold;            // 골드
+
     public float power;         // 공격력
     public float attackSpeed;   // 공격속도
+    public float scrollSpeed;   // 이동속도 / 스크롤링 속도
 
     void Start()
     {
@@ -44,6 +50,10 @@ public class GameManager : MonoBehaviour
         background = GameObject.Find("Background").GetComponent<InfiniteScrolling>(); // 백그라운드 오브젝트 할당
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
         monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
+
+        atkLv = 1;         // 초기 레벨
+        dexLv = 1;         // 초기 레벨
+        gold = 100000;     // 초기 골드 지급
 
         power = 10f;       // 공격력
         attackSpeed = 1f;  // 공격속도
