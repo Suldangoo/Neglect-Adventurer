@@ -6146,8 +6146,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8419300682269097484}
-  m_RootOrder: 1
+  m_Father: {fileID: 8586778240917445738}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6244,7 +6244,7 @@ GameObject:
   - component: {fileID: 862196757605048260}
   - component: {fileID: 1860662810492558984}
   m_Layer: 8
-  m_Name: Back
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6316,6 +6316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419c0ea14a124554e9c8095f5c0168ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBar: {fileID: 2573156421705155185}
   hpSprite: {fileID: 4519410215128637022}
   dmgText: {fileID: 2915928748131032996, guid: 55f72c3c353344343b6c758859295f2a, type: 3}
   canvas: {fileID: 7009641209085583435}
@@ -11266,7 +11267,6 @@ RectTransform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 8586778240917445738}
-  - {fileID: 559141384475171820}
   m_Father: {fileID: 4338039459597413646}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11285,7 +11285,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 559141384475171820}
   m_Father: {fileID: 8419300682269097484}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

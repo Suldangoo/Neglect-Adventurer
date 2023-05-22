@@ -6,11 +6,12 @@ public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
 
-    Image hpBar;    // HP바 오브젝트
+    Image hpColor;  // HP바 오브젝트
     Animator anim;  // 몬스터 애니메이터
     SpriteRenderer sprite; // 스프라이트 렌더러
     ParticleSystem particle; // 파티클
 
+    [SerializeField] GameObject hpBar; // hp바 오브젝트
     [SerializeField] GameObject hpSprite; // hp 스프라이트 오브젝트
     [SerializeField] GameObject dmgText; // 데미지 텍스트 프리팹
     [SerializeField] Canvas canvas; // 몬스터의 하위 캔버스
@@ -25,14 +26,14 @@ public class Monster : MonoBehaviour
     {
         isLive = true; // 생존 체크
         hp = maxHp; // HP 초기화
-        hpBar.fillAmount = hp / maxHp; // 현재 HP를 HP바에 반영
+        hpColor.fillAmount = hp / maxHp; // 현재 HP를 HP바에 반영
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
     }
 
     public void Damage(float atk)
     {
         hp -= atk; // atk의 피해만큼 데미지를 입음
-        hpBar.fillAmount = hp / maxHp; // 현재 HP를 HP바에 반영
+        hpColor.fillAmount = hp / maxHp; // 현재 HP를 HP바에 반영
         hitDuration = Time.time + 0.1f; // 히트 이펙트 반영시간을 0.1초 이후로 갱신
         particle.Clear(); // 현재 파티클 초기화
         particle.Play(); // 파티클 재생
@@ -43,7 +44,7 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         // 오브젝트 할당
-        hpBar = hpSprite.GetComponent<Image>();
+        hpColor = hpSprite.GetComponent<Image>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         particle = GetComponent<ParticleSystem>();
@@ -64,7 +65,7 @@ public class Monster : MonoBehaviour
         {
             // 체력이 0이 될 경우 사망
             anim.SetTrigger("Dead");
-            transform.GetChild(0).gameObject.SetActive(false); // HP바 비활성화
+            hpBar.SetActive(false); // HP바 비활성화
             isLive = false;
         }
 
@@ -79,7 +80,7 @@ public class Monster : MonoBehaviour
         {
             SetMonster(); // 몬스터 리스폰
             transform.position = new Vector3(15, -2, 0); // 위치 초기화
-            transform.GetChild(0).gameObject.SetActive(true); // HP바 활성화
+            hpBar.SetActive(true); // HP바 활성화
             anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
         }
     }
