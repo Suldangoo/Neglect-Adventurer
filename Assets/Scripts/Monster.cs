@@ -6,44 +6,44 @@ public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
 
-    Image hpColor;  // HP¹Ù ¿ÀºêÁ§Æ®
-    Animator anim;  // ¸ó½ºÅÍ ¾Ö´Ï¸ŞÀÌÅÍ
-    SpriteRenderer sprite; // ½ºÇÁ¶óÀÌÆ® ·»´õ·¯
-    ParticleSystem particle; // ÆÄÆ¼Å¬
+    Image hpColor;  // HPë°” ì˜¤ë¸Œì íŠ¸
+    Animator anim;  // ëª¬ìŠ¤í„° ì• ë‹ˆë©”ì´í„°
+    SpriteRenderer sprite; // ìŠ¤í”„ë¼ì´íŠ¸ ë Œë”ëŸ¬
+    ParticleSystem particle; // íŒŒí‹°í´
 
-    [SerializeField] GameObject hpBar; // hp¹Ù ¿ÀºêÁ§Æ®
-    [SerializeField] GameObject hpSprite; // hp ½ºÇÁ¶óÀÌÆ® ¿ÀºêÁ§Æ®
-    [SerializeField] GameObject dmgText; // µ¥¹ÌÁö ÅØ½ºÆ® ÇÁ¸®ÆÕ
-    [SerializeField] Canvas canvas; // ¸ó½ºÅÍÀÇ ÇÏÀ§ Äµ¹ö½º
+    [SerializeField] GameObject hpBar; // hpë°” ì˜¤ë¸Œì íŠ¸
+    [SerializeField] GameObject hpSprite; // hp ìŠ¤í”„ë¼ì´íŠ¸ ì˜¤ë¸Œì íŠ¸
+    [SerializeField] GameObject dmgText; // ë°ë¯¸ì§€ í…ìŠ¤íŠ¸ í”„ë¦¬íŒ¹
+    [SerializeField] Canvas canvas; // ëª¬ìŠ¤í„°ì˜ í•˜ìœ„ ìº”ë²„ìŠ¤
 
-    public float maxHp;     // ÃÖ´ë HP
-    public float hp;        // ÇöÀç HP
-    public bool isLive;     // ¸ó½ºÅÍÀÇ »ıÁ¸ ¿©ºÎ
-    float speed;            // ¸ó½ºÅÍÀÇ ¼Óµµ
-    float hitDuration;      // ÇÇ°İ È¿°ú Áö¼Ó½Ã°£
+    public float maxHp;     // ìµœëŒ€ HP
+    public float hp;        // í˜„ì¬ HP
+    public bool isLive;     // ëª¬ìŠ¤í„°ì˜ ìƒì¡´ ì—¬ë¶€
+    float speed;            // ëª¬ìŠ¤í„°ì˜ ì†ë„
+    float hitDuration;      // í”¼ê²© íš¨ê³¼ ì§€ì†ì‹œê°„
 
     private void SetMonster()
     {
-        isLive = true; // »ıÁ¸ Ã¼Å©
-        hp = maxHp; // HP ÃÊ±âÈ­
-        hpColor.fillAmount = hp / maxHp; // ÇöÀç HP¸¦ HP¹Ù¿¡ ¹İ¿µ
-        speed = GameManager.scrollSpeed; // ÇöÀç ½ºÅ©·Ñ ¼Óµµ ¹İ¿µ
+        isLive = true; // ìƒì¡´ ì²´í¬
+        hp = maxHp; // HP ì´ˆê¸°í™”
+        hpColor.fillAmount = hp / maxHp; // í˜„ì¬ HPë¥¼ HPë°”ì— ë°˜ì˜
+        speed = GameManager.scrollSpeed; // í˜„ì¬ ìŠ¤í¬ë¡¤ ì†ë„ ë°˜ì˜
     }
 
     public void Damage(float atk)
     {
-        hp -= atk; // atkÀÇ ÇÇÇØ¸¸Å­ µ¥¹ÌÁö¸¦ ÀÔÀ½
-        hpColor.fillAmount = hp / maxHp; // ÇöÀç HP¸¦ HP¹Ù¿¡ ¹İ¿µ
-        hitDuration = Time.time + 0.1f; // È÷Æ® ÀÌÆåÆ® ¹İ¿µ½Ã°£À» 0.1ÃÊ ÀÌÈÄ·Î °»½Å
-        particle.Clear(); // ÇöÀç ÆÄÆ¼Å¬ ÃÊ±âÈ­
-        particle.Play(); // ÆÄÆ¼Å¬ Àç»ı
+        hp -= atk; // atkì˜ í”¼í•´ë§Œí¼ ë°ë¯¸ì§€ë¥¼ ì…ìŒ
+        hpColor.fillAmount = hp / maxHp; // í˜„ì¬ HPë¥¼ HPë°”ì— ë°˜ì˜
+        hitDuration = Time.time + 0.1f; // íˆíŠ¸ ì´í™íŠ¸ ë°˜ì˜ì‹œê°„ì„ 0.1ì´ˆ ì´í›„ë¡œ ê°±ì‹ 
+        particle.Clear(); // í˜„ì¬ íŒŒí‹°í´ ì´ˆê¸°í™”
+        particle.Play(); // íŒŒí‹°í´ ì¬ìƒ
         GameObject damageText = Instantiate(dmgText, canvas.transform);
         damageText.GetComponent<Text>().text = atk.ToString();
     }
 
     private void Start()
     {
-        // ¿ÀºêÁ§Æ® ÇÒ´ç
+        // ì˜¤ë¸Œì íŠ¸ í• ë‹¹
         hpColor = hpSprite.GetComponent<Image>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
@@ -55,7 +55,7 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        // ½ºÅ©·Ñ¸µ ÁßÀÌ¶ó¸é ¿ŞÂÊÀ¸·Î ¸ó½ºÅÍ°¡ ÀÌµ¿
+        // ìŠ¤í¬ë¡¤ë§ ì¤‘ì´ë¼ë©´ ì™¼ìª½ìœ¼ë¡œ ëª¬ìŠ¤í„°ê°€ ì´ë™
         if (GameManager.isScroll)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
@@ -63,38 +63,38 @@ public class Monster : MonoBehaviour
 
         if (isLive && hp <= 0f)
         {
-            // Ã¼·ÂÀÌ 0ÀÌ µÉ °æ¿ì »ç¸Á
+            // ì²´ë ¥ì´ 0ì´ ë  ê²½ìš° ì‚¬ë§
             anim.SetTrigger("Dead");
-            hpBar.SetActive(false); // HP¹Ù ºñÈ°¼ºÈ­
+            hpBar.SetActive(false); // HPë°” ë¹„í™œì„±í™”
             isLive = false;
-            speed = GameManager.scrollSpeed; // ÇöÀç ½ºÅ©·Ñ ¼Óµµ ¹İ¿µ
+            speed = GameManager.scrollSpeed; // í˜„ì¬ ìŠ¤í¬ë¡¤ ì†ë„ ë°˜ì˜
         }
 
-        // xÁÂÇ¥°¡ 1±îÁö ¿Ô´Ù¸é, ÀüÅõ ½ÃÀÛ
+        // xì¢Œí‘œê°€ 1ê¹Œì§€ ì™”ë‹¤ë©´, ì „íˆ¬ ì‹œì‘
         if (isLive && transform.position.x < 1f)
         {
             GameManager.SetBattle(true);
         }
 
-        // xÁÂÇ¥°¡ -15±îÁö °¬´Ù¸é, ¸®½ºÆù
+        // xì¢Œí‘œê°€ -15ê¹Œì§€ ê°”ë‹¤ë©´, ë¦¬ìŠ¤í°
         if (transform.position.x <= -15f)
         {
-            SetMonster(); // ¸ó½ºÅÍ ¸®½ºÆù
-            transform.position = new Vector3(15, -2, 0); // À§Ä¡ ÃÊ±âÈ­
-            hpBar.SetActive(true); // HP¹Ù È°¼ºÈ­
-            anim.SetTrigger("Respawn"); // ¾Ö´Ï¸ŞÀÌÅÍ ÄÁÆ®·Ñ
+            SetMonster(); // ëª¬ìŠ¤í„° ë¦¬ìŠ¤í°
+            transform.position = new Vector3(15, -2, 0); // ìœ„ì¹˜ ì´ˆê¸°í™”
+            hpBar.SetActive(true); // HPë°” í™œì„±í™”
+            anim.SetTrigger("Respawn"); // ì• ë‹ˆë©”ì´í„° ì»¨íŠ¸ë¡¤
         }
     }
 
     IEnumerator HitEffect()
     {
-        // ÄÚ·çÆ¾À¸·Î È÷Æ® ÀÌÆåÆ® Áö¼Ó
+        // ì½”ë£¨í‹´ìœ¼ë¡œ íˆíŠ¸ ì´í™íŠ¸ ì§€ì†
         while (true)
         {
-            // È÷Æ® ÀÌÆåÆ® ¹İ¿µ½Ã°£±îÁö red ÄÃ·¯ °öÇÏ±â
+            // íˆíŠ¸ ì´í™íŠ¸ ë°˜ì˜ì‹œê°„ê¹Œì§€ red ì»¬ëŸ¬ ê³±í•˜ê¸°
             if (Time.time < hitDuration)
                 sprite.color = Color.red;
-            // È÷Æ® ÀÌÆåÆ® ¹İ¿µ½Ã°£¿¡ µµ´ŞÇÏ¸é white ÄÃ·¯·Î µ¹¾Æ¿À±â
+            // íˆíŠ¸ ì´í™íŠ¸ ë°˜ì˜ì‹œê°„ì— ë„ë‹¬í•˜ë©´ white ì»¬ëŸ¬ë¡œ ëŒì•„ì˜¤ê¸°
             else
                 sprite.color = Color.white;
 

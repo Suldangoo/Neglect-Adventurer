@@ -5,34 +5,34 @@ using UnityEngine.UI;
 
 public class Upgrade : MonoBehaviour
 {
-    GameManager GameManager => GameManager.Instance; // °ÔÀÓ ¸Å´ÏÀú ÀÎ½ºÅÏ½º
+    GameManager GameManager => GameManager.Instance; // ê²Œì„ ë§¤ë‹ˆì € ì¸ìŠ¤í„´ìŠ¤
 
-    [SerializeField] Text atkLevel; // °Ë¼ú ·¹º§
-    [SerializeField] Text atk;      // °Ë¼ú °ø°İ·Â
-    [SerializeField] Text atkSpeed; // °Ë¼ú °ø°İ¼Óµµ
-    [SerializeField] Text atkCost;  // °Ë¼ú ¼ö·Ãºñ¿ë
+    [SerializeField] Text atkLevel; // ê²€ìˆ  ë ˆë²¨
+    [SerializeField] Text atk;      // ê²€ìˆ  ê³µê²©ë ¥
+    [SerializeField] Text atkSpeed; // ê²€ìˆ  ê³µê²©ì†ë„
+    [SerializeField] Text atkCost;  // ê²€ìˆ  ìˆ˜ë ¨ë¹„ìš©
 
-    [SerializeField] Text defLevel; // ¹æ¾î ·¹º§
-    [SerializeField] Text def;      // ¹æ¾î·Â
-    [SerializeField] Text defCost;  // ¹æ¾î ¼ö·Ãºñ¿ë
+    [SerializeField] Text defLevel; // ë°©ì–´ ë ˆë²¨
+    [SerializeField] Text def;      // ë°©ì–´ë ¥
+    [SerializeField] Text defCost;  // ë°©ì–´ ìˆ˜ë ¨ë¹„ìš©
 
-    [SerializeField] Text dexLevel; // ¹ÎÃ¸ ·¹º§
-    [SerializeField] Text dex;      // ¹ÎÃ¸·Â
-    [SerializeField] Text dexCost;  // ¹ÎÃ¸ ¼ö·Ãºñ¿ë
+    [SerializeField] Text dexLevel; // ë¯¼ì²© ë ˆë²¨
+    [SerializeField] Text dex;      // ë¯¼ì²©ë ¥
+    [SerializeField] Text dexCost;  // ë¯¼ì²© ìˆ˜ë ¨ë¹„ìš©
 
-    [SerializeField] Text lukLevel; // Çà¿î ·¹º§
-    [SerializeField] Text luk;      // Çà¿î·Â
-    [SerializeField] Text lukCost;  // Çà¿î ¼ö·Ãºñ¿ë
-
+    [SerializeField] Text lukLevel; // í–‰ìš´ ë ˆë²¨
+    [SerializeField] Text luk;      // í–‰ìš´ë ¥
+    [SerializeField] Text lukCost;  // í–‰ìš´ ìˆ˜ë ¨ë¹„ìš©
+    
     public void modifyState()
     {
         atkLevel.text = "Lv. " + GameManager.atkLv.ToString();
-        atk.text = "ÇöÀç °ø°İ·Â : " + GameManager.power.ToString();
-        atkSpeed.text = "ÇöÀç °ø°İ¼Óµµ : " + GameManager.attackSpeed.ToString();
+        atk.text = "í˜„ì¬ ê³µê²©ë ¥ : " + GameManager.power.ToString();
+        atkSpeed.text = "í˜„ì¬ ê³µê²©ì†ë„ : " + GameManager.attackSpeed.ToString();
         atkCost.text = "1,000";
 
         dexLevel.text = "Lv. " + GameManager.dexLv.ToString();
-        dex.text = "ÇöÀç ÀÌµ¿¼Óµµ : " + GameManager.scrollSpeed.ToString();
+        dex.text = "í˜„ì¬ ì´ë™ì†ë„ : " + GameManager.scrollSpeed.ToString();
         dexCost.text = "1,000";
     }
 

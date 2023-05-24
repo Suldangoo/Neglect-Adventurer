@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class FixedResolution : MonoBehaviour
 {
-    // °íÁ¤ÇØ»óµµ¸¦ Àû¿ëÇÏ°í ³²´Â ºÎºĞ(Letterbox)¿¡ »ç¿ëµÉ °ÔÀÓ¿ÀºêÁ§Æ®(Prefab)
+    // ê³ ì •í•´ìƒë„ë¥¼ ì ìš©í•˜ê³  ë‚¨ëŠ” ë¶€ë¶„(Letterbox)ì— ì‚¬ìš©ë  ê²Œì„ì˜¤ë¸Œì íŠ¸(Prefab)
     [SerializeField] GameObject m_objBackScissor;
-
+    
     void Awake()
     {
-        // ½ÃÀÛ½Ã ÇÑ¹ø ½ÇÇà(°ÔÀÓ ½ÇÇàÁß¿¡ ÇØ»óµµ°¡ º¯°æµÇ¸é ´Ù½Ã È£Ãâ)
+        // ì‹œì‘ì‹œ í•œë²ˆ ì‹¤í–‰(ê²Œì„ ì‹¤í–‰ì¤‘ì— í•´ìƒë„ê°€ ë³€ê²½ë˜ë©´ ë‹¤ì‹œ í˜¸ì¶œ)
         UpdateResolution();
     }
 
     void UpdateResolution()
     {
-        // ÇÁ·ÎÁ§Æ® ³»¿¡ ÀÖ´Â ¸ğµç Ä«¸Ş¶ó ¾ò¾î¿À±â
+        // í”„ë¡œì íŠ¸ ë‚´ì— ìˆëŠ” ëª¨ë“  ì¹´ë©”ë¼ ì–»ì–´ì˜¤ê¸°
         Camera[] objCameras = Camera.allCameras;
 
-        // ºñÀ² ±¸ÇÏ±â
+        // ë¹„ìœ¨ êµ¬í•˜ê¸°
         float fResolutionX = Screen.width / 18.5f;
         float fResolutionY = Screen.height / 9f;
 
-        // X°¡ Yº¸°¡ Å« °æ¿ì´Â È­¸éÀÌ °¡·Î·Î ³õÀÎ °æ¿ì
+        // Xê°€ Yë³´ê°€ í° ê²½ìš°ëŠ” í™”ë©´ì´ ê°€ë¡œë¡œ ë†“ì¸ ê²½ìš°
         if (fResolutionX > fResolutionY)
         {
-            // Á¾È¾ºñ(Aspect Ratio) ±¸ÇÏ±â
+            // ì¢…íš¡ë¹„(Aspect Ratio) êµ¬í•˜ê¸°
             float fValue = (fResolutionX - fResolutionY) * 0.5f;
             fValue = fValue / fResolutionX;
 
-            // À§¿¡¼­ ±¸ÇÑ Á¾È¾ºñ¸¦ ±âÁØÀ¸·Î Ä«¸Ş¶óÀÇ ºäÆ÷Æ®¸¦ Àç¼³Á¤
-            // Á¤±ÔÈ­µÈ ÁÂÇ¥¶ó´Â°É ÀØÀ¸¸é ¾ÈµÊ!
+            // ìœ„ì—ì„œ êµ¬í•œ ì¢…íš¡ë¹„ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì¹´ë©”ë¼ì˜ ë·°í¬íŠ¸ë¥¼ ì¬ì„¤ì •
+            // ì •ê·œí™”ëœ ì¢Œí‘œë¼ëŠ”ê±¸ ìŠìœ¼ë©´ ì•ˆë¨!
             foreach (Camera obj in objCameras)
             {
                 obj.rect = new Rect(((Screen.width * fValue) / Screen.width) + (obj.rect.x * (1.0f - (2.0f * fValue))),
@@ -38,22 +38,22 @@ public class FixedResolution : MonoBehaviour
                                     obj.rect.height);
             }
 
-            // ¿ŞÂÊ¿¡ µé¾î°¥ ·¹ÅÍ¹Ú½º¸¦ »ı¼ºÇÏ°í À§Ä¡ÁöÁ¤
+            // ì™¼ìª½ì— ë“¤ì–´ê°ˆ ë ˆí„°ë°•ìŠ¤ë¥¼ ìƒì„±í•˜ê³  ìœ„ì¹˜ì§€ì •
             GameObject objLeftScissor = (GameObject)Instantiate(m_objBackScissor);
             objLeftScissor.GetComponent<Camera>().rect = new Rect(0, 0, (Screen.width * fValue) / Screen.width, 1.0f);
 
-            // ¿À¸¥ÂÊ ·¹ÅÍ¹Ú½º
+            // ì˜¤ë¥¸ìª½ ë ˆí„°ë°•ìŠ¤
             GameObject objRightScissor = (GameObject)Instantiate(m_objBackScissor);
             objRightScissor.GetComponent<Camera>().rect = new Rect((Screen.width - (Screen.width * fValue)) / Screen.width,
                                                                    0,
                                                                    (Screen.width * fValue) / Screen.width,
                                                                    1.0f);
 
-            // »ı¼ºµÈ µÎ ·¹ÅÍ¹Ú½º¸¦ ÀÚ½ÄÀ¸·Î Ãß°¡
+            // ìƒì„±ëœ ë‘ ë ˆí„°ë°•ìŠ¤ë¥¼ ìì‹ìœ¼ë¡œ ì¶”ê°€
             objLeftScissor.transform.parent = gameObject.transform;
             objRightScissor.transform.parent = gameObject.transform;
         }
-        // È­¸éÀÌ ¼¼·Î·Î ³õÀº °æ¿ìµµ µ¿ÀÏÇÑ °úÁ¤À» °ÅÄ§
+        // í™”ë©´ì´ ì„¸ë¡œë¡œ ë†“ì€ ê²½ìš°ë„ ë™ì¼í•œ ê³¼ì •ì„ ê±°ì¹¨
         else if (fResolutionX < fResolutionY)
         {
             float fValue = (fResolutionY - fResolutionX) * 0.5f;

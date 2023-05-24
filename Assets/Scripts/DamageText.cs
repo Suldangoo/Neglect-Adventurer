@@ -4,7 +4,7 @@ public class DamageText : MonoBehaviour
 {
     public void DestroyEvent()
     {
-        // ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ıÀÌ ³¡³ª¸é ¿ÀºêÁ§Æ® ÆÄ±«
+        // ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒì´ ëë‚˜ë©´ ì˜¤ë¸Œì íŠ¸ íŒŒê´´
         Destroy(gameObject);
     }
 }

@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class GoldText : MonoBehaviour
 {
-    GameManager GameManager => GameManager.Instance; // °ÔÀÓ ¸Å´ÏÀú ÀÎ½ºÅÏ½º
-    [SerializeField] Text text; // °ñµå ÅØ½ºÆ® ÄÄÆ÷³ÍÆ®
+    GameManager GameManager => GameManager.Instance; // ê²Œì„ ë§¤ë‹ˆì € ì¸ìŠ¤í„´ìŠ¤
+    [SerializeField] Text text; // ê³¨ë“œ í…ìŠ¤íŠ¸ ì»´í¬ë„ŒíŠ¸
     
     void Update()
     {
