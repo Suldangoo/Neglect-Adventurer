@@ -9172,6 +9172,7 @@ MonoBehaviour:
   hpBar: {fileID: 2573156421705155185}
   hpSprite: {fileID: 4519410215128637022}
   dmgText: {fileID: 2915928748131032996, guid: 55f72c3c353344343b6c758859295f2a, type: 3}
+  goldDrop: {fileID: 2915928748131032996, guid: 3b191cd4d27be764091833a3708d4756, type: 3}
   canvas: {fileID: 7009641209085583435}
   maxHp: 50
   hp: 0

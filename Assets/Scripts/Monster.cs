@@ -14,6 +14,7 @@ public class Monster : MonoBehaviour
     [SerializeField] GameObject hpBar; // hp바 오브젝트
     [SerializeField] GameObject hpSprite; // hp 스프라이트 오브젝트
     [SerializeField] GameObject dmgText; // 데미지 텍스트 프리팹
+    [SerializeField] GameObject goldDrop; // 골드 드랍 이펙트 프리팹
     [SerializeField] Canvas canvas; // 몬스터의 하위 캔버스
 
     public float maxHp;     // 최대 HP
@@ -69,6 +70,7 @@ public class Monster : MonoBehaviour
             anim.SetTrigger("Dead");
             hpBar.SetActive(false); // HP바 비활성화
             isLive = false; // 생존 상태 False
+            GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
             GameManager.gold += reward; // 보상 골드 지급
             speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
         }
