@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
         atkLv = 1;         // 초기 레벨
         dexLv = 1;         // 초기 레벨
-        gold = 100000;     // 초기 골드 지급
+        gold = 5000;     // 초기 골드 지급
 
         power = 10f;       // 공격력
         attackSpeed = 1f;  // 공격속도

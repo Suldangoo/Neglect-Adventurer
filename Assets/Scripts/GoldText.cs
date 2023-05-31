@@ -8,6 +8,6 @@ public class GoldText : MonoBehaviour
     
     void Update()
     {
-        text.text = string.Format("{0:#,###}", GameManager.gold).ToString();
+        text.text = string.Format("{0:#,##0}", GameManager.gold).ToString();
     }
 }

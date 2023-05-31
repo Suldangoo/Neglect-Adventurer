@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,32 +25,50 @@ public class Upgrade : MonoBehaviour
     
     public void modifyState()
     {
+        // 소수점 변수들 보정
+        GameManager.power = Rounds(GameManager.power, 0);
+        GameManager.attackSpeed = Rounds(GameManager.attackSpeed, 2);
+        GameManager.scrollSpeed = Rounds(GameManager.scrollSpeed, 0);
+
+        // 검술 단련 텍스트 갱신
         atkLevel.text = "Lv. " + GameManager.atkLv.ToString();
         atk.text = "현재 공격력 : " + GameManager.power.ToString();
         atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
-        atkCost.text = "1,000";
+        atkCost.text = (1000 * GameManager.atkLv).ToString("#,##0");
 
+        // 민첩 단련 텍스트 갱신
         dexLevel.text = "Lv. " + GameManager.dexLv.ToString();
         dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
-        dexCost.text = "1,000";
+        dexCost.text = (1000 * GameManager.dexLv).ToString("#,##0");
+    }
+
+    public float Rounds(float tmp, int cnt)
+    {
+        return (float)Math.Round(tmp, cnt);
     }
 
     public void upgradeAtk()
     {
-        GameManager.atkLv += 1;
-        GameManager.power += 1f;
-        GameManager.attackSpeed -= 0.05f;
-        GameManager.gold -= 1000;
+        if (GameManager.gold >= 1000 * GameManager.atkLv)
+        {
+            GameManager.gold -= 1000 * GameManager.atkLv;
+            GameManager.atkLv += 1;
+            GameManager.power += 1f;
+            GameManager.attackSpeed -= 0.05f;
 
-        modifyState();
+            modifyState();
+        }
     }
 
     public void upgradeDex()
     {
-        GameManager.dexLv += 1;
-        GameManager.scrollSpeed += 1f;
-        GameManager.gold -= 1000;
+        if (GameManager.gold >= 1000 * GameManager.dexLv)
+        {
+            GameManager.gold -= 1000 * GameManager.dexLv;
+            GameManager.dexLv += 1;
+            GameManager.scrollSpeed += 1f;
 
-        modifyState();
+            modifyState();
+        }
     }
 }

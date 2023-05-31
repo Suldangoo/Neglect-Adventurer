@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 531249716753996919}
   - component: {fileID: 5136766044872815498}
-  - component: {fileID: 8812403805644692488}
   m_Layer: 0
   m_Name: BackScissor
   m_TagString: Untagged
@@ -75,11 +74,3 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8812403805644692488
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3211814766051909851}
-  m_Enabled: 1
