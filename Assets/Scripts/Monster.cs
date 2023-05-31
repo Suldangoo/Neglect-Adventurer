@@ -19,6 +19,8 @@ public class Monster : MonoBehaviour
     public float maxHp;     // 최대 HP
     public float hp;        // 현재 HP
     public bool isLive;     // 몬스터의 생존 여부
+
+    int reward = 1000;      // 몬스터의 보상 골드
     float speed;            // 몬스터의 속도
     float hitDuration;      // 피격 효과 지속시간
 
@@ -66,7 +68,8 @@ public class Monster : MonoBehaviour
             // 체력이 0이 될 경우 사망
             anim.SetTrigger("Dead");
             hpBar.SetActive(false); // HP바 비활성화
-            isLive = false;
+            isLive = false; // 생존 상태 False
+            GameManager.gold += reward; // 보상 골드 지급
             speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
         }
 
