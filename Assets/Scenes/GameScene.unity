@@ -6248,7 +6248,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1323792806}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 66113867}
+        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_MethodName: upgradeLuk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1323792806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7604,7 +7616,9 @@ MonoBehaviour:
   isScroll: 0
   isBattle: 0
   atkLv: 0
+  defLv: 0
   dexLv: 0
+  lukLv: 0
   gold: 0
   power: 50
   attackSpeed: 0.5
@@ -7937,7 +7951,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uACE8\uB4DC\uD68D\uB4DD\uB7C9 : 10"
+  m_Text: "\uACE8\uB4DC\uD68D\uB4DD\uB7C9 + 0%"
 --- !u!222 &1769214627
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9177,6 +9191,7 @@ MonoBehaviour:
   maxHp: 50
   hp: 0
   isLive: 0
+  isBattle: 0
 --- !u!95 &4338039459597413644
 Animator:
   serializedVersion: 3
@@ -9226,7 +9241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4338039459597413645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: -2, z: 0}
+  m_LocalPosition: {x: 15, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8419300682269097484}
@@ -9283,7 +9298,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!199 &4338039459597413648
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -14126,7 +14141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.2, y: 1.2}
+  m_AnchoredPosition: {x: -0.5, y: 2.5}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8586778240917445738
