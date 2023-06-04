@@ -40,6 +40,11 @@ public class Upgrade : MonoBehaviour
         dexLevel.text = "Lv. " + GameManager.dexLv.ToString();
         dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
         dexCost.text = (1000 * GameManager.dexLv).ToString("#,##0");
+
+        // 행운 단련 텍스트 갱신
+        lukLevel.text = "Lv. " + GameManager.lukLv.ToString();
+        luk.text = "골드획득량 : " + (GameManager.lukLv - 1).ToString() + "%";
+        lukCost.text = (1000 * GameManager.lukLv).ToString("#,##0");
     }
 
     public float Rounds(float tmp, int cnt)
@@ -67,6 +72,17 @@ public class Upgrade : MonoBehaviour
             GameManager.gold -= 1000 * GameManager.dexLv;
             GameManager.dexLv += 1;
             GameManager.scrollSpeed += 1f;
+
+            modifyState();
+        }
+    }
+
+    public void upgradeLuk()
+    {
+        if (GameManager.gold >= 1000 * GameManager.lukLv)
+        {
+            GameManager.gold -= 1000 * GameManager.lukLv;
+            GameManager.lukLv += 1;
 
             modifyState();
         }

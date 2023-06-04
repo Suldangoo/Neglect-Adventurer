@@ -44,6 +44,16 @@ public class Monster : MonoBehaviour
         damageText.GetComponent<Text>().text = atk.ToString();
     }
 
+    public void Death()
+    {
+        anim.SetTrigger("Dead");
+        hpBar.SetActive(false); // HP바 비활성화
+        isLive = false; // 생존 상태 False
+        GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
+        GameManager.gold += reward + (reward / 100) * (GameManager.lukLv - 1); // 보상 골드 지급
+        speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
+    }
+
     private void Start()
     {
         // 오브젝트 할당
@@ -67,12 +77,7 @@ public class Monster : MonoBehaviour
         if (isLive && hp <= 0f)
         {
             // 체력이 0이 될 경우 사망
-            anim.SetTrigger("Dead");
-            hpBar.SetActive(false); // HP바 비활성화
-            isLive = false; // 생존 상태 False
-            GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
-            GameManager.gold += reward; // 보상 골드 지급
-            speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
+            Death();
         }
 
         // x좌표가 1까지 왔다면, 전투 시작

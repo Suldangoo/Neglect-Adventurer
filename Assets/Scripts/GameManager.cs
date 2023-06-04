@@ -53,8 +53,11 @@ public class GameManager : MonoBehaviour
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
         monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
 
-        atkLv = 1;         // 초기 레벨
-        dexLv = 1;         // 초기 레벨
+        // 초기 레벨
+        atkLv = 1;
+        defLv = 1;
+        dexLv = 1;
+        lukLv = 1;
         gold = 5000;     // 초기 골드 지급
 
         power = 10f;       // 공격력
