@@ -90,21 +90,18 @@ public class Monster : MonoBehaviour
         }
 
         // x좌표가 1까지 왔다면, 전투 시작
-        if (isLive && transform.position.x < 1f)
+        if (isLive && transform.position.x < 1f && !isBattle)
         {
-            if (!isBattle)
-            {
-                StartCoroutine("Attacker");
-            }
+            StartCoroutine("Attacker");
+            GameManager.SetBattle(true);
             isBattle = true;
-            GameManager.SetBattle(true);   
         }
 
         // x좌표가 -15까지 갔다면, 리스폰
         if (transform.position.x <= -15f)
         {
             SetMonster(); // 몬스터 리스폰
-            transform.position = new Vector3(15, -2, 0); // 위치 초기화
+            transform.position = new Vector3(15, -3, 0); // 위치 초기화
             hpBar.SetActive(true); // HP바 활성화
             anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
         }
