@@ -43,7 +43,7 @@ public class Upgrade : MonoBehaviour
 
         // 행운 단련 텍스트 갱신
         lukLevel.text = "Lv. " + GameManager.lukLv.ToString();
-        luk.text = "골드획득량 : " + (GameManager.lukLv - 1).ToString() + "%";
+        luk.text = "골드획득량 + " + (GameManager.lukLv - 1).ToString() + "%";
         lukCost.text = (1000 * GameManager.lukLv).ToString("#,##0");
     }
 
