@@ -20,6 +20,7 @@ public class Monster : MonoBehaviour
     public float maxHp;     // 최대 HP
     public float hp;        // 현재 HP
     public bool isLive;     // 몬스터의 생존 여부
+    public bool isBattle;   // 몬스터의 배틀 여부
 
     int reward = 1000;      // 몬스터의 보상 골드
     float speed;            // 몬스터의 속도
@@ -27,10 +28,16 @@ public class Monster : MonoBehaviour
 
     private void SetMonster()
     {
-        isLive = true; // 생존 체크
+        isLive = true; // 생존 상태 체크
+        isBattle = false; // 배틀 상태 체크 해제
         hp = maxHp; // HP 초기화
         hpColor.fillAmount = hp / maxHp; // 현재 HP를 HP바에 반영
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
+    }
+
+    public void Attack()
+    {
+        anim.SetTrigger("Attack");
     }
 
     public void Damage(float atk)
@@ -48,10 +55,12 @@ public class Monster : MonoBehaviour
     {
         anim.SetTrigger("Dead");
         hpBar.SetActive(false); // HP바 비활성화
-        isLive = false; // 생존 상태 False
+        isLive = false; // 생존 상태 체크 해제
+        isBattle = false; // 배틀 상태 체크 해제
         GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
         GameManager.gold += reward + (reward / 100) * (GameManager.lukLv - 1); // 보상 골드 지급
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
+        StopCoroutine("Attacker");
     }
 
     private void Start()
@@ -83,7 +92,12 @@ public class Monster : MonoBehaviour
         // x좌표가 1까지 왔다면, 전투 시작
         if (isLive && transform.position.x < 1f)
         {
-            GameManager.SetBattle(true);
+            if (!isBattle)
+            {
+                StartCoroutine("Attacker");
+            }
+            isBattle = true;
+            GameManager.SetBattle(true);   
         }
 
         // x좌표가 -15까지 갔다면, 리스폰
@@ -93,6 +107,15 @@ public class Monster : MonoBehaviour
             transform.position = new Vector3(15, -2, 0); // 위치 초기화
             hpBar.SetActive(true); // HP바 활성화
             anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
+        }
+    }
+
+    IEnumerator Attacker()
+    {
+        while (true)
+        {
+            Attack();
+            yield return new WaitForSeconds(3.0f);
         }
     }
 
