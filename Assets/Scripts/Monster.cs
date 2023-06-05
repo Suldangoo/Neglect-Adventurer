@@ -6,11 +6,13 @@ public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
 
+    HpUI heart;     // 플레이어의 Hp
     Image hpColor;  // HP바 오브젝트
     Animator anim;  // 몬스터 애니메이터
     SpriteRenderer sprite; // 스프라이트 렌더러
     ParticleSystem particle; // 파티클
 
+    [SerializeField] GameObject heartObj; // 플레이어의 Hp 오브젝트
     [SerializeField] GameObject hpBar; // hp바 오브젝트
     [SerializeField] GameObject hpSprite; // hp 스프라이트 오브젝트
     [SerializeField] GameObject dmgText; // 데미지 텍스트 프리팹
@@ -23,6 +25,7 @@ public class Monster : MonoBehaviour
     public bool isBattle;   // 몬스터의 배틀 여부
 
     int reward = 1000;      // 몬스터의 보상 골드
+    float power = 0.5f;     // 몬스터의 공격력
     float speed;            // 몬스터의 속도
     float hitDuration;      // 피격 효과 지속시간
 
@@ -38,6 +41,8 @@ public class Monster : MonoBehaviour
     public void Attack()
     {
         anim.SetTrigger("Attack");
+        heart.SetHp(-power);
+        
     }
 
     public void Damage(float atk)
@@ -66,6 +71,7 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         // 오브젝트 할당
+        heart = heartObj.GetComponent<HpUI>();
         hpColor = hpSprite.GetComponent<Image>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
