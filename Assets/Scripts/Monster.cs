@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
 
+    Player player;  // 플레이어
     HpUI heart;     // 플레이어의 Hp
     Image hpColor;  // HP바 오브젝트
     Animator anim;  // 몬스터 애니메이터
@@ -42,7 +43,7 @@ public class Monster : MonoBehaviour
     {
         anim.SetTrigger("Attack");
         heart.SetHp(-power);
-        
+        player.Damage();
     }
 
     public void Damage(float atk)
@@ -76,6 +77,7 @@ public class Monster : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         particle = GetComponent<ParticleSystem>();
+        player = GameObject.Find("Knight").GetComponent<Player>();
 
         SetMonster();
         StartCoroutine("HitEffect");
