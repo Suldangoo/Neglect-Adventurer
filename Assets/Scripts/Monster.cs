@@ -78,7 +78,7 @@ public class Monster : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
 
         SetMonster();
-        StartCoroutine(HitEffect());
+        StartCoroutine("HitEffect");
     }
 
     void Update()
