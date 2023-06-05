@@ -36,6 +36,11 @@ public class Upgrade : MonoBehaviour
         atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
         atkCost.text = (1000 * GameManager.atkLv).ToString("#,##0");
 
+        // 방어 단련 텍스트 갱신
+        defLevel.text = "Lv. " + GameManager.defLv.ToString();
+        def.text = "추가 체력 + " + (GameManager.defLv - 1).ToString().ToString();
+        defCost.text = (1000 * GameManager.defLv).ToString("#,##0");
+
         // 민첩 단련 텍스트 갱신
         dexLevel.text = "Lv. " + GameManager.dexLv.ToString();
         dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
@@ -60,6 +65,17 @@ public class Upgrade : MonoBehaviour
             GameManager.atkLv += 1;
             GameManager.power += 1f;
             GameManager.attackSpeed -= 0.05f;
+
+            modifyState();
+        }
+    }
+
+    public void upgradeDef()
+    {
+        if (GameManager.gold >= 1000 * GameManager.defLv)
+        {
+            GameManager.gold -= 1000 * GameManager.defLv;
+            GameManager.defLv += 1;
 
             modifyState();
         }

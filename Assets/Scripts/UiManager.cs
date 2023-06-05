@@ -21,7 +21,10 @@ public class UiManager : MonoBehaviour
     GameObject gameUI;      // 인게임 UI
 
     [SerializeField]
-    GameObject UpgradeUI;   // 수련 UI
+    GameObject guildUI;   // 길드 UI
+
+    [SerializeField]
+    GameObject upgradeUI;   // 수련 UI
 
     public void SetStartUi(bool active)
     {
@@ -35,9 +38,15 @@ public class UiManager : MonoBehaviour
         gameUI.SetActive(active);
     }
 
+    public void SetGuildUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        guildUI.SetActive(active);
+    }
+
     public void SetUpgradeUi(bool active)
     {
         // 인게임 UI 켜고 끄기
-        UpgradeUI.SetActive(active);
+        upgradeUI.SetActive(active);
     }
 }

@@ -121,4 +121,10 @@ public class GameManager : MonoBehaviour
         backSpeed = scrollSpeed / 20f;  // 배경 스크롤링 속도
         terrainSpeed = scrollSpeed / 2f; // 지형 스크롤링 속도
     }
+
+    public void EightBitURL()
+    {
+        // 8비트 공식 홈페이지 이동
+        Application.OpenURL("http://14.34.121.36:3000");
+    }
 }
