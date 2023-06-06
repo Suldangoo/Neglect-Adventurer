@@ -38,7 +38,7 @@ public class Upgrade : MonoBehaviour
 
         // 방어 단련 텍스트 갱신
         defLevel.text = "Lv. " + GameManager.defLv.ToString();
-        def.text = "추가 체력 + " + (GameManager.defLv - 1).ToString().ToString();
+        def.text = "현재 방어력 : " + ((GameManager.defLv - 1) * 10).ToString().ToString();
         defCost.text = (1000 * GameManager.defLv).ToString("#,##0");
 
         // 민첩 단련 텍스트 갱신
