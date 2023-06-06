@@ -26,6 +26,12 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     GameObject upgradeUI;   // 수련 UI
 
+    [SerializeField]
+    GameObject oneUI;   // 단차 UI
+
+    [SerializeField]
+    GameObject tenUI;   // 10연차 UI
+
     public void SetStartUi(bool active)
     {
         // 게임 시작 UI 켜고 끄기
@@ -48,5 +54,17 @@ public class UiManager : MonoBehaviour
     {
         // 인게임 UI 켜고 끄기
         upgradeUI.SetActive(active);
+    }
+
+    public void SetOneUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        oneUI.SetActive(active);
+    }
+
+    public void SetTenUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        tenUI.SetActive(active);
     }
 }
