@@ -12,6 +12,7 @@ public class Monster : MonoBehaviour
     Animator anim;  // 몬스터 애니메이터
     SpriteRenderer sprite; // 스프라이트 렌더러
     ParticleSystem particle; // 파티클
+    public QuestUI quest;
 
     [SerializeField] GameObject heartObj; // 플레이어의 Hp 오브젝트
     [SerializeField] GameObject hpBar; // hp바 오브젝트
@@ -66,6 +67,7 @@ public class Monster : MonoBehaviour
         GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
         GameManager.gold += reward + (reward / 100) * (GameManager.lukLv - 1); // 보상 골드 지급
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
+        quest.setQuestValue(1);
         StopCoroutine("Attacker");
     }
 
