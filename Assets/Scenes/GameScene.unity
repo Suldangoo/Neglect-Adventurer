@@ -21679,10 +21679,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 419c0ea14a124554e9c8095f5c0168ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 696411114}
+  heart: {fileID: 1385871913}
+  hpColor: {fileID: 4116473767020620804}
   quest: {fileID: 129080437}
-  heartObj: {fileID: 1385871911}
   hpBar: {fileID: 2573156421705155185}
-  hpSprite: {fileID: 4519410215128637022}
   dmgText: {fileID: 2915928748131032996, guid: 55f72c3c353344343b6c758859295f2a, type: 3}
   goldDrop: {fileID: 2915928748131032996, guid: 3b191cd4d27be764091833a3708d4756, type: 3}
   canvas: {fileID: 7009641209085583435}

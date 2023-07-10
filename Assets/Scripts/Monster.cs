@@ -6,17 +6,16 @@ public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
 
-    Player player;  // 플레이어
-    HpUI heart;     // 플레이어의 Hp
-    Image hpColor;  // HP바 오브젝트
+    public Player player;  // 플레이어
+    public HpUI heart;     // 플레이어의 Hp
+    public Image hpColor;  // HP바 오브젝트
+    public QuestUI quest;   // 퀘스트 UI
+
     Animator anim;  // 몬스터 애니메이터
     SpriteRenderer sprite; // 스프라이트 렌더러
     ParticleSystem particle; // 파티클
-    public QuestUI quest;
 
-    [SerializeField] GameObject heartObj; // 플레이어의 Hp 오브젝트
     [SerializeField] GameObject hpBar; // hp바 오브젝트
-    [SerializeField] GameObject hpSprite; // hp 스프라이트 오브젝트
     [SerializeField] GameObject dmgText; // 데미지 텍스트 프리팹
     [SerializeField] GameObject goldDrop; // 골드 드랍 이펙트 프리팹
     [SerializeField] Canvas canvas; // 몬스터의 하위 캔버스
@@ -74,12 +73,9 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         // 오브젝트 할당
-        heart = heartObj.GetComponent<HpUI>();
-        hpColor = hpSprite.GetComponent<Image>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         particle = GetComponent<ParticleSystem>();
-        player = GameObject.Find("Knight").GetComponent<Player>();
 
         SetMonster();
         StartCoroutine("HitEffect");
