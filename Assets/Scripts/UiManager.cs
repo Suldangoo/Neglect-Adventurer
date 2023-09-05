@@ -30,6 +30,15 @@ public class UiManager : MonoBehaviour
     GameObject upgradeUI;   // 수련 UI
 
     [SerializeField]
+    GameObject dungeonUI;   // 던전 UI
+
+    [SerializeField]
+    GameObject questUI;   // 임무 UI
+
+    [SerializeField]
+    GameObject rankingUI;   // 랭킹 UI
+
+    [SerializeField]
     GameObject oneUI;   // 단차 UI
 
     [SerializeField]
@@ -57,6 +66,24 @@ public class UiManager : MonoBehaviour
     {
         // 인게임 UI 켜고 끄기
         partyUI.SetActive(active);
+    }
+
+    public void SetDungeonUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        dungeonUI.SetActive(active);
+    }
+
+    public void SetQuestUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        questUI.SetActive(active);
+    }
+
+    public void SetRankingUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        rankingUI.SetActive(active);
     }
 
     public void SetUpgradeUi(bool active)
