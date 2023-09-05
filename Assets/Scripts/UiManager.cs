@@ -21,6 +21,9 @@ public class UiManager : MonoBehaviour
     GameObject gameUI;      // 인게임 UI
 
     [SerializeField]
+    GameObject settingUI;   // 랭킹 UI
+
+    [SerializeField]
     GameObject guildUI;   // 길드 UI
 
     [SerializeField]
@@ -54,6 +57,12 @@ public class UiManager : MonoBehaviour
     {
         // 인게임 UI 켜고 끄기
         gameUI.SetActive(active);
+    }
+
+    public void SetSettingUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        settingUI.SetActive(active);
     }
 
     public void SetGuildUi(bool active)
