@@ -24,6 +24,9 @@ public class UiManager : MonoBehaviour
     GameObject guildUI;   // 길드 UI
 
     [SerializeField]
+    GameObject partyUI;   // 동료 UI
+
+    [SerializeField]
     GameObject upgradeUI;   // 수련 UI
 
     [SerializeField]
@@ -48,6 +51,12 @@ public class UiManager : MonoBehaviour
     {
         // 인게임 UI 켜고 끄기
         guildUI.SetActive(active);
+    }
+
+    public void SetPartyUi(bool active)
+    {
+        // 인게임 UI 켜고 끄기
+        partyUI.SetActive(active);
     }
 
     public void SetUpgradeUi(bool active)
