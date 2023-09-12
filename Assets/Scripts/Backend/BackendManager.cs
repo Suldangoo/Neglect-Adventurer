@@ -29,7 +29,8 @@ public class BackendManager : MonoBehaviour
         await Task.Run(() => {
             BackendLogin.Instance.CustomLogin("user1", "1234"); // 뒤끝 로그인 함수
 
-            BackendRank.Instance.RankGet(); // [추가] 랭킹 불러오기 함수
+            // [추가] chartId의 차트 정보 불러오기
+            BackendChart.Instance.ChartGet("92237");
 
             Debug.Log("테스트를 종료합니다.");
         });
