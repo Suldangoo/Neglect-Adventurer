@@ -29,14 +29,7 @@ public class BackendManager : MonoBehaviour
         await Task.Run(() => {
             BackendLogin.Instance.CustomLogin("user1", "1234");
 
-            // 게임데이터를 불러와 로컬에 저장합니다.(캐싱)
-            BackendGameData.Instance.GameDataGet();
-
-            // 우편 리스트를 불러와 우편의 정보와 inDate값들을 로컬에 저장합니다.
-            BackendPost.Instance.PostListGet(PostType.Admin);
-
-            // 저장된 우편의 위치를 읽어 우편을 수령합니다. 여기서 index는 우편의 순서. 0이면 제일 윗 우편, 1이면 그 다음 우편
-            BackendPost.Instance.PostReceive(PostType.Admin, 0);
+            BackendCoupon.Instance.CouponUse("80ca9f4a683bf449d4");
 
             Debug.Log("테스트를 종료합니다.");
         });

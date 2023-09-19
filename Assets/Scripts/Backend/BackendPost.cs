@@ -216,6 +216,31 @@ public class BackendPost
 
     public void PostReceiveAll(PostType postType)
     {
-        // Step 5. 우편 전체 수령 및 저장하기
+        if (_postList.Count <= 0)
+        {
+            Debug.LogWarning("받을 수 있는 우편이 존재하지 않습니다. 혹은 우편 리스트 불러오기를 먼저 호출해주세요.");
+            return;
+        }
+
+        Debug.Log($"{postType.ToString()} 우편 모두 수령을 요청합니다.");
+
+        var bro = Backend.UPost.ReceivePostItemAll(postType);
+
+        if (bro.IsSuccess() == false)
+        {
+            Debug.LogError($"{postType.ToString()} 우편 모두 수령 중 에러가 발생했습니다 : " + bro);
+            return;
+        }
+
+        Debug.Log("우편 모두 수령에 성공했습니다. : " + bro);
+
+        _postList.Clear();
+
+        foreach (LitJson.JsonData postItemsJson in bro.GetFlattenJSON()["postItems"])
+        {
+            SavePostToLocal(postItemsJson);
+        }
+
+        BackendGameData.Instance.GameDataUpdate();
     }
 }
