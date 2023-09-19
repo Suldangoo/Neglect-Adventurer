@@ -28,19 +28,5 @@ public class BackendManager : MonoBehaviour
         {
             Debug.LogError("초기화 실패 : " + bro); // 실패일 경우 statusCode 400대 에러 발생 
         }
-
-        Test();
-    }
-
-    // 동기 함수를 비동기에서 호출하게 해주는 함수(유니티 UI 접근 불가)
-    async void Test()
-    {
-        await Task.Run(() => {
-            BackendLogin.Instance.CustomLogin("user1", "1234");
-
-            BackendCoupon.Instance.CouponUse("80ca9f4a683bf449d4");
-
-            Debug.Log("테스트를 종료합니다.");
-        });
     }
 }
