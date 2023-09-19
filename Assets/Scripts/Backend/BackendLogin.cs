@@ -38,21 +38,21 @@ public class BackendLogin
         }
     }
 
-    public void CustomLogin(string id, string pw)
-    {
-        Debug.Log("로그인을 요청합니다.");
+    //public void CustomLogin(string id, string pw)
+    //{
+    //    Debug.Log("로그인을 요청합니다.");
 
-        var bro = Backend.BMember.CustomLogin(id, pw);
+    //    var bro = Backend.BMember.CustomLogin(id, pw);
 
-        if (bro.IsSuccess())
-        {
-            Debug.Log("로그인이 성공했습니다. : " + bro);
-        }
-        else
-        {
-            Debug.LogError("로그인이 실패했습니다. : " + bro);
-        }
-    }
+    //    if (bro.IsSuccess())
+    //    {
+    //        Debug.Log("로그인이 성공했습니다. : " + bro);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("로그인이 실패했습니다. : " + bro);
+    //    }
+    //}
 
     public void UpdateNickname(string nickname)
     {
