@@ -43,59 +43,52 @@ public class Login : LoginBase
         StartCoroutine(nameof(LoginProcess));
 
         // 뒤끝 서버 로그인 시도
-        ResponseToLogin(inputFieldID.text, inputFieldPW.text);
+        CustomLogin(inputFieldID.text, inputFieldPW.text);
     }
 
-    /// <summary>
-    /// 로그인 시도 후 서버로부터 전달받은 message를 기반으로 로직 처리
-    /// </summary>
-    private void ResponseToLogin(string ID, string PW)
+    public void CustomLogin(string id, string pw)
     {
-        // 서버에 로그인 요청 (비동기)
-        Backend.BMember.CustomLogin(ID, PW, callback =>
-        {
-            StopCoroutine(nameof(LoginProcess));
+        StopCoroutine(nameof(LoginProcess));
 
-            // 로그인 성공
-            if (callback.IsSuccess())
+        var bro = Backend.BMember.CustomLogin(id, pw);
+
+        if (bro.IsSuccess())
+        {
+            SetMessage($"{inputFieldID.text}님, 환영합니다!");
+        }
+        else
+        {
+            // 로그인에 실패했을 때는 다시 로그인을 해야하기 때문에 "로그인" 버튼 상호작용 활성화
+            btnLogin.interactable = true;
+
+            string message = string.Empty;
+
+            switch (int.Parse(bro.GetStatusCode()))
             {
-                SetMessage($"{inputFieldID.text}님, 환영합니다!");
+                case 401: // 존재하지 않는 아이디, 잘못된 비밀번호
+                    message = bro.GetMessage().Contains("customID") ? "존재하지 않는 아이디입니다." : "잘못된 비밀번호입니다.";
+                    break;
+                case 403: // 유저 or 디바이스 차단
+                    message = bro.GetMessage().Contains("user") ? "차단당한 유저입니다." : "차단당한 디바이스입니다.";
+                    break;
+                case 410: // 탈퇴 진행중
+                    message = "탈퇴중인 계정입니다.";
+                    break;
+                default:
+                    message = bro.GetMessage();
+                    break;
             }
-            // 로그인 실패
+
+            // StatusCode 401에서 "잘못된 비밀번호입니다." 일 때
+            if (message.Contains("비밀번호"))
+            {
+                GuideForIncorrectlyEnteredData(imagePW, message);
+            }
             else
             {
-                // 로그인에 실패했을 때는 다시 로그인을 해야하기 때문에 "로그인" 버튼 상호작용 활성화
-                btnLogin.interactable = true;
-
-                string message = string.Empty;
-
-                switch( int.Parse(callback.GetStatusCode()) )
-                {
-                    case 401: // 존재하지 않는 아이디, 잘못된 비밀번호
-                        message = callback.GetMessage().Contains("customID") ? "존재하지 않는 아이디입니다." : "잘못된 비밀번호입니다.";
-                        break;
-                    case 403: // 유저 or 디바이스 차단
-                        message = callback.GetMessage().Contains("user") ? "차단당한 유저입니다." : "차단당한 디바이스입니다.";
-                        break;
-                    case 410: // 탈퇴 진행중
-                        message = "탈퇴중인 계정입니다.";
-                        break;
-                    default:
-                        message = callback.GetMessage();
-                        break;
-                }
-
-                // StatusCode 401에서 "잘못된 비밀번호입니다." 일 때
-                if ( message.Contains("비밀번호") )
-                {
-                    GuideForIncorrectlyEnteredData(imagePW, message);
-                }
-                else
-                {
-                    GuideForIncorrectlyEnteredData(imageID, message);
-                }
+                GuideForIncorrectlyEnteredData(imageID, message);
             }
-        });
+        }
     }
 
     private IEnumerator LoginProcess()
