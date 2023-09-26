@@ -9,6 +9,9 @@ using BackEnd;
 
 public class Login : LoginBase
 {
+    GameManager GameManager => GameManager.Instance; // 게임 매니저 인스턴스
+    UiManager UiManager => UiManager.Instance; // 게임 매니저 인스턴스
+
     [SerializeField]
     private Image imageID; // ID 필드 색상 변경
 
@@ -54,7 +57,10 @@ public class Login : LoginBase
 
         if (bro.IsSuccess())
         {
-            SetMessage($"{inputFieldID.text}님의 모험 준비가 되었습니다!");
+            GameManager.isStart = true; // 시작 상태 체크
+            GameManager.SetScroll(true); // 스크롤 시작
+            UiManager.SetLoginUi(false);
+            UiManager.SetGameUi(true);
         }
         else
         {
