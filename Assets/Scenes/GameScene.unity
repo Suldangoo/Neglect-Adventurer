@@ -1779,7 +1779,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.7
 --- !u!222 &129080436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2955,7 +2955,7 @@ GameObject:
   - component: {fileID: 281538953}
   - component: {fileID: 281538952}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ChangeNickname
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4140,8 +4140,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500402756}
-  - component: {fileID: 500402758}
   - component: {fileID: 500402757}
+  - component: {fileID: 500402759}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
@@ -4189,8 +4189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf77ecd336025ce46a096175f955b5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  user: {fileID: 500402758}
---- !u!114 &500402758
+  user: {fileID: 685204020}
+--- !u!114 &500402759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4199,24 +4199,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 500402755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4c810c544098446ad8b3c691c8b976, type: 3}
+  m_Script: {fileID: 11500000, guid: 1259ef281d4f092498aebe3072302cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onUserInfoEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 685204020}
-        m_TargetAssemblyTypeName: TopPanelViewer, Assembly-CSharp
-        m_MethodName: UpdateNickname
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  textNickname: {fileID: 579460390}
 --- !u!1 &517320652
 GameObject:
   m_ObjectHideFlags: 0
@@ -6669,10 +6655,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 685204016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1259ef281d4f092498aebe3072302cd8, type: 3}
+  m_Script: {fileID: 11500000, guid: cf4c810c544098446ad8b3c691c8b976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textNickname: {fileID: 579460390}
+  onUserInfoEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 500402759}
+        m_TargetAssemblyTypeName: GameDataViewer, Assembly-CSharp
+        m_MethodName: UpdateNickname
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &685784689
 GameObject:
   m_ObjectHideFlags: 0
@@ -18231,7 +18231,7 @@ MonoBehaviour:
   onNicknameEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500402758}
+      - m_Target: {fileID: 685204020}
         m_TargetAssemblyTypeName: UserInfo, Assembly-CSharp
         m_MethodName: GetUserInfoFromBackend
         m_Mode: 1

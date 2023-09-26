@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class TopPanelViewer : MonoBehaviour
+public class GameDataViewer : MonoBehaviour
 {
 	[SerializeField]
 	private	TextMeshProUGUI	textNickname;
