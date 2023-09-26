@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: a72ab5e0d94d01d46861d4984ec0bcad
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Galmuri11
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f0d559f852d5b9e4c9fdfc1a8e393416, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
