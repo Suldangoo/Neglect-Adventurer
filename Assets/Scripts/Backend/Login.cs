@@ -54,7 +54,7 @@ public class Login : LoginBase
 
         if (bro.IsSuccess())
         {
-            SetMessage($"{inputFieldID.text}님, 환영합니다!");
+            SetMessage($"{inputFieldID.text}님의 모험 준비가 되었습니다!");
         }
         else
         {

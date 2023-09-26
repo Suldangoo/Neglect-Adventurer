@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour
     // 게임 시작 함수
     public void GameStart() {
         // 게임 시작 터치 시
-        isStart = true; // 시작 상태 체크
         UiManager.SetStartUi(false); // 시작 UI 끄기
-        UiManager.SetGameUi(true); // 게임 UI 켜기
-        SetScroll(true); // 스크롤 시작
+        UiManager.SetLoginUi(true); // 로그인 UI 켜기
+        // isStart = true; // 시작 상태 체크
+        // SetScroll(true); // 스크롤 시작
     }
 
     // 전투 시작 함수

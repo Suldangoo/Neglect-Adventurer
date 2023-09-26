@@ -18,6 +18,9 @@ public class UiManager : MonoBehaviour
     GameObject startUI;     // 게임 시작 UI
 
     [SerializeField]
+    GameObject loginUI;     // 로그인 UI
+
+    [SerializeField]
     GameObject gameUI;      // 인게임 UI
 
     [SerializeField]
@@ -49,67 +52,61 @@ public class UiManager : MonoBehaviour
 
     public void SetStartUi(bool active)
     {
-        // 게임 시작 UI 켜고 끄기
         startUI.SetActive(active);
-    }
+    } // 게임 시작 UI 켜고 끄기
+
+    public void SetLoginUi(bool active)
+    {
+        loginUI.SetActive(active);
+    } // 로그인 UI 켜고 끄기
 
     public void SetGameUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         gameUI.SetActive(active);
-    }
+    } // 인게임 UI 켜고 끄기
 
     public void SetSettingUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         settingUI.SetActive(active);
-    }
+    } // 설정 UI 켜고 끄기
 
     public void SetGuildUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         guildUI.SetActive(active);
-    }
+    } // 길드 UI 켜고 끄기
 
     public void SetPartyUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         partyUI.SetActive(active);
-    }
+    } // 동료 UI 켜고 끄기
 
     public void SetDungeonUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         dungeonUI.SetActive(active);
-    }
+    } // 던전 UI 켜고 끄기
 
     public void SetQuestUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         questUI.SetActive(active);
-    }
+    } // 퀘스트 UI 켜고 끄기
 
     public void SetRankingUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         rankingUI.SetActive(active);
-    }
+    } // 랭킹 UI 켜고 끄기
 
     public void SetUpgradeUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         upgradeUI.SetActive(active);
-    }
+    } // 업그레이드 UI 켜고 끄기
 
     public void SetOneUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         oneUI.SetActive(active);
-    }
+    } // 1개 뽑기 UI 켜고 끄기
 
     public void SetTenUi(bool active)
     {
-        // 인게임 UI 켜고 끄기
         tenUI.SetActive(active);
-    }
+    } // 10개 뽑기 UI 켜고 끄기
 }
