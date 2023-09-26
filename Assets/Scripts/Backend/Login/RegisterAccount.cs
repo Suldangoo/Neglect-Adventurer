@@ -87,6 +87,9 @@ public class RegisterAccount : LoginBase
             if (Register.IsSuccess())
             {
                 SetMessage($"회원가입 성공! {inputFieldID.text}님이 신규 모험가가 되었습니다.");
+
+                // 계정 생성에 성공했을 때 해당 계정의 게임 정보 생성
+                BackendGameData.Instance.GameDataInsert();
             }
         }
         else

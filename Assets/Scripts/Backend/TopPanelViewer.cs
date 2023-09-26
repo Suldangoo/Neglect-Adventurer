@@ -8,9 +8,8 @@ public class TopPanelViewer : MonoBehaviour
 
 	public void UpdateNickname()
 	{
-		// ´Ğ³×ÀÓÀÌ ¾øÀ¸¸é gamer_id¸¦ Ãâ·ÂÇÏ°í, ´Ğ³×ÀÓÀÌ ÀÖÀ¸¸é ´Ğ³×ÀÓ Ãâ·Â
+		// ë‹‰ë„¤ì„ì´ ì—†ìœ¼ë©´ gamer_idë¥¼ ì¶œë ¥í•˜ê³ , ë‹‰ë„¤ì„ì´ ìˆìœ¼ë©´ ë‹‰ë„¤ì„ ì¶œë ¥
 		textNickname.text = UserInfo.Data.nickname == null ?
 							UserInfo.Data.gamerId : UserInfo.Data.nickname;
 	}
 }
-
