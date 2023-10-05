@@ -35,10 +35,6 @@ public class GameManager : MonoBehaviour
     float terrainSpeed;         // 지형 스크롤링 속도
 
     // --- 플레이어 변수
-    public int atkLv;           // 검술 수련 레벨
-    public int defLv;           // 방어 수련 레벨
-    public int dexLv;           // 민첩 수련 레벨
-    public int lukLv;           // 행운 수련 레벨
 
     public float power;         // 공격력
     public float attackSpeed;   // 공격속도
@@ -52,12 +48,6 @@ public class GameManager : MonoBehaviour
         background = GameObject.Find("Background").GetComponent<InfiniteScrolling>(); // 백그라운드 오브젝트 할당
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
         monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
-
-        // 초기 레벨
-        atkLv = 1;
-        defLv = 1;
-        dexLv = 1;
-        lukLv = 1;
 
         power = 10f;       // 공격력
         attackSpeed = 1f;  // 공격속도

@@ -31,25 +31,25 @@ public class Upgrade : MonoBehaviour
         GameManager.scrollSpeed = Rounds(GameManager.scrollSpeed, 0);
 
         // 검술 단련 텍스트 갱신
-        atkLevel.text = "Lv. " + GameManager.atkLv.ToString();
+        atkLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.atkLv.ToString();
         atk.text = "현재 공격력 : " + GameManager.power.ToString();
         atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
-        atkCost.text = (1000 * GameManager.atkLv).ToString("#,##0");
+        atkCost.text = (1000 * BackendGameData.Instance.UserGameData.atkLv).ToString("#,##0");
 
         // 방어 단련 텍스트 갱신
-        defLevel.text = "Lv. " + GameManager.defLv.ToString();
-        def.text = "현재 방어력 : " + ((GameManager.defLv - 1) * 10).ToString().ToString();
-        defCost.text = (1000 * GameManager.defLv).ToString("#,##0");
+        defLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.defLv.ToString();
+        def.text = "현재 방어력 : " + ((BackendGameData.Instance.UserGameData.defLv - 1) * 10).ToString().ToString();
+        defCost.text = (1000 * BackendGameData.Instance.UserGameData.defLv).ToString("#,##0");
 
         // 민첩 단련 텍스트 갱신
-        dexLevel.text = "Lv. " + GameManager.dexLv.ToString();
+        dexLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.dexLv.ToString();
         dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
-        dexCost.text = (1000 * GameManager.dexLv).ToString("#,##0");
+        dexCost.text = (1000 * BackendGameData.Instance.UserGameData.dexLv).ToString("#,##0");
 
         // 행운 단련 텍스트 갱신
-        lukLevel.text = "Lv. " + GameManager.lukLv.ToString();
-        luk.text = "골드획득량 + " + (GameManager.lukLv - 1).ToString() + "%";
-        lukCost.text = (1000 * GameManager.lukLv).ToString("#,##0");
+        lukLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.lukLv.ToString();
+        luk.text = "골드획득량 + " + (BackendGameData.Instance.UserGameData.lukLv - 1).ToString() + "%";
+        lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
 
         BackendGameData.Instance.GameDataUpdate();
     }
@@ -61,10 +61,10 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeAtk()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.atkLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.atkLv)
         {
-            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.atkLv;
-            GameManager.atkLv += 1;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.atkLv;
+            BackendGameData.Instance.UserGameData.atkLv += 1;
             GameManager.power += 1f;
             GameManager.attackSpeed -= 0.05f;
 
@@ -74,10 +74,10 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDef()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.defLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.defLv)
         {
-            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.defLv;
-            GameManager.defLv += 1;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.defLv;
+            BackendGameData.Instance.UserGameData.defLv += 1;
 
             modifyState();
         }
@@ -85,10 +85,10 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDex()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.dexLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.dexLv)
         {
-            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.dexLv;
-            GameManager.dexLv += 1;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.dexLv;
+            BackendGameData.Instance.UserGameData.dexLv += 1;
             GameManager.scrollSpeed += 1f;
 
             modifyState();
@@ -97,10 +97,10 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeLuk()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.lukLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.lukLv)
         {
-            BackendGameData.Instance.UserGameData.gold  -= 1000 * GameManager.lukLv;
-            GameManager.lukLv += 1;
+            BackendGameData.Instance.UserGameData.gold  -= 1000 * BackendGameData.Instance.UserGameData.lukLv;
+            BackendGameData.Instance.UserGameData.lukLv += 1;
 
             modifyState();
         }

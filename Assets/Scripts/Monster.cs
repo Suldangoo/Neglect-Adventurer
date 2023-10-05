@@ -64,7 +64,7 @@ public class Monster : MonoBehaviour
         isLive = false; // 생존 상태 체크 해제
         isBattle = false; // 배틀 상태 체크 해제
         GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
-        BackendGameData.Instance.UserGameData.gold += reward + (reward / 100) * (GameManager.lukLv - 1); // 보상 골드 지급
+        BackendGameData.Instance.UserGameData.gold += reward + (reward / 100) * (BackendGameData.Instance.UserGameData.lukLv - 1); // 보상 골드 지급
         BackendGameData.Instance.GameDataUpdate(); // 골드 지급 반영
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
         quest.setQuestValue(1);
