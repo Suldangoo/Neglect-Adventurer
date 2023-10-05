@@ -13,6 +13,7 @@ public class GameDataViewer : MonoBehaviour
 	private void Awake()
 	{
 		BackendGameData.Instance.onGameDataLoadEvent.AddListener(UpdateGameData);
+		BackendGameData.Instance.onGameDataUpdateEvent.AddListener(UpdateGameData);
 	}
 	public void UpdateNickname()
 	{

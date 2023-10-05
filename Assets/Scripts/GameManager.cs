@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     Monster monster;                // 몬스터 스크립트
 
     [SerializeField] GameObject monsterPrefab; // 몬스터 프리팹
+    [SerializeField] String webURL;
 
     // --- 게임 변수
     [HideInInspector] public bool isStart = false;   // 시작 확인
@@ -123,6 +124,15 @@ public class GameManager : MonoBehaviour
     public void EightBitURL()
     {
         // 8비트 공식 홈페이지 이동
-        Application.OpenURL("http://14.34.121.36:3000");
+        Application.OpenURL(webURL);
+    }
+
+    public void DataSave()
+    {
+        BackendGameData.Instance.UserGameData.level += 100;
+        BackendGameData.Instance.UserGameData.gold += 100;
+        BackendGameData.Instance.UserGameData.jewel += 100;
+
+        BackendGameData.Instance.GameDataUpdate();
     }
 }
