@@ -20,9 +20,8 @@ public class GameManager : MonoBehaviour
 
     InfiniteScrolling background;   // 백그라운드 스크롤링 오브젝트
     Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
-    Monster monster;                // 몬스터 스크립트
 
-    [SerializeField] GameObject monsterPrefab; // 몬스터 프리팹
+    [SerializeField] Monster monster; // 몬스터 프리팹
     [SerializeField] String webURL;
 
     // --- 게임 변수
@@ -47,12 +46,8 @@ public class GameManager : MonoBehaviour
 
         background = GameObject.Find("Background").GetComponent<InfiniteScrolling>(); // 백그라운드 오브젝트 할당
         playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
-        monster = GameObject.Find("Monster").GetComponent<Monster>(); // 몬스터 스크립트 할당
 
-        power = 10f;       // 공격력
-        attackSpeed = 1f;  // 공격속도
-
-        SetScrollSpeed();
+        SetScrollSpeed(); // 스크롤 속도 초기화
         SetScroll(false); // 스크롤 끄기
     }
 
@@ -82,10 +77,18 @@ public class GameManager : MonoBehaviour
     }
 
     // 게임 시작 함수
-    public void GameStart() {
+    public void TouchStart() {
         // 게임 시작 터치 시
         UiManager.SetStartUi(false); // 시작 UI 끄기
         UiManager.SetLoginUi(true); // 로그인 UI 켜기
+    }
+
+    public void GameStart()
+    {
+        UpdateState(); // 유저의 스테이터스 갱신
+        isStart = true; // 시작 상태 체크
+        SetScroll(true); // 스크롤 시작
+        monster.SetMonster(); // 몬스터 상태 초기화
     }
 
     // 전투 시작 함수
@@ -93,6 +96,16 @@ public class GameManager : MonoBehaviour
     {
         SetScroll(!active); // 배틀 상태에 따라 스크롤 On / Off
         isBattle = active; // 배틀 상태 체크
+    }
+
+    /// <summary>
+    /// ※ 밸런싱 ※ 업그레이드 스텟에 따른 스탯 가중치 코드
+    /// </summary>
+    public void UpdateState()
+    {
+        power = 10f + (BackendGameData.Instance.UserGameData.atkLv - 1) * 2;            // 공격력
+        attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.05f;   // 공격속도
+        scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1);           // 스크롤링 속도 ≒ 이동속도
     }
 
     public void SetScroll(bool active) {
@@ -104,7 +117,6 @@ public class GameManager : MonoBehaviour
     }
     void SetScrollSpeed()
     {
-        scrollSpeed = 5f;  // 스크롤링 속도
         backSpeed = scrollSpeed / 20f;  // 배경 스크롤링 속도
         terrainSpeed = scrollSpeed / 2f; // 지형 스크롤링 속도
     }

@@ -57,8 +57,6 @@ public class Login : LoginBase
 
         if (bro.IsSuccess())
         {
-            GameManager.isStart = true; // 시작 상태 체크
-            GameManager.SetScroll(true); // 스크롤 시작
             UiManager.SetLoginUi(false);
             UiManager.SetGameUi(true);
         }

@@ -12661,7 +12661,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1671319882}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: GameStart
+        m_MethodName: TouchStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24112,17 +24112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2f33c556dc0c248b06f2621b64702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterPrefab: {fileID: 4338039459973156405, guid: 8a012c745d093654bb7977809144072e, type: 3}
+  monster: {fileID: 4338039459597413641}
   webURL: http://14.34.121.36:3000
   isStart: 0
   isScroll: 0
   isBattle: 0
-  atkLv: 0
-  defLv: 0
-  dexLv: 0
-  lukLv: 0
-  power: 50
-  attackSpeed: 0.5
+  power: 10
+  attackSpeed: 1
   scrollSpeed: 5
 --- !u!4 &1671319883
 Transform:

@@ -30,7 +30,49 @@ public class Monster : MonoBehaviour
     float speed;            // 몬스터의 속도
     float hitDuration;      // 피격 효과 지속시간
 
-    private void SetMonster()
+    void Update()
+    {
+        // 스크롤링 중이라면 왼쪽으로 몬스터가 이동
+        if (GameManager.isScroll)
+        {
+            transform.Translate(Vector2.left * speed * Time.deltaTime);
+        }
+
+        if (isLive && hp <= 0f)
+        {
+            // 체력이 0이 될 경우 사망
+            Death();
+        }
+
+        // x좌표가 1까지 왔다면, 전투 시작
+        if (isLive && transform.position.x < 1f && !isBattle)
+        {
+            StartCoroutine("Attacker");
+            GameManager.SetBattle(true);
+            isBattle = true;
+        }
+
+        // x좌표가 -15까지 갔다면, 리스폰
+        if (transform.position.x <= -15f)
+        {
+            SetMonster(); // 몬스터 리스폰
+            transform.position = new Vector3(15, -3, 0); // 위치 초기화
+            hpBar.SetActive(true); // HP바 활성화
+            anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
+        }
+    }
+
+    private void Start()
+    {
+        // 오브젝트 할당
+        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        particle = GetComponent<ParticleSystem>();
+
+        StartCoroutine("HitEffect");
+    }
+
+    public void SetMonster()
     {
         isLive = true; // 생존 상태 체크
         isBattle = false; // 배틀 상태 체크 해제
@@ -69,49 +111,6 @@ public class Monster : MonoBehaviour
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
         quest.setQuestValue(1);
         StopCoroutine("Attacker");
-    }
-
-    private void Start()
-    {
-        // 오브젝트 할당
-        sprite = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        particle = GetComponent<ParticleSystem>();
-
-        SetMonster();
-        StartCoroutine("HitEffect");
-    }
-
-    void Update()
-    {
-        // 스크롤링 중이라면 왼쪽으로 몬스터가 이동
-        if (GameManager.isScroll)
-        {
-            transform.Translate(Vector2.left * speed * Time.deltaTime);
-        }
-
-        if (isLive && hp <= 0f)
-        {
-            // 체력이 0이 될 경우 사망
-            Death();
-        }
-
-        // x좌표가 1까지 왔다면, 전투 시작
-        if (isLive && transform.position.x < 1f && !isBattle)
-        {
-            StartCoroutine("Attacker");
-            GameManager.SetBattle(true);
-            isBattle = true;
-        }
-
-        // x좌표가 -15까지 갔다면, 리스폰
-        if (transform.position.x <= -15f)
-        {
-            SetMonster(); // 몬스터 리스폰
-            transform.position = new Vector3(15, -3, 0); // 위치 초기화
-            hpBar.SetActive(true); // HP바 활성화
-            anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
-        }
     }
 
     IEnumerator Attacker()
