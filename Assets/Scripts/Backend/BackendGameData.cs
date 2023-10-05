@@ -42,7 +42,11 @@ public class BackendGameData
 		{
 			{ "level",		userGameData.level },
 			{ "gold",		userGameData.gold },
-			{ "jewel",		userGameData.jewel },
+			{ "diamond",	userGameData.diamond },
+			{ "atkLv",      userGameData.atkLv },
+			{ "defLv",      userGameData.defLv },
+			{ "dexLv",      userGameData.dexLv },
+			{ "lukLv",      userGameData.lukLv }
 		};
 
 		// 첫 번째 매개변수는 뒤끝 콘솔의 "게임 정보 관리" 탭에 생성한 테이블 이름
@@ -92,7 +96,11 @@ public class BackendGameData
 					// 불러온 게임 정보를 userData 변수에 저장
 					userGameData.level = int.Parse(gameDataJson[0]["level"].ToString());
 					userGameData.gold = int.Parse(gameDataJson[0]["gold"].ToString());
-					userGameData.jewel = int.Parse(gameDataJson[0]["jewel"].ToString());
+					userGameData.diamond = int.Parse(gameDataJson[0]["diamond"].ToString());
+					userGameData.atkLv = int.Parse(gameDataJson[0]["atkLv"].ToString());
+					userGameData.defLv = int.Parse(gameDataJson[0]["defLv"].ToString());
+					userGameData.dexLv = int.Parse(gameDataJson[0]["dexLv"].ToString());
+					userGameData.lukLv = int.Parse(gameDataJson[0]["lukLv"].ToString());
 
 					onGameDataLoadEvent?.Invoke();
 				}
@@ -129,7 +137,11 @@ public class BackendGameData
 		{
 			{ "level",      userGameData.level },
 			{ "gold",       userGameData.gold },
-			{ "jewel",      userGameData.jewel }
+			{ "diamond",    userGameData.diamond },
+			{ "atkLv",      userGameData.atkLv },
+			{ "defLv",      userGameData.defLv },
+			{ "dexLv",      userGameData.dexLv },
+			{ "lukLv",      userGameData.lukLv }
 		};
 
 		// 게임 정보의 고유값(gameDataRowInDate)이 없으면 에러 메시지 출력

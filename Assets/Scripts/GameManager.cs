@@ -124,13 +124,4 @@ public class GameManager : MonoBehaviour
         // 8비트 공식 홈페이지 이동
         Application.OpenURL(webURL);
     }
-
-    public void DataSave()
-    {
-        BackendGameData.Instance.UserGameData.level += 100;
-        BackendGameData.Instance.UserGameData.gold += 100;
-        BackendGameData.Instance.UserGameData.jewel += 100;
-
-        BackendGameData.Instance.GameDataUpdate();
-    }
 }
