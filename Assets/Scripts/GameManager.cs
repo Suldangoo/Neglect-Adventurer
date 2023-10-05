@@ -39,7 +39,6 @@ public class GameManager : MonoBehaviour
     public int defLv;           // 방어 수련 레벨
     public int dexLv;           // 민첩 수련 레벨
     public int lukLv;           // 행운 수련 레벨
-    public int gold;            // 골드
 
     public float power;         // 공격력
     public float attackSpeed;   // 공격속도
@@ -59,7 +58,6 @@ public class GameManager : MonoBehaviour
         defLv = 1;
         dexLv = 1;
         lukLv = 1;
-        gold = 5000;     // 초기 골드 지급
 
         power = 10f;       // 공격력
         attackSpeed = 1f;  // 공격속도

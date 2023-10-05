@@ -7,8 +7,8 @@ public class GameDataViewer : MonoBehaviour
 	private	TextMeshProUGUI	textNickname;
 	[SerializeField]
 	private TextMeshProUGUI textLevel;
-	//[SerializeField]
-	//private TextMeshProUGUI textGold;
+	[SerializeField]
+	private TextMeshProUGUI textGold;
 
 	private void Awake()
 	{
@@ -25,6 +25,6 @@ public class GameDataViewer : MonoBehaviour
 	public void UpdateGameData()
 	{
 		textLevel.text = $"{BackendGameData.Instance.UserGameData.level}";
-		// textGold.text = $"{BackendGameData.Instance.UserGameData.gold}";
+		textGold.text = $"{BackendGameData.Instance.UserGameData.gold}";
 	}
 }

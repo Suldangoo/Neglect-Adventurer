@@ -50,6 +50,8 @@ public class Upgrade : MonoBehaviour
         lukLevel.text = "Lv. " + GameManager.lukLv.ToString();
         luk.text = "골드획득량 + " + (GameManager.lukLv - 1).ToString() + "%";
         lukCost.text = (1000 * GameManager.lukLv).ToString("#,##0");
+
+        BackendGameData.Instance.GameDataUpdate();
     }
 
     public float Rounds(float tmp, int cnt)
@@ -59,9 +61,9 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeAtk()
     {
-        if (GameManager.gold >= 1000 * GameManager.atkLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.atkLv)
         {
-            GameManager.gold -= 1000 * GameManager.atkLv;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.atkLv;
             GameManager.atkLv += 1;
             GameManager.power += 1f;
             GameManager.attackSpeed -= 0.05f;
@@ -72,9 +74,9 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDef()
     {
-        if (GameManager.gold >= 1000 * GameManager.defLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.defLv)
         {
-            GameManager.gold -= 1000 * GameManager.defLv;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.defLv;
             GameManager.defLv += 1;
 
             modifyState();
@@ -83,9 +85,9 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDex()
     {
-        if (GameManager.gold >= 1000 * GameManager.dexLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.dexLv)
         {
-            GameManager.gold -= 1000 * GameManager.dexLv;
+            BackendGameData.Instance.UserGameData.gold -= 1000 * GameManager.dexLv;
             GameManager.dexLv += 1;
             GameManager.scrollSpeed += 1f;
 
@@ -95,9 +97,9 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeLuk()
     {
-        if (GameManager.gold >= 1000 * GameManager.lukLv)
+        if (BackendGameData.Instance.UserGameData.gold >= 1000 * GameManager.lukLv)
         {
-            GameManager.gold -= 1000 * GameManager.lukLv;
+            BackendGameData.Instance.UserGameData.gold  -= 1000 * GameManager.lukLv;
             GameManager.lukLv += 1;
 
             modifyState();
