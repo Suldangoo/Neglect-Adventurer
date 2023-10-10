@@ -26,10 +26,10 @@ public class Upgrade : MonoBehaviour
     private void Awake()
     {
         // 업그레이드 UI가 켜지면 수치 갱신
-        modifyState();
+        modifyState(0);
     }
 
-    public void modifyState()
+    public void modifyState(int value)
     {
         // 소수점 변수들 보정
         GameManager.power = Rounds(GameManager.power, 0);
@@ -40,25 +40,37 @@ public class Upgrade : MonoBehaviour
         BackendGameData.Instance.GameDataUpdate(); // 서버에 플레이어 스탯 갱신
 
         // 검술 단련 텍스트 갱신
-        atkLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.atkLv.ToString();
-        atk.text = "현재 공격력 : " + GameManager.power.ToString();
-        atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
-        atkCost.text = (1000 * BackendGameData.Instance.UserGameData.atkLv).ToString("#,##0");
+        if (value == 0 || value == 1)
+        {
+            atkLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.atkLv.ToString();
+            atk.text = "현재 공격력 : " + GameManager.power.ToString();
+            atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
+            atkCost.text = (1000 * BackendGameData.Instance.UserGameData.atkLv).ToString("#,##0");
+        }
 
         // 방어 단련 텍스트 갱신
-        defLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.defLv.ToString();
-        def.text = "현재 방어력 : " + ((BackendGameData.Instance.UserGameData.defLv - 1) * 10).ToString().ToString();
-        defCost.text = (1000 * BackendGameData.Instance.UserGameData.defLv).ToString("#,##0");
+        if (value == 0 || value == 2)
+        {
+            defLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.defLv.ToString();
+            def.text = "현재 방어력 : " + ((BackendGameData.Instance.UserGameData.defLv - 1) * 10).ToString().ToString();
+            defCost.text = (1000 * BackendGameData.Instance.UserGameData.defLv).ToString("#,##0");
+        }
 
         // 민첩 단련 텍스트 갱신
-        dexLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.dexLv.ToString();
-        dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
-        dexCost.text = (1000 * BackendGameData.Instance.UserGameData.dexLv).ToString("#,##0");
+        if (value == 0 || value == 3)
+        {
+            dexLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.dexLv.ToString();
+            dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
+            dexCost.text = (1000 * BackendGameData.Instance.UserGameData.dexLv).ToString("#,##0");
+        }
 
         // 행운 단련 텍스트 갱신
-        lukLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.lukLv.ToString();
-        luk.text = "골드획득량 + " + (BackendGameData.Instance.UserGameData.lukLv - 1).ToString() + "%";
-        lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
+        if (value == 0 || value == 4)
+        {
+            lukLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.lukLv.ToString();
+            luk.text = "골드획득량 + " + (BackendGameData.Instance.UserGameData.lukLv - 1).ToString() + "%";
+            lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
+        }
     }
 
     public float Rounds(float tmp, int cnt)
@@ -72,7 +84,7 @@ public class Upgrade : MonoBehaviour
         {
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.atkLv;
             BackendGameData.Instance.UserGameData.atkLv += 1;
-            modifyState();
+            modifyState(1);
         }
     }
 
@@ -82,7 +94,7 @@ public class Upgrade : MonoBehaviour
         {
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.defLv;
             BackendGameData.Instance.UserGameData.defLv += 1;
-            modifyState();
+            modifyState(2);
         }
     }
 
@@ -92,7 +104,7 @@ public class Upgrade : MonoBehaviour
         {
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.dexLv;
             BackendGameData.Instance.UserGameData.dexLv += 1;
-            modifyState();
+            modifyState(3);
         }
     }
 
@@ -102,7 +114,7 @@ public class Upgrade : MonoBehaviour
         {
             BackendGameData.Instance.UserGameData.gold  -= 1000 * BackendGameData.Instance.UserGameData.lukLv;
             BackendGameData.Instance.UserGameData.lukLv += 1;
-            modifyState();
+            modifyState(4);
         }
     }
 }
