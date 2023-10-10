@@ -22,9 +22,14 @@ public class GameDataViewer : MonoBehaviour
 							UserInfo.Data.gamerId : UserInfo.Data.nickname;
 	}
 
-	public void UpdateGameData()
+	/*public void UpdateGameData()
 	{
 		textLevel.text = $"{BackendGameData.Instance.UserGameData.level}";
 		textGold.text = $"{BackendGameData.Instance.UserGameData.gold}";
+	}*/
+	public void UpdateGameData()
+	{
+		textLevel.text = BackendGameData.Instance.UserGameData.level.ToString("N0");
+		textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");
 	}
 }
