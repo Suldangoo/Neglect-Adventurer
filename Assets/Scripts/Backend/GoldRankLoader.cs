@@ -28,7 +28,7 @@ public class GoldRankLoader : MonoBehaviour
 		}
 	}
 
-	private void OnEnable()
+	public void OnEnable()
 	{
 		// 1위 랭킹이 보이도록 scroll 값 설정
 		scrollbar.value = 1;
