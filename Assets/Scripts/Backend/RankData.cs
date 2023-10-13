@@ -46,7 +46,7 @@ public class RankData : MonoBehaviour
 		set
 		{
 			score			= value;
-			textScore.text	= score.ToString();
+			textScore.text	= score.ToString("N0");
 		}
 		get => score;
 	}
