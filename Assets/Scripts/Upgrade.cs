@@ -76,7 +76,7 @@ public class Upgrade : MonoBehaviour
             lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
         }
 
-        textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");
+        textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");  // 골드 표시 갱신
     }
 
     public float Rounds(float tmp, int cnt)
