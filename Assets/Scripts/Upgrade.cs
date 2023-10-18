@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Upgrade : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class Upgrade : MonoBehaviour
     [SerializeField] Text lukLevel; // 행운 레벨
     [SerializeField] Text luk;      // 행운력
     [SerializeField] Text lukCost;  // 행운 수련비용
+
+    [SerializeField]
+    private TextMeshProUGUI textGold;
 
     private void Awake()
     {
@@ -71,6 +75,8 @@ public class Upgrade : MonoBehaviour
             luk.text = "골드획득량 + " + (BackendGameData.Instance.UserGameData.lukLv - 1).ToString() + "%";
             lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
         }
+
+        textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");
     }
 
     public float Rounds(float tmp, int cnt)

@@ -1288,6 +1288,7 @@ MonoBehaviour:
   lukLevel: {fileID: 704261196}
   luk: {fileID: 1769214626}
   lukCost: {fileID: 852884279}
+  textGold: {fileID: 271448748}
 --- !u!1 &71017680
 GameObject:
   m_ObjectHideFlags: 0
