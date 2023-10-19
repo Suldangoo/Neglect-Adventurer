@@ -65,7 +65,7 @@ public class Guild : MonoBehaviour
         (Sprite selectedSprite, int grade, int index) = PickCharacterInRange(minIndex, maxIndex, grade1, grade2, grade1Chance);
         resultImage.sprite = selectedSprite;
         SetFrame(grade);
-        string starRepresentation = new string('*', grade);
+        string starRepresentation = new string('★', grade);
         resultText.text = $"{starRepresentation} {characterNames[index]}";
     }
 
@@ -91,7 +91,7 @@ public class Guild : MonoBehaviour
             resultImages[i].sprite = selectedSprite;
             prameImages[i].sprite = prameSprites[grade - 1]; // 프레임 설정
 
-            string starRepresentation = new string('*', grade);
+            string starRepresentation = new string('★', grade);
             resultTexts[i].text = $"{starRepresentation} {characterNames[index]}"; // 캐릭터 이름 출력
         }
     }
