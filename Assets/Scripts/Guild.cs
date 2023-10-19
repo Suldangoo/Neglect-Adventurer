@@ -74,16 +74,55 @@ public class Guild : MonoBehaviour
         }
     }
 
-    private void SetFrame(int grade)
+    public void OnClickRareOnePick()
     {
-        if (grade == 1)
+        (Sprite selectedSprite, int grade, int index) = PickRareCharacter();
+        resultImage.sprite = selectedSprite;
+
+        // 캐릭터 등급에 따라 프레임 설정
+        SetFrame(grade);
+
+        // 캐릭터 이름과 등급을 TextMeshPro에 출력
+        string starRepresentation = new string('*', grade);
+        resultText.text = $"{starRepresentation} {characterNames[index]}";
+    }
+
+    private (Sprite, int, int) PickRareCharacter()
+    {
+        // 0 ~ 1 사이의 랜덤한 숫자 생성
+        float randomValue = Random.value;
+        int selectedIndex;
+
+        if (randomValue <= 0.9f)
         {
-            prameImage.sprite = prameSprites[0]; // 1성 프레임
+            // 2성 캐릭터 뽑기 (3 ~ 5 인덱스)
+            selectedIndex = Random.Range(3, 6);
+            return (characterSprites[selectedIndex], 2, selectedIndex);
         }
-        else if (grade == 2)
+        else
         {
-            prameImage.sprite = prameSprites[1]; // 2성 프레임
+            // 3성 캐릭터 뽑기 (6 ~ 8 인덱스)
+            selectedIndex = Random.Range(6, 9);
+            return (characterSprites[selectedIndex], 3, selectedIndex);
         }
     }
 
+    private void SetFrame(int grade)
+    {
+        switch (grade)
+        {
+            case 1:
+                prameImage.sprite = prameSprites[0]; // 1성 프레임
+                break;
+            case 2:
+                prameImage.sprite = prameSprites[1]; // 2성 프레임
+                break;
+            case 3:
+                prameImage.sprite = prameSprites[2]; // 3성 프레임
+                break;
+            default:
+                Debug.LogWarning($"Unexpected grade: {grade}");
+                break;
+        }
+    }
 }

@@ -2364,6 +2364,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 2003260384}
+        m_TargetAssemblyTypeName: Guild, Assembly-CSharp
+        m_MethodName: OnClickRareOnePick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 472090922}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: SetOneUi
@@ -31549,6 +31561,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 49b9f0f957654cc42ae2d08f90096f03, type: 3}
   - {fileID: 21300000, guid: b34d5f3410eb4ec4e81b5017f9985c3c, type: 3}
   - {fileID: 21300000, guid: f32da9787885496479acb151c1db6b52, type: 3}
+  - {fileID: 21300000, guid: 5b84458f948e20a488efb60bdf02ecd8, type: 3}
+  - {fileID: 21300000, guid: 58df056c4429aa8459b2ee420ab55ede, type: 3}
+  - {fileID: 21300000, guid: 003719e9b33dbb24d91b9dfe825af91f, type: 3}
   prameSprites:
   - {fileID: 21300000, guid: b6a653f863398c2428b9bd70ba5b5de1, type: 3}
   - {fileID: 21300000, guid: 1522cfcfd7b249a46b7cb517c1d0e7c5, type: 3}
@@ -31562,6 +31577,9 @@ MonoBehaviour:
   - "\uB098\uC774\uD2B8"
   - "\uBC30\uD2C0\uBA54\uC774\uC9C0"
   - "\uD504\uB9AC\uC2A4\uD2B8"
+  - "\uC18C\uB4DC\uB9C8\uC2A4\uD130"
+  - "\uB300\uD604\uC790"
+  - "\uC5B8\uB370\uB4DC\uD0B9"
   resultText: {fileID: 236546603}
 --- !u!114 &2003260385
 MonoBehaviour:
