@@ -17,17 +17,22 @@ public class Guild : MonoBehaviour
     // 캐릭터 프레임 이미지 배열
     public Sprite[] prameSprites;
 
-    // 결과를 출력할 Image 컴포넌트
-    public Image resultImage;
-
-    // 캐릭터 등급에 따른 프레임 Image 컴포넌트
-    public Image prameImage;
-
     // 캐릭터 이름 배열
     public string[] characterNames;
 
+    // --- 1번 뽑기
+    public Image resultImage; // 캐릭터 이미지
+    public Image prameImage; // 프레임 이미지
+    public TextMeshProUGUI resultText; // 캐릭터 이름
+
+    // --- 10번 뽑기
+    public Image[] resultImages;
+    public Image[] prameImages;
+    public TextMeshProUGUI[] resultTexts; // 캐릭터 이름
+
+
     // 뽑은 캐릭터의 이름과 등급을 출력할 TextMeshPro 컴포넌트
-    public TextMeshProUGUI resultText;
+
 
     private void Awake()
     {
@@ -43,67 +48,68 @@ public class Guild : MonoBehaviour
 
     public void OnClickNomalOnePick()
     {
-        (Sprite selectedSprite, int grade, int index) = PickCharacter();
-        resultImage.sprite = selectedSprite;
-
-        // 캐릭터 등급에 따라 프레임 설정
-        SetFrame(grade);
-
-        // 캐릭터 이름과 등급을 TextMeshPro에 출력
-        string starRepresentation = new string('*', grade);
-        resultText.text = $"{starRepresentation} {characterNames[index]}";
-    }
-
-    private (Sprite, int, int) PickCharacter()
-    {
-        // 0 ~ 1 사이의 랜덤한 숫자 생성
-        float randomValue = Random.value;
-        int selectedIndex;
-
-        if (randomValue <= 0.9f)
-        {
-            // 1성 캐릭터 뽑기 (0 ~ 2 인덱스)
-            selectedIndex = Random.Range(0, 3);
-            return (characterSprites[selectedIndex], 1, selectedIndex);
-        }
-        else
-        {
-            // 2성 캐릭터 뽑기 (3 ~ 5 인덱스)
-            selectedIndex = Random.Range(3, 6);
-            return (characterSprites[selectedIndex], 2, selectedIndex);
-        }
+        int minIndex = 0, maxIndex = 6, grade1 = 1, grade2 = 2; // 1~2성 범위 설정
+        float grade1Chance = 0.9f;
+        PerformPick(minIndex, maxIndex, grade1, grade2, grade1Chance);
     }
 
     public void OnClickRareOnePick()
     {
-        (Sprite selectedSprite, int grade, int index) = PickRareCharacter();
+        int minIndex = 3, maxIndex = 9, grade1 = 2, grade2 = 3; // 2~3성 범위 설정
+        float grade1Chance = 0.9f;
+        PerformPick(minIndex, maxIndex, grade1, grade2, grade1Chance);
+    }
+
+    private void PerformPick(int minIndex, int maxIndex, int grade1, int grade2, float grade1Chance)
+    {
+        (Sprite selectedSprite, int grade, int index) = PickCharacterInRange(minIndex, maxIndex, grade1, grade2, grade1Chance);
         resultImage.sprite = selectedSprite;
-
-        // 캐릭터 등급에 따라 프레임 설정
         SetFrame(grade);
-
-        // 캐릭터 이름과 등급을 TextMeshPro에 출력
         string starRepresentation = new string('*', grade);
         resultText.text = $"{starRepresentation} {characterNames[index]}";
     }
 
-    private (Sprite, int, int) PickRareCharacter()
+    public void OnClickNomalTenPick()
     {
-        // 0 ~ 1 사이의 랜덤한 숫자 생성
+        int minIndex = 0, maxIndex = 6, grade1 = 1, grade2 = 2; // 1~2성 범위 설정
+        float grade1Chance = 0.9f;
+        PerformTenPick(minIndex, maxIndex, grade1, grade2, grade1Chance);
+    }
+
+    public void OnClickRareTenPick()
+    {
+        int minIndex = 3, maxIndex = 9, grade1 = 2, grade2 = 3; // 2~3성 범위 설정
+        float grade1Chance = 0.9f;
+        PerformTenPick(minIndex, maxIndex, grade1, grade2, grade1Chance);
+    }
+
+    private void PerformTenPick(int minIndex, int maxIndex, int grade1, int grade2, float grade1Chance)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            (Sprite selectedSprite, int grade, int index) = PickCharacterInRange(minIndex, maxIndex, grade1, grade2, grade1Chance);
+            resultImages[i].sprite = selectedSprite;
+            prameImages[i].sprite = prameSprites[grade - 1]; // 프레임 설정
+
+            string starRepresentation = new string('*', grade);
+            resultTexts[i].text = $"{starRepresentation} {characterNames[index]}"; // 캐릭터 이름 출력
+        }
+    }
+
+    private (Sprite, int, int) PickCharacterInRange(int minIndex, int maxIndex, int grade1, int grade2, float grade1Chance)
+    {
         float randomValue = Random.value;
         int selectedIndex;
 
-        if (randomValue <= 0.9f)
+        if (randomValue <= grade1Chance)
         {
-            // 2성 캐릭터 뽑기 (3 ~ 5 인덱스)
-            selectedIndex = Random.Range(3, 6);
-            return (characterSprites[selectedIndex], 2, selectedIndex);
+            selectedIndex = Random.Range(minIndex, minIndex + 3);
+            return (characterSprites[selectedIndex], grade1, selectedIndex);
         }
         else
         {
-            // 3성 캐릭터 뽑기 (6 ~ 8 인덱스)
-            selectedIndex = Random.Range(6, 9);
-            return (characterSprites[selectedIndex], 3, selectedIndex);
+            selectedIndex = Random.Range(minIndex + 3, maxIndex);
+            return (characterSprites[selectedIndex], grade2, selectedIndex);
         }
     }
 
