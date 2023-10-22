@@ -121,13 +121,39 @@ public class Guild : MonoBehaviour
         if (randomValue <= setting.grade1Chance)
         {
             selectedIndex = Random.Range(setting.minIndex, setting.minIndex + 3);
-            return (characterSprites[selectedIndex], setting.grade1, selectedIndex);
         }
         else
         {
             selectedIndex = Random.Range(setting.minIndex + 3, setting.maxIndex);
-            return (characterSprites[selectedIndex], setting.grade2, selectedIndex);
         }
+
+        UpdateCharacterData(selectedIndex);
+
+        int grade = (randomValue <= setting.grade1Chance) ? setting.grade1 : setting.grade2;
+        return (characterSprites[selectedIndex], grade, selectedIndex);
+    }
+
+    private void UpdateCharacterData(int characterIndex)
+    {
+        // 클래스별로 (기사, 마법사, 힐러) 3개씩 캐릭터가 있으므로
+        int classIndex = characterIndex % 3;
+        int grade = characterIndex / 3; // 등급 (0-based. 즉, 0: 1성, 1: 2성, 2: 3성)
+
+        switch (classIndex)
+        {
+            case 0: // 기사
+                BackendGameData.Instance.UserGameData.knights[grade]++;
+                break;
+            case 1: // 마법사
+                BackendGameData.Instance.UserGameData.magics[grade]++;
+                break;
+            case 2: // 힐러
+                BackendGameData.Instance.UserGameData.heals[grade]++;
+                break;
+        }
+
+        // 변수 갱신
+        BackendGameData.Instance.GameDataUpdate();
     }
 
 

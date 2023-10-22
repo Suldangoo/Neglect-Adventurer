@@ -49,8 +49,15 @@ public class BackendGameData
 			{ "lukLv",      userGameData.lukLv }
 		};
 
-		// 첫 번째 매개변수는 뒤끝 콘솔의 "게임 정보 관리" 탭에 생성한 테이블 이름
-		var data = Backend.GameData.Insert("USER_DATA", param);
+        for (int i = 0; i < 3; i++)
+        {
+            param.Add($"knight{i + 1}", userGameData.knights[i]);
+            param.Add($"magic{i + 1}", userGameData.magics[i]);
+            param.Add($"heal{i + 1}", userGameData.heals[i]);
+        }
+
+        // 첫 번째 매개변수는 뒤끝 콘솔의 "게임 정보 관리" 탭에 생성한 테이블 이름
+        var data = Backend.GameData.Insert("USER_DATA", param);
 
 		// 게임 정보 추가에 성공했을 때
 		if (data.IsSuccess())
@@ -102,7 +109,14 @@ public class BackendGameData
 					userGameData.dexLv = int.Parse(gameDataJson[0]["dexLv"].ToString());
 					userGameData.lukLv = int.Parse(gameDataJson[0]["lukLv"].ToString());
 
-					onGameDataLoadEvent?.Invoke();
+                    for (int i = 0; i < 3; i++)
+                    {
+                        userGameData.knights[i] = int.Parse(gameDataJson[0][$"knight{i + 1}"].ToString());
+                        userGameData.magics[i] = int.Parse(gameDataJson[0][$"magic{i + 1}"].ToString());
+                        userGameData.heals[i] = int.Parse(gameDataJson[0][$"heal{i + 1}"].ToString());
+                    }
+
+                    onGameDataLoadEvent?.Invoke();
 				}
 			}
 			// JSON 데이터 파싱 실패
@@ -144,8 +158,15 @@ public class BackendGameData
 			{ "lukLv",      userGameData.lukLv }
 		};
 
-		// 게임 정보의 고유값(gameDataRowInDate)이 없으면 에러 메시지 출력
-		if (string.IsNullOrEmpty(gameDataRowInDate))
+        for (int i = 0; i < 3; i++)
+        {
+            param.Add($"knight{i + 1}", userGameData.knights[i]);
+            param.Add($"magic{i + 1}", userGameData.magics[i]);
+            param.Add($"heal{i + 1}", userGameData.heals[i]);
+        }
+
+        // 게임 정보의 고유값(gameDataRowInDate)이 없으면 에러 메시지 출력
+        if (string.IsNullOrEmpty(gameDataRowInDate))
 		{
 			Debug.LogError($"유저의 inDate 정보가 없어 게임 정보 데이터 수정에 실패했습니다.");
 		}
