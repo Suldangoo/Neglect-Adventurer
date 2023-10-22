@@ -35,6 +35,11 @@ public class Guild : MonoBehaviour
     private readonly Color32 colorGrade2 = new Color32(153, 255, 153, 255); // 99FF99
     private readonly Color32 colorGrade3 = new Color32(255, 249, 141, 255); // FFF98D
 
+    private const int COST_NORMAL_ONE_PICK = 50000; // 1회 뽑기 비용
+    private const int COST_RARE_ONE_PICK = 100;  // 희귀 1회 뽑기 비용
+    private const int COST_NORMAL_TEN_PICK = 450000;  // 10회 뽑기 비용 (가격 할인 포함)
+    private const int COST_RARE_TEN_PICK = 900; // 희귀 10회 뽑기 비용 (가격 할인 포함)
+
     // 뽑기 설정 구조체
     struct GachaSetting
     {
@@ -68,27 +73,95 @@ public class Guild : MonoBehaviour
 
     public void OnClickNomalOnePick()
     {
-        GachaSetting setting = new GachaSetting(0, 6, 1, 2, 0.9f);
-        PerformPick(setting, 1);
+        if (BackendGameData.Instance.UserGameData.gold >= COST_NORMAL_ONE_PICK)
+        {
+            // 골드 감소
+            BackendGameData.Instance.UserGameData.gold -= COST_NORMAL_ONE_PICK;
+            // 뽑기 로직
+            GachaSetting setting = new GachaSetting(0, 6, 1, 2, 0.9f);
+            PerformPick(setting, 1);
+
+            // UI 갱신
+            modifyState(0);
+
+            // 1개 뽑기 UI 활성화
+            UiManager.Instance.SetOneUi(true);
+        }
+        else
+        {
+            Debug.Log("Not enough gold for normal one pick.");
+        }
     }
 
     public void OnClickRareOnePick()
     {
-        GachaSetting setting = new GachaSetting(3, 9, 2, 3, 0.9f);
-        PerformPick(setting, 1);
+        if (BackendGameData.Instance.UserGameData.diamond >= COST_RARE_ONE_PICK)
+        {
+            // 다이아 감소
+            BackendGameData.Instance.UserGameData.diamond -= COST_RARE_ONE_PICK;
+
+            // 뽑기 로직
+            GachaSetting setting = new GachaSetting(3, 9, 2, 3, 0.9f);
+            PerformPick(setting, 1);
+
+            // UI 갱신
+            modifyState(0);
+
+            // 1개 뽑기 UI 활성화
+            UiManager.Instance.SetOneUi(true);
+        }
+        else
+        {
+            Debug.Log("Not enough diamonds for rare one pick.");
+        }
     }
 
     public void OnClickNomalTenPick()
     {
-        GachaSetting setting = new GachaSetting(0, 6, 1, 2, 0.9f);
-        PerformPick(setting, 10);
+        if (BackendGameData.Instance.UserGameData.gold >= COST_NORMAL_TEN_PICK)
+        {
+            // 골드 감소
+            BackendGameData.Instance.UserGameData.gold -= COST_NORMAL_TEN_PICK;
+
+            // 뽑기 로직
+            GachaSetting setting = new GachaSetting(0, 6, 1, 2, 0.9f);
+            PerformPick(setting, 10);
+
+            // UI 갱신
+            modifyState(0);
+
+            // 10개 뽑기 UI 활성화
+            UiManager.Instance.SetTenUi(true);
+        }
+        else
+        {
+            Debug.Log("Not enough gold for normal ten pick.");
+        }
     }
 
     public void OnClickRareTenPick()
     {
-        GachaSetting setting = new GachaSetting(3, 9, 2, 3, 0.9f);
-        PerformPick(setting, 10);
+        if (BackendGameData.Instance.UserGameData.diamond >= COST_RARE_TEN_PICK)
+        {
+            // 다이아 감소
+            BackendGameData.Instance.UserGameData.diamond -= COST_RARE_TEN_PICK;
+
+            // 뽑기 로직
+            GachaSetting setting = new GachaSetting(3, 9, 2, 3, 0.9f);
+            PerformPick(setting, 10);
+
+            // UI 갱신
+            modifyState(0);
+
+            // 10개 뽑기 UI 활성화
+            UiManager.Instance.SetTenUi(true);
+        }
+        else
+        {
+            Debug.Log("Not enough diamonds for rare ten pick.");
+        }
     }
+
 
     private void PerformPick(GachaSetting setting, int times)
     {
