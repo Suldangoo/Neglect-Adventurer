@@ -58,9 +58,6 @@ public class Party : MonoBehaviour
 
     private int[] equippedCharacterIndices = { -1, -1, -1 }; // 현재 장착된 캐릭터의 인덱스 (최대 3명)
 
-    // 캐릭터의 총합 스텟
-    public CharacterStats TotalCharacterStats { get; private set; }
-
     // 토글 배열 (9개의 캐릭터에 대한 토글)
     [SerializeField] private Toggle[] characterToggles;
 
@@ -129,9 +126,6 @@ public class Party : MonoBehaviour
                 equippedCharacterImages[i].enabled = true;
                 onGameEquippedCharacterImages[i].enabled = true;
                 equippedCharacterIndices[i] = characterIndex;
-
-                // 스탯 총합 계산하기
-                TotalCharacterStats += GetCharacterStats(characterIndex);
             }
             else
             {
@@ -268,6 +262,7 @@ public class Party : MonoBehaviour
         equipButton.SetActive(false);
     }
 
+    // 캐릭터 장착 버튼 클릭 메서드
     public void OnEquipButtonClicked()
     {
         int selectedCharacterIndex = GetCurrentSelectedToggleIndex();
@@ -277,13 +272,20 @@ public class Party : MonoBehaviour
         }
     }
 
-
+    // 캐릭터 장착 메서드
     private void EquipCharacter(int characterIndex)
     {
         // 이미 장착된 캐릭터인지 확인
         if (System.Array.Exists(equippedCharacterIndices, index => index == characterIndex))
         {
             Debug.Log("This character is already equipped.");
+            return;
+        }
+
+        // 만약 장착하려는 캐릭터가 힐러이고, 이미 장착된 캐릭터 중에 힐러가 있다면 장착을 거부
+        if (characterIndex >= 6 && characterIndex < 9 && System.Array.Exists(equippedCharacterIndices, index => index >= 6 && index < 9))
+        {
+            Debug.Log("A healer is already equipped.");
             return;
         }
 
@@ -300,9 +302,6 @@ public class Party : MonoBehaviour
             // 백엔드 데이터에 반영
             BackendGameData.Instance.UserGameData.equippedCharacters[emptySlot] = characterIndex;
 
-            // 총 스텟 갱신
-            TotalCharacterStats += GetCharacterStats(characterIndex);
-
             // 백엔드 데이터 업데이트 요청
             BackendGameData.Instance.GameDataUpdate();
         }
@@ -312,6 +311,7 @@ public class Party : MonoBehaviour
         }
     }
 
+    // 장착한 캐릭터 리셋
     public void ResetEquippedCharacters()
     {
         for (int i = 0; i < 3; i++)
@@ -324,21 +324,11 @@ public class Party : MonoBehaviour
             BackendGameData.Instance.UserGameData.equippedCharacters[i] = -1;
         }
 
-        // 총 스텟 초기화
-        TotalCharacterStats = new CharacterStats();
-
         // 백엔드 데이터 업데이트 요청
         BackendGameData.Instance.GameDataUpdate();
     }
-
-    private CharacterStats GetCharacterStats(int characterIndex)
-    {
-        // 실제 캐릭터별 스텟 구하기 위한 로직
-        // TODO: 여기에 캐릭터별 스텟을 반환하는 코드를 작성하세요.
-
-        return new CharacterStats(); // 임시 코드
-    }
-
+    
+    // 어떤 캐릭터 탭의 토글이 켜져있는지 검색
     private int GetCurrentSelectedToggleIndex()
     {
         for (int i = 0; i < characterToggles.Length; i++)
@@ -349,6 +339,68 @@ public class Party : MonoBehaviour
             }
         }
         return -1; // 선택된 토글이 없는 경우
+    }
+
+    // 원하는 인덱스의 캐릭터 레벨을 알아오는 메서드
+    private int GetCharacterLevel(int characterIndex)
+    {
+        if (characterIndex >= 0 && characterIndex < 3) // 기사
+        {
+            return BackendGameData.Instance.UserGameData.knights[characterIndex];
+        }
+        else if (characterIndex >= 3 && characterIndex < 6) // 법사
+        {
+            return BackendGameData.Instance.UserGameData.magics[characterIndex - 3];
+        }
+        else if (characterIndex >= 6 && characterIndex < 9) // 힐러
+        {
+            return BackendGameData.Instance.UserGameData.heals[characterIndex - 6];
+        }
+        else
+        {
+            Debug.LogError($"Invalid character index: {characterIndex}");
+            return 0; // 기본 값 반환
+        }
+    }
+
+    // 현재 장착한 캐릭터들의 스탯을 알아보는 디버그 메서드
+    public void PrintEquippedCharacterStats()
+    {
+        int totalAttack = 0;
+        int totalDefense = 0;
+        float totalRecovery = 0;
+        float totalRecoveryTime = 0;
+
+        // equippedCharacterIndices는 Party.cs의 장착된 캐릭터들의 인덱스를 저장하는 배열입니다.
+        foreach (int characterIndex in equippedCharacterIndices)
+        {
+            // 장착되지 않은 캐릭터는 건너뛰기
+            if (characterIndex == -1)
+                continue;
+
+            // 해당 캐릭터의 레벨 가져오기
+            int level = GetCharacterLevel(characterIndex);
+
+            totalAttack += GetCharacterAttack(characterIndex, level);
+            totalDefense += GetCharacterDefense(characterIndex, level);
+
+            // 힐러에 대한 회복력과 회복 시간을 가져옵니다.
+            // 하나의 힐러만 존재하므로, totalRecovery와 totalRecoveryTime은 가장 마지막에 장착된 힐러의 스탯으로 업데이트됩니다.
+            if (characterIndex >= 6 && characterIndex <= 8) // 힐러의 인덱스 범위
+            {
+                totalRecovery = GetCharacterRecovery(characterIndex);
+                totalRecoveryTime = GetCharacterRecoveryTime(characterIndex, level);
+            }
+        }
+
+        Debug.Log("현재 장착하고 있는 캐릭터들의 총합 스탯");
+        Debug.Log($"증가 공격력 : {totalAttack}");
+        Debug.Log($"증가 방어력 : {totalDefense}");
+        if (totalRecovery > 0) // 힐러가 장착되어 있으면
+        {
+            Debug.Log($"회복력 : {totalRecovery}");
+            Debug.Log($"회복 시간 : {totalRecoveryTime}초");
+        }
     }
 
 }
