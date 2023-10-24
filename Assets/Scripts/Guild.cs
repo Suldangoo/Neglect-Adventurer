@@ -4,8 +4,6 @@ using TMPro;
 
 public class Guild : MonoBehaviour
 {
-    GameManager GameManager => GameManager.Instance; // 게임 매니저 인스턴스
-
     [SerializeField]
     private TextMeshProUGUI textGold;
     [SerializeField]
@@ -189,16 +187,33 @@ public class Guild : MonoBehaviour
     private (Sprite, int, int) PickCharacterInRange(GachaSetting setting)
     {
         float randomValue = Random.value;
-        int selectedIndex;
+        int[] validIndices;
 
         if (randomValue <= setting.grade1Chance)
         {
-            selectedIndex = Random.Range(setting.minIndex, setting.minIndex + 3);
+            if (setting.grade1 == 1) // 1성
+            {
+                validIndices = new int[] { 0, 3, 6 };  // 1성 가능한 캐릭터의 인덱스
+            }
+            else // 2성 (희귀 뽑기에서 0.9의 확률로 나올 때)
+            {
+                validIndices = new int[] { 1, 4, 7 };  // 2성 가능한 캐릭터의 인덱스
+            }
         }
         else
         {
-            selectedIndex = Random.Range(setting.minIndex + 3, setting.maxIndex);
+            if (setting.grade2 == 2) // 2성 (일반 뽑기에서 0.1의 확률로 나올 때)
+            {
+                validIndices = new int[] { 1, 4, 7 };  // 2성 가능한 캐릭터의 인덱스
+            }
+            else // 3성
+            {
+                validIndices = new int[] { 2, 5, 8 };  // 3성 가능한 캐릭터의 인덱스
+            }
         }
+
+        int randomIndex = Random.Range(0, validIndices.Length);
+        int selectedIndex = validIndices[randomIndex];
 
         UpdateCharacterData(selectedIndex);
 
@@ -206,13 +221,13 @@ public class Guild : MonoBehaviour
         return (characterSprites[selectedIndex], grade, selectedIndex);
     }
 
+
     private void UpdateCharacterData(int characterIndex)
     {
-        // 클래스별로 (기사, 마법사, 힐러) 3개씩 캐릭터가 있으므로
-        int classIndex = characterIndex % 3;
-        int grade = characterIndex / 3; // 등급 (0-based. 즉, 0: 1성, 1: 2성, 2: 3성)
+        int grade = characterIndex % 3;
+        int classType = characterIndex / 3;
 
-        switch (classIndex)
+        switch (classType)
         {
             case 0: // 기사
                 BackendGameData.Instance.UserGameData.knights[grade]++;
@@ -229,25 +244,6 @@ public class Guild : MonoBehaviour
         BackendGameData.Instance.GameDataUpdate();
     }
 
-
-    private void SetFrame(int grade)
-    {
-        switch (grade)
-        {
-            case 1:
-                prameImage.sprite = prameSprites[0]; // 1성 프레임
-                break;
-            case 2:
-                prameImage.sprite = prameSprites[1]; // 2성 프레임
-                break;
-            case 3:
-                prameImage.sprite = prameSprites[2]; // 3성 프레임
-                break;
-            default:
-                Debug.LogWarning($"Unexpected grade: {grade}");
-                break;
-        }
-    }
 
     private string FormatCharacterText(int grade, int index)
     {
