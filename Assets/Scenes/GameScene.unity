@@ -1833,6 +1833,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 91811178}
   m_CullTransparentMesh: 1
+--- !u!114 &103775115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1625883827107786248, guid: 42a6c797ed60a914b96edf5ee6f54eb6, type: 3}
+  m_PrefabInstance: {fileID: 24089503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &104126352
 GameObject:
   m_ObjectHideFlags: 0
@@ -18751,7 +18762,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f93fe2abb33d3d4b841e14aabd61a64, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 45f156e841993b4488ee4c76f0c326fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23915,43 +23926,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterImages:
   - {fileID: 2005589839}
-  - {fileID: 67075920}
-  - {fileID: 1121127819}
   - {fileID: 1250168309}
-  - {fileID: 178208860}
-  - {fileID: 687185851}
   - {fileID: 640309111}
+  - {fileID: 67075920}
+  - {fileID: 178208860}
   - {fileID: 700077842}
+  - {fileID: 1121127819}
+  - {fileID: 687185851}
   - {fileID: 1599084514}
   questionMarks:
   - {fileID: 281955634}
-  - {fileID: 88498284}
-  - {fileID: 527283772}
   - {fileID: 1296188955}
-  - {fileID: 671116765}
-  - {fileID: 527283772}
   - {fileID: 1607175992}
+  - {fileID: 88498284}
+  - {fileID: 671116765}
   - {fileID: 1814543091}
+  - {fileID: 1841492344}
+  - {fileID: 527283772}
   - {fileID: 1019844064}
   characterNamesTexts:
   - {fileID: 1266563834}
-  - {fileID: 1591419772}
-  - {fileID: 248438495}
   - {fileID: 731590922}
-  - {fileID: 1332793389}
-  - {fileID: 248438495}
   - {fileID: 553106727}
+  - {fileID: 1591419772}
+  - {fileID: 1332793389}
   - {fileID: 1647370202}
+  - {fileID: 103775115}
+  - {fileID: 248438495}
   - {fileID: 1411026443}
   characterLevelsTexts:
   - {fileID: 1835340440}
-  - {fileID: 687815327}
-  - {fileID: 949081852}
   - {fileID: 1121711291}
-  - {fileID: 130216094}
-  - {fileID: 949081852}
   - {fileID: 729972924}
+  - {fileID: 687815327}
+  - {fileID: 130216094}
   - {fileID: 625712312}
+  - {fileID: 1538749909}
+  - {fileID: 949081852}
   - {fileID: 1845364613}
   guild: {fileID: 2003260384}
 --- !u!1 &1203998394
@@ -28148,6 +28159,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537852566}
   m_CullTransparentMesh: 1
+--- !u!114 &1538749909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1625883826349639700, guid: 42a6c797ed60a914b96edf5ee6f54eb6, type: 3}
+  m_PrefabInstance: {fileID: 24089503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1540697226
 GameObject:
   m_ObjectHideFlags: 0
@@ -32111,6 +32133,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1841492344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1625883825991737571, guid: 42a6c797ed60a914b96edf5ee6f54eb6, type: 3}
+  m_PrefabInstance: {fileID: 24089503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1843029279

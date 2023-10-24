@@ -20,25 +20,31 @@ public class Party : MonoBehaviour
         UpdateCharacterView();
     }
 
-    private void UpdateCharacterView()
+    private void OnEnable()
     {
-        UpdateCharacter("knight", BackendGameData.Instance.UserGameData.knights, 0, 2);
-        UpdateCharacter("magic", BackendGameData.Instance.UserGameData.magics, 3, 5);
-        UpdateCharacter("heal", BackendGameData.Instance.UserGameData.heals, 6, 8);
+        UpdateCharacterView();
     }
 
-    private void UpdateCharacter(string characterType, int[] characterData, int startIdx, int endIdx)
-    {
-        for (int i = startIdx; i <= endIdx; i++)
-        {
-            int grade = i - startIdx; // 0, 1, 2
 
-            if (characterData[grade] > 0)
+    private void UpdateCharacterView()
+    {
+        UpdateCharacter(BackendGameData.Instance.UserGameData.knights, 0); // 기사
+        UpdateCharacter(BackendGameData.Instance.UserGameData.magics, 3);  // 법사
+        UpdateCharacter(BackendGameData.Instance.UserGameData.heals, 6);  // 힐러
+    }
+
+    private void UpdateCharacter(int[] characterData, int startIdx)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int idx = startIdx + i;
+
+            if (characterData[i] > 0)
             {
-                characterImages[i].color = Color.white;
-                questionMarks[i].gameObject.SetActive(false);
-                characterNamesTexts[i].text = guild.characterNames[i];
-                characterLevelsTexts[i].text = "Lv." + characterData[grade].ToString();
+                characterImages[idx].color = Color.white;
+                questionMarks[idx].gameObject.SetActive(false);
+                characterNamesTexts[idx].text = guild.characterNames[idx];
+                characterLevelsTexts[idx].text = "Lv." + characterData[i].ToString();
             }
         }
     }
