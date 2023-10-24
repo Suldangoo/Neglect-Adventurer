@@ -363,15 +363,14 @@ public class Party : MonoBehaviour
         }
     }
 
-    // 현재 장착한 캐릭터들의 스탯을 알아보는 디버그 메서드
-    public void PrintEquippedCharacterStats()
+    // 현재 장착한 캐릭터들의 스탯을 리턴하거나 디버그하는 메서드
+    public float EquippedCharacterStats(string type)
     {
         int totalAttack = 0;
         int totalDefense = 0;
         float totalRecovery = 0;
         float totalRecoveryTime = 0;
 
-        // equippedCharacterIndices는 Party.cs의 장착된 캐릭터들의 인덱스를 저장하는 배열입니다.
         foreach (int characterIndex in equippedCharacterIndices)
         {
             // 장착되지 않은 캐릭터는 건너뛰기
@@ -385,7 +384,6 @@ public class Party : MonoBehaviour
             totalDefense += GetCharacterDefense(characterIndex, level);
 
             // 힐러에 대한 회복력과 회복 시간을 가져옵니다.
-            // 하나의 힐러만 존재하므로, totalRecovery와 totalRecoveryTime은 가장 마지막에 장착된 힐러의 스탯으로 업데이트됩니다.
             if (characterIndex >= 6 && characterIndex <= 8) // 힐러의 인덱스 범위
             {
                 totalRecovery = GetCharacterRecovery(characterIndex);
@@ -393,14 +391,40 @@ public class Party : MonoBehaviour
             }
         }
 
-        Debug.Log("현재 장착하고 있는 캐릭터들의 총합 스탯");
-        Debug.Log($"증가 공격력 : {totalAttack}");
-        Debug.Log($"증가 방어력 : {totalDefense}");
-        if (totalRecovery > 0) // 힐러가 장착되어 있으면
+        switch (type.ToLower())
         {
-            Debug.Log($"회복력 : {totalRecovery}");
-            Debug.Log($"회복 시간 : {totalRecoveryTime}초");
+            case "debug":
+                Debug.Log("현재 장착하고 있는 캐릭터들의 총합 스탯");
+                Debug.Log($"증가 공격력 : {totalAttack}");
+                Debug.Log($"증가 방어력 : {totalDefense}");
+                if (totalRecovery > 0) // 힐러가 장착되어 있으면
+                {
+                    Debug.Log($"회복력 : {totalRecovery}");
+                    Debug.Log($"회복 시간 : {totalRecoveryTime}초");
+                }
+                return 0;
+
+            case "attack":
+                return totalAttack;
+
+            case "defense":
+                return totalDefense;
+
+            case "recovery":
+                return totalRecovery;
+
+            case "recoverytime":
+                return totalRecoveryTime;
+
+            default:
+                Debug.LogError("Invalid type provided for GetEquippedCharacterStats!");
+                return 0;
         }
     }
 
+    // 현재 장착한 캐릭터들의 스탯을 디버그하는 메서드
+    public void OnClickDebugStats()
+    {
+        EquippedCharacterStats("debug");
+    }
 }

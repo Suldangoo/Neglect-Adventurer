@@ -3442,7 +3442,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1199689908}
         m_TargetAssemblyTypeName: Party, Assembly-CSharp
-        m_MethodName: PrintEquippedCharacterStats
+        m_MethodName: OnClickDebugStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30641,6 +30641,9 @@ MonoBehaviour:
   isScroll: 0
   isBattle: 0
   power: 10
+  defense: 0
+  heal: 0
+  healtime: 0
   attackSpeed: 1
   scrollSpeed: 5
 --- !u!4 &1671319883

@@ -56,7 +56,7 @@ public class Upgrade : MonoBehaviour
         if (value == 0 || value == 2)
         {
             defLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.defLv.ToString();
-            def.text = "현재 방어력 : " + ((BackendGameData.Instance.UserGameData.defLv - 1) * 10).ToString().ToString();
+            def.text = "현재 방어력 : " + GameManager.defense.ToString();
             defCost.text = (1000 * BackendGameData.Instance.UserGameData.defLv).ToString("#,##0");
         }
 

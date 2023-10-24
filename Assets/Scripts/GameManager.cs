@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
 
     [SerializeField] Monster monster; // 몬스터 프리팹
-    [SerializeField] Party party;
     [SerializeField] String webURL;
+    [SerializeField] public Party party;
 
     // --- 게임 변수
     [HideInInspector] public bool isStart = false;   // 시작 확인
@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     // --- 플레이어 변수
 
     public float power;         // 공격력
+    public float defense;       // 방어력
+    public float heal;          // 회복력
+    public float healtime;      // 회복시간
     public float attackSpeed;   // 공격속도
     public float scrollSpeed;   // 이동속도 / 스크롤링 속도
 
@@ -64,8 +67,11 @@ public class GameManager : MonoBehaviour
             {
                 if (monster.isLive)
                 {
+                    // 내 데미지 계산. 데미지 = 내 공격력 + 동료 공격력
+                    float dam = power + party.EquippedCharacterStats("attack");
+
                     playerAnimator.SetTrigger("Attack"); // 공격 애니메이션 재생
-                    monster.Damage(power); // 몬스터에게 데미지
+                    monster.Damage(dam); // 몬스터에게 데미지
                     currTime = 0; // 시간 초기화
                 }
                 else
@@ -107,6 +113,7 @@ public class GameManager : MonoBehaviour
     {
         power = 10f + (BackendGameData.Instance.UserGameData.atkLv - 1) * 2;            // 공격력
         attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.05f;   // 공격속도
+        defense = 0f + (BackendGameData.Instance.UserGameData.defLv - 1) * 2;           // 방어력
         scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1);           // 스크롤링 속도 ≒ 이동속도
     }
 

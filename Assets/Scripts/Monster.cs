@@ -84,7 +84,14 @@ public class Monster : MonoBehaviour
     public void Attack()
     {
         anim.SetTrigger("Attack");
-        heart.SetHp(-power);
+
+        // 몬스터의 데미지 계산. 데미지 = 몬스터 공격력 - (내 방어력 + 동료 방어력) / 100
+        float dam = power - (GameManager.defense + GameManager.party.EquippedCharacterStats("defense")) / 100f;
+        dam = Mathf.Max(dam, 0);  // 만약 데미지가 음수라면 0으로 설정
+
+        heart.SetHp(-dam);
+        Debug.Log($"몬스터의 공격! {dam} 만큼의 피해를 입었다!");
+
         player.Damage();
     }
 
