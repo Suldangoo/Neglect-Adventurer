@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
 
     [SerializeField] Monster monster; // 몬스터 프리팹
+    [SerializeField] Party party;
     [SerializeField] String webURL;
 
     // --- 게임 변수
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
         isStart = true; // 시작 상태 체크
         SetScroll(true); // 스크롤 시작
         monster.SetMonster(); // 몬스터 상태 초기화
+        party.LoadAndEquipCharacters();
     }
 
     // 전투 시작 함수

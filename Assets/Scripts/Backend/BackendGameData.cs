@@ -54,7 +54,8 @@ public class BackendGameData
             param.Add($"knight{i + 1}", userGameData.knights[i]);
             param.Add($"magic{i + 1}", userGameData.magics[i]);
             param.Add($"heal{i + 1}", userGameData.heals[i]);
-        }
+			param.Add($"equippedCharacter{i + 1}", userGameData.equippedCharacters[i]);
+		}
 
         // 첫 번째 매개변수는 뒤끝 콘솔의 "게임 정보 관리" 탭에 생성한 테이블 이름
         var data = Backend.GameData.Insert("USER_DATA", param);
@@ -114,7 +115,8 @@ public class BackendGameData
                         userGameData.knights[i] = int.Parse(gameDataJson[0][$"knight{i + 1}"].ToString());
                         userGameData.magics[i] = int.Parse(gameDataJson[0][$"magic{i + 1}"].ToString());
                         userGameData.heals[i] = int.Parse(gameDataJson[0][$"heal{i + 1}"].ToString());
-                    }
+						userGameData.equippedCharacters[i] = int.Parse(gameDataJson[0][$"equippedCharacter{i + 1}"].ToString());
+					}
 
                     onGameDataLoadEvent?.Invoke();
 				}
@@ -163,7 +165,8 @@ public class BackendGameData
             param.Add($"knight{i + 1}", userGameData.knights[i]);
             param.Add($"magic{i + 1}", userGameData.magics[i]);
             param.Add($"heal{i + 1}", userGameData.heals[i]);
-        }
+			param.Add($"equippedCharacter{i + 1}", userGameData.equippedCharacters[i]);
+		}
 
         // 게임 정보의 고유값(gameDataRowInDate)이 없으면 에러 메시지 출력
         if (string.IsNullOrEmpty(gameDataRowInDate))

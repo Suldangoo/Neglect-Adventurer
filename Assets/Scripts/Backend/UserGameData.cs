@@ -15,8 +15,10 @@ public class UserGameData
     public int[] magics = new int[3];  // 1성 ~ 3성 마법사
     public int[] heals = new int[3];   // 1성 ~ 3성 힐러
 
+	// 장착된 캐릭터들의 인덱스
+	public int[] equippedCharacters = new int[3] { -1, -1, -1 }; // -1은 아무 캐릭터도 장착되지 않았음을 나타냄
 
-    public void Reset()
+	public void Reset()
 	{
 		level = 100;
 		gold = 0;
@@ -30,5 +32,10 @@ public class UserGameData
         System.Array.Clear(knights, 0, knights.Length);
         System.Array.Clear(magics, 0, magics.Length);
         System.Array.Clear(heals, 0, heals.Length);
-    }
+
+		for (int i = 0; i < equippedCharacters.Length; i++)
+		{
+			equippedCharacters[i] = -1;
+		}
+	}
 }
