@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +24,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Monster monster; // 몬스터 프리팹
     [SerializeField] String webURL;
+    [SerializeField] HpUI heart;
     [SerializeField] public Party party;
+    [SerializeField] private Image[] heartImages; // 하트 이미지 5개 
 
     // --- 게임 변수
     [HideInInspector] public bool isStart = false;   // 시작 확인
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     float currTime;             // 시간을 측정할 변수
     float backSpeed;            // 배경 스크롤링 속도
     float terrainSpeed;         // 지형 스크롤링 속도
+    private Coroutine healerRecoveryRoutine;
 
     // --- 플레이어 변수
 
@@ -81,12 +85,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
-        // 힐러 장착중일 경우 회복 메소드
-        if (party.isEquippedHealer())
-        {
-
-        }
     }
 
     // 게임 시작 함수
@@ -102,7 +100,8 @@ public class GameManager : MonoBehaviour
         isStart = true; // 시작 상태 체크
         SetScroll(true); // 스크롤 시작
         monster.SetMonster(); // 몬스터 상태 초기화
-        party.LoadAndEquipCharacters();
+        party.LoadAndEquipCharacters(); // 저장되어있는 장착 캐릭터들 불러오기
+        UpdateHealerRecoveryRoutine(); // 힐러 코루틴 시작
     }
 
     // 전투 시작 함수
@@ -110,6 +109,73 @@ public class GameManager : MonoBehaviour
     {
         SetScroll(!active); // 배틀 상태에 따라 스크롤 On / Off
         isBattle = active; // 배틀 상태 체크
+    }
+
+    // 힐러 코루틴의 상태를 업데이트하는 메서드
+    public void UpdateHealerRecoveryRoutine()
+    {
+        if (party.isEquippedHealer())
+        {
+            if (healerRecoveryRoutine == null)
+            {
+                healerRecoveryRoutine = StartCoroutine(HealerRecoveryRoutine());
+            }
+        }
+        else
+        {
+            if (healerRecoveryRoutine != null)
+            {
+                StopCoroutine(healerRecoveryRoutine);
+                healerRecoveryRoutine = null;
+            }
+        }
+    }
+
+    // 회복 코루틴
+    private IEnumerator HealerRecoveryRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(party.EquippedCharacterStats("recoverytime"));
+            heart.SetHp(party.EquippedCharacterStats("recovery"));
+            PlayRecoveryAnimation();
+            Debug.Log($"{party.EquippedCharacterStats("recovery")}만큼 HP 회복!");
+        }
+    }
+
+    // 하트에 회복 연출 실행
+    public void PlayRecoveryAnimation()
+    {
+        foreach (Image heartImage in heartImages)
+        {
+            StartCoroutine(FadeFromGreen(heartImage));
+        }
+    }
+
+    // 초록색에서 원래 색상으로 부드럽게 바꾸는 코루틴
+    private IEnumerator FadeFromGreen(Image heartImage)
+    {
+        Color originalColor = Color.white;
+        Color greenColor = new Color(0.6f, 1f, 0.486f); // 99FF7C
+        float duration = 1.0f;
+
+        // 바로 초록색으로 설정
+        heartImage.color = greenColor;
+
+        float elapsed = 0;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float normalizedTime = elapsed / duration;
+
+            // 초록색에서 원래 색상으로 부드럽게 바뀌게 설정
+            heartImage.color = Color.Lerp(greenColor, originalColor, normalizedTime);
+
+            yield return null;
+        }
+
+        heartImage.color = originalColor; // 마지막으로 원래 색상으로 확실히 설정
     }
 
     /// <summary>

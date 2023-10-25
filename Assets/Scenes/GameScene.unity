@@ -30635,8 +30635,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 4338039459597413641}
-  party: {fileID: 1199689908}
   webURL: http://14.34.121.36:3000
+  heart: {fileID: 1385871913}
+  party: {fileID: 1199689908}
+  heartImages:
+  - {fileID: 1481004642}
+  - {fileID: 201305492}
+  - {fileID: 1136154868}
+  - {fileID: 2084507335}
+  - {fileID: 104126353}
   isStart: 0
   isScroll: 0
   isBattle: 0

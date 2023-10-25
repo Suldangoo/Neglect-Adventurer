@@ -24,6 +24,9 @@ public struct CharacterStats
 
 public class Party : MonoBehaviour
 {
+    // 게임매니저 호출
+    GameManager GameManager => GameManager.Instance;
+
     [SerializeField]
     private Image[] characterImages; // 캐릭터 스프라이트를 담는 배열
     [SerializeField]
@@ -133,6 +136,8 @@ public class Party : MonoBehaviour
                 onGameEquippedCharacterImages[i].enabled = false;
             }
         }
+
+        GameManager.UpdateHealerRecoveryRoutine(); // 힐러 코루틴 업데이트
     }
 
     private void UpdateCharacterView()
@@ -305,6 +310,8 @@ public class Party : MonoBehaviour
             onGameEquippedCharacterImages[emptySlot].enabled = true;
             equippedCharacterIndices[emptySlot] = characterIndex;
 
+            GameManager.UpdateHealerRecoveryRoutine(); // 힐러 코루틴 업데이트
+
             // 백엔드 데이터에 반영
             BackendGameData.Instance.UserGameData.equippedCharacters[emptySlot] = characterIndex;
 
@@ -329,6 +336,7 @@ public class Party : MonoBehaviour
             // 백엔드 데이터에 반영
             BackendGameData.Instance.UserGameData.equippedCharacters[i] = -1;
         }
+        GameManager.UpdateHealerRecoveryRoutine(); // 힐러 코루틴 업데이트
 
         // 백엔드 데이터 업데이트 요청
         BackendGameData.Instance.GameDataUpdate();
