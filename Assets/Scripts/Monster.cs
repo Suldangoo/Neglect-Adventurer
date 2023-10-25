@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     public Player player;  // 플레이어
     public HpUI heart;     // 플레이어의 Hp
     public Image hpColor;  // HP바 오브젝트
-    public QuestUI quest;   // 퀘스트 UI
+    public Quest quest;   // 퀘스트 UI
 
     Animator anim;  // 몬스터 애니메이터
     SpriteRenderer sprite; // 스프라이트 렌더러
@@ -56,7 +56,7 @@ public class Monster : MonoBehaviour
         if (transform.position.x <= -15f)
         {
             SetMonster(); // 몬스터 리스폰
-            transform.position = new Vector3(15, -3, 0); // 위치 초기화
+            transform.position = new Vector3(Random.Range(15f, 30f), -3, 0); // 몬스터 위치 랜덤하게 초기화
             hpBar.SetActive(true); // HP바 활성화
             anim.SetTrigger("Respawn"); // 애니메이터 컨트롤
         }
@@ -113,10 +113,22 @@ public class Monster : MonoBehaviour
         isLive = false; // 생존 상태 체크 해제
         isBattle = false; // 배틀 상태 체크 해제
         GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
-        BackendGameData.Instance.UserGameData.gold += reward + (reward / 100) * (BackendGameData.Instance.UserGameData.lukLv - 1); // 보상 골드 지급
+
+        int goldReward = reward + (reward / 100) * (BackendGameData.Instance.UserGameData.lukLv - 1); // 보상 골드 설정
+        BackendGameData.Instance.UserGameData.gold += goldReward; // 보상 골드 지급
         BackendGameData.Instance.GameDataUpdate(); // 골드 지급 반영
+
+        // 퀘스트 업데이트
+        if (quest.GetCurrentQuestTypeAsString().Equals("KillMonsters"))
+        {
+            quest.UpQuestValue(1);
+        }
+        else if (quest.GetCurrentQuestTypeAsString().Equals("CollectGold"))
+        {
+            quest.UpQuestValue(goldReward);
+        }
+
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
-        quest.setQuestValue(1);
         StopCoroutine("Attacker");
     }
 

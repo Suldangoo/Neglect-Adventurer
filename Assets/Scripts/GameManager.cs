@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] String webURL;
     [SerializeField] HpUI heart;
     [SerializeField] public Party party;
+    [SerializeField] public Quest quest;
     [SerializeField] private Image[] heartImages; // 하트 이미지 5개 
 
     // --- 게임 변수
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     public float healtime;      // 회복시간
     public float attackSpeed;   // 공격속도
     public float scrollSpeed;   // 이동속도 / 스크롤링 속도
+    private float accumulatedDistance = 0f; // 이동 퀘스트를 위한 달린거리 계산
 
     void Start()
     {
@@ -61,8 +63,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // 전투 돌입
-        if (isBattle)
+        if (isBattle) // 전투 상태라면
         {
             // 공격 속도 간격을 위한 시간 측정
             currTime += Time.deltaTime;
@@ -82,6 +83,19 @@ public class GameManager : MonoBehaviour
                 {
                     SetBattle(false);
                     currTime = 0; // 시간 초기화
+                }
+            }
+        }
+        else // 달리고 있는 상태라면
+        {
+            if (quest.GetCurrentQuestTypeAsString().Equals("RunMeters"))
+            {
+                accumulatedDistance += scrollSpeed * Time.deltaTime;
+
+                if (accumulatedDistance >= 1)
+                {
+                    quest.UpQuestValue((int)accumulatedDistance);
+                    accumulatedDistance -= (int)accumulatedDistance;
                 }
             }
         }
