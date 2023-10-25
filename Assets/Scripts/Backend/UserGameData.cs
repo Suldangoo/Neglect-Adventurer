@@ -1,7 +1,6 @@
 [System.Serializable]
 public class UserGameData
 {
-	public int level;		// 총합 전투력
 	public int gold;		// 골드 (무료 재화)
 	public int diamond;		// 다이아 (유료 재화)
 
@@ -20,7 +19,6 @@ public class UserGameData
 
 	public void Reset()
 	{
-		level = 100;
 		gold = 0;
 		diamond = 0;
 

@@ -40,7 +40,6 @@ public class BackendGameData
 		// 테이블에 추가할 데이터로 가공
 		Param param = new Param()
 		{
-			{ "level",		userGameData.level },
 			{ "gold",		userGameData.gold },
 			{ "diamond",	userGameData.diamond },
 			{ "atkLv",      userGameData.atkLv },
@@ -102,7 +101,6 @@ public class BackendGameData
 					// 불러온 게임 정보의 고유값
 					gameDataRowInDate = gameDataJson[0]["inDate"].ToString();
 					// 불러온 게임 정보를 userData 변수에 저장
-					userGameData.level = int.Parse(gameDataJson[0]["level"].ToString());
 					userGameData.gold = int.Parse(gameDataJson[0]["gold"].ToString());
 					userGameData.diamond = int.Parse(gameDataJson[0]["diamond"].ToString());
 					userGameData.atkLv = int.Parse(gameDataJson[0]["atkLv"].ToString());
@@ -151,7 +149,6 @@ public class BackendGameData
 
 		Param param = new Param()
 		{
-			{ "level",      userGameData.level },
 			{ "gold",       userGameData.gold },
 			{ "diamond",    userGameData.diamond },
 			{ "atkLv",      userGameData.atkLv },

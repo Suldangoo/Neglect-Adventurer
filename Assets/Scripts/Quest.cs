@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Quest : MonoBehaviour
 {
+    public Image questPanelImage; // 퀘스트 패널 이미지
+    public Text notQuestText; // notQuest의 텍스트 컴포넌트
     public GameObject NotQuest; // 퀘스트를 수주하고 있지 않을 때 UI
     public GameObject NowQuest; // 퀘스트를 수주하고 있을 때 UI
     public GameObject onQuestGuide; // 퀘스트를 수주중일 때 나타나는 가이드
@@ -34,12 +37,13 @@ public class Quest : MonoBehaviour
     // 퀘스트의 타입
     public enum QuestType
     {
+        None,
         KillMonsters,
         CollectGold,
         RunMeters
     }
 
-    private QuestType currentQuestType;
+    private QuestType currentQuestType = QuestType.None;
 
     void Start()
     {
@@ -61,7 +65,7 @@ public class Quest : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            QuestType randomQuestType = (QuestType)Random.Range(0, 3);
+            QuestType randomQuestType = (QuestType)Random.Range(1, 4); // None을 제외한 퀘스트 타입 세 개중 하나 리턴
             QuestData newQuest = GenerateRandomQuest(randomQuestType);
 
             // Update UI
@@ -176,7 +180,57 @@ public class Quest : MonoBehaviour
     // 퀘스트 완료 메소드
     void CompleteQuest()
     {
+        // 퀘스트 진행 상태 초기화
+        currentQuestValue = 0;
+        currentQuestType = QuestType.None;
+
+        // 퀘스트 3개를 랜덤으로 제공하는 메소드를 호출
+        OfferRandomQuests();
+
+        NotQuest.SetActive(true);
+        NowQuest.SetActive(false);
+        onQuestGuide.SetActive(false);
+        foreach (GameObject panel in QuestPanels)
+        {
+            panel.SetActive(true);
+        }
+
+        // 보상 지급
+        BackendGameData.Instance.UserGameData.diamond += questReward;
+
+        // 보상 지급 반영
+        BackendGameData.Instance.GameDataUpdate();
+
         // 보상 지급 및 완료 연출
-        // TODO: 보상 지급 로직 추가
+        StartCoroutine(QuestClearEffect());
+    }
+
+    // 퀘스트 클리어 연출
+    IEnumerator QuestClearEffect()
+    {
+        // 1. 색상 및 텍스트 변경
+        questPanelImage.color = new Color32(255, 244, 115, 255); // FFF473, 투명도 255
+        notQuestText.text = "퀘스트 클리어!";
+        notQuestText.fontSize = 42;
+        notQuestText.color = Color.black;
+
+        yield return new WaitForSeconds(3f); // 3초 대기
+
+        // 2. 원래 색상 및 텍스트로 돌아가는 연출
+        float elapsedTime = 0;
+        float duration = 1f;
+        Color startingColor = questPanelImage.color;
+
+        questPanelImage.color = new Color32(0, 0, 0, 170); // 최종 색상 설정 (000000, 투명도 170)
+        notQuestText.text = "퀘스트를 수주하지 않았습니다.";
+        notQuestText.fontSize = 20;
+        notQuestText.color = Color.white;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            questPanelImage.color = Color.Lerp(startingColor, new Color32(0, 0, 0, 170), elapsedTime / duration);
+            yield return null;
+        }
     }
 }

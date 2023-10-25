@@ -2316,6 +2316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 761454bdddacdd44dbc616a853cdc798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questPanelImage: {fileID: 129080435}
+  notQuestText: {fileID: 1421708895}
   NotQuest: {fileID: 1421708893}
   NowQuest: {fileID: 623789127}
   onQuestGuide: {fileID: 918624674}
@@ -6711,7 +6713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textNickname: {fileID: 579460390}
-  textLevel: {fileID: 927067959}
+  textDiamond: {fileID: 927067959}
   textGold: {fileID: 934386135}
 --- !u!1 &517320652
 GameObject:
@@ -19812,7 +19814,7 @@ GameObject:
   - component: {fileID: 927067960}
   - component: {fileID: 927067959}
   m_Layer: 5
-  m_Name: LevelText
+  m_Name: DiamonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19857,7 +19859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 999,999
+  m_text: 999,999,999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 30076b3b484602d4891332ac975902f7, type: 2}
   m_sharedMaterial: {fileID: -8363773040557678874, guid: 30076b3b484602d4891332ac975902f7, type: 2}
@@ -23930,7 +23932,7 @@ GameObject:
   - component: {fileID: 1146803062}
   - component: {fileID: 1146803061}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Diamond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28003,7 +28005,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 42
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -33901,7 +33903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: 0}
+  m_AnchoredPosition: {x: 8, y: 6}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1852613677
@@ -33924,7 +33926,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2256c986504efa44e8b762a451c01b93, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1662968fcff7ed948934a91e351b1c59, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

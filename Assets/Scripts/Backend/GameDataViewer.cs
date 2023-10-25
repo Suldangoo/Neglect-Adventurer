@@ -6,7 +6,7 @@ public class GameDataViewer : MonoBehaviour
 	[SerializeField]
 	private	TextMeshProUGUI	textNickname;
 	[SerializeField]
-	private TextMeshProUGUI textLevel;
+	private TextMeshProUGUI textDiamond;
 	[SerializeField]
 	private TextMeshProUGUI textGold;
 
@@ -29,7 +29,7 @@ public class GameDataViewer : MonoBehaviour
 	}*/
 	public void UpdateGameData()
 	{
-		textLevel.text = BackendGameData.Instance.UserGameData.level.ToString("N0");
 		textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");
+		textDiamond.text = BackendGameData.Instance.UserGameData.diamond.ToString("N0");
 	}
 }
