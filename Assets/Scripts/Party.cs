@@ -262,6 +262,12 @@ public class Party : MonoBehaviour
         equipButton.SetActive(false);
     }
 
+    // 장착 캐릭터에 힐러가 존재하는지 확인하는 메서드
+    public bool isEquippedHealer()
+    {
+        return System.Array.Exists(equippedCharacterIndices, index => index >= 6 && index < 9);
+    }
+
     // 캐릭터 장착 버튼 클릭 메서드
     public void OnEquipButtonClicked()
     {
@@ -283,7 +289,7 @@ public class Party : MonoBehaviour
         }
 
         // 만약 장착하려는 캐릭터가 힐러이고, 이미 장착된 캐릭터 중에 힐러가 있다면 장착을 거부
-        if (characterIndex >= 6 && characterIndex < 9 && System.Array.Exists(equippedCharacterIndices, index => index >= 6 && index < 9))
+        if (characterIndex >= 6 && characterIndex < 9 && isEquippedHealer())
         {
             Debug.Log("A healer is already equipped.");
             return;

@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // 전투 모드 돌입
+        // 전투 돌입
         if (isBattle)
         {
             // 공격 속도 간격을 위한 시간 측정
@@ -80,6 +80,12 @@ public class GameManager : MonoBehaviour
                     currTime = 0; // 시간 초기화
                 }
             }
+        }
+
+        // 힐러 장착중일 경우 회복 메소드
+        if (party.isEquippedHealer())
+        {
+
         }
     }
 
