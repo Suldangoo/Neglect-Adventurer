@@ -1,15 +1,16 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class InfiniteScrolling : MonoBehaviour
 {
-    [SerializeField] protected GameObject[] backObjects; // 배경 오브젝트들
-    [SerializeField] protected GameObject[] terrainObjects; // 지형 오브젝트들
-    [SerializeField] protected GameObject[] groundsObjects; // 땅 오브젝트들
+    public DungeonManager dungeonManager; // DungeonManager에 대한 참조 추가
 
-    public float speed; // 땅 오브젝트 스크롤 속도
-    public float backSpeed; // 배경 오브젝트 스크롤 속도
-    public float terrainSpeed; // 지형 오브젝트 스크롤 속도
-    
+    [SerializeField] protected GameObject[] backObjects;
+    [SerializeField] protected GameObject[] terrainObjects1;
+    [SerializeField] protected GameObject[] terrainObjects2;
+    [SerializeField] protected GameObject[] groundsObjects;
+
+    [HideInInspector] public float speed;
+
     public float size; // 땅 오브젝트 크기
     public float backSize; // 배경 오브젝트 크기
     public float terrainSize; // 지형 오브젝트 크기
@@ -18,17 +19,13 @@ public class InfiniteScrolling : MonoBehaviour
     {
         // 속도 0으로 초기화
         speed = 0f;
-        backSpeed = 0f;
-        terrainSpeed = 0f;
-
-        // 땅, 배경, 지형 스프라이트의 크기
-        size = 26f;
-        backSize = 30f;
-        terrainSize = 11f;
     }
 
     private void Update()
     {
+        // DungeonManager로부터 speed 가져오기
+        float speed = dungeonManager.speed;
+
         // 땅 오브젝트 스크롤링
         foreach (GameObject obj in groundsObjects)
         {
@@ -37,12 +34,17 @@ public class InfiniteScrolling : MonoBehaviour
         // 배경 오브젝트 스크롤링
         foreach (GameObject back in backObjects)
         {
-            ScrollObject(back, backSpeed, backSize);
+            ScrollObject(back, speed / 20f, backSize);
         }
         // 지형 오브젝트 스크롤링
-        foreach (GameObject terrain in terrainObjects)
+        foreach (GameObject terrain in terrainObjects1)
         {
-            ScrollObject(terrain, terrainSpeed, terrainSize * 2);
+            ScrollObject(terrain, speed / 8f, terrainSize);
+        }
+        // 지형2 오브젝트 스크롤링
+        foreach (GameObject terrain in terrainObjects2)
+        {
+            ScrollObject(terrain, speed / 2f, terrainSize);
         }
     }
 

@@ -20,9 +20,8 @@ public class GameManager : MonoBehaviour
     // --- 외부 오브젝트 변수
     UiManager UiManager => UiManager.Instance;
 
-    InfiniteScrolling background;   // 백그라운드 스크롤링 오브젝트
-    Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
-
+    [SerializeField] DungeonManager background;   // 백그라운드 스크롤링 오브젝트
+    [SerializeField] Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
     [SerializeField] Monster monster; // 몬스터 프리팹
     [SerializeField] String webURL;
     [SerializeField] HpUI heart;
@@ -38,8 +37,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isDead = false;  // 전투 확인
 
     float currTime;             // 시간을 측정할 변수
-    float backSpeed;            // 배경 스크롤링 속도
-    float terrainSpeed;         // 지형 스크롤링 속도
+
     private Coroutine healerRecoveryRoutine;
 
     // --- 플레이어 변수
@@ -57,10 +55,6 @@ public class GameManager : MonoBehaviour
         UiManager.SetStartUi(true); // 시작 UI 켜기
         UiManager.SetGameUi(false); // 게임 UI 끄기
 
-        background = GameObject.Find("Background").GetComponent<InfiniteScrolling>(); // 백그라운드 오브젝트 할당
-        playerAnimator = GameObject.Find("Knight").GetComponent<Animator>(); // 플레이어 애니메이션 할당
-
-        SetScrollSpeed(); // 스크롤 속도 초기화
         SetScroll(false); // 스크롤 끄기
     }
 
@@ -147,6 +141,7 @@ public class GameManager : MonoBehaviour
         isDead = true; // 사망상태 켜기
         SetScroll(false); // 스크롤 중지
         monster.RunAway(); // 몬스터 도망 연출
+        StopCoroutine(healerRecoveryRoutine); // 힐러 코루틴 종료
         UiManager.SetDeadUi(true);
 
         StartCoroutine(ReviveCountdown()); // 카운트 다운 시작
@@ -158,6 +153,7 @@ public class GameManager : MonoBehaviour
         isDead = false; // 사망상태 끄기
         SetScroll(true); // 스크롤 켜기
         heart.SetHp(5); // HP 회복
+        UpdateHealerRecoveryRoutine(); // 힐러 코루틴 시작
         UiManager.SetDeadUi(false);
     }
 
@@ -242,13 +238,6 @@ public class GameManager : MonoBehaviour
         isScroll = active; // 스크롤 상태 체크
         playerAnimator.SetBool("Scroll", active); // 플레이어 달리기 애니메이션 시작
         background.speed = scrollSpeed * Convert.ToInt32(active);           // 땅 스크롤링
-        background.backSpeed = backSpeed * Convert.ToInt32(active);         // 배경 스크롤링
-        background.terrainSpeed = terrainSpeed * Convert.ToInt32(active);   // 지형 스크롤링
-    }
-    void SetScrollSpeed()
-    {
-        backSpeed = scrollSpeed / 20f;  // 배경 스크롤링 속도
-        terrainSpeed = scrollSpeed / 2f; // 지형 스크롤링 속도
     }
 
     // 8비트 홈페이지 이동
