@@ -50,6 +50,9 @@ public class UiManager : MonoBehaviour
     [SerializeField]
     GameObject tenUI;   // 10연차 UI
 
+    [SerializeField]
+    GameObject deadUI;   // 사망 UI
+
     public void SetStartUi(bool active)
     {
         startUI.SetActive(active);
@@ -109,4 +112,9 @@ public class UiManager : MonoBehaviour
     {
         tenUI.SetActive(active);
     } // 10개 뽑기 UI 켜고 끄기
+
+    public void SetDeadUi(bool active)
+    {
+        deadUI.SetActive(active);
+    } // 사망 스크린 UI 켜고 끄기
 }

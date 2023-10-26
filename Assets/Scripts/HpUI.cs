@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class HpUI : MonoBehaviour
 {
+    GameManager GameManager => GameManager.Instance;
+
     public Image[] Heart; // 하트 UI 배열
     public float Hp { get; private set; } // 읽는건 자유, 쓰는 건 private로 표기한다.
     private float Hp_Max; // 최대 HP
@@ -74,6 +76,12 @@ public class HpUI : MonoBehaviour
             //세밀하게 이미지를 그릴 수 있도록 함
             if ((int)Hp == i)
                 Heart[i].fillAmount = Hp - (int)Hp;  //ex -> Hp = 3.4의 경우 3.4에 3을 빼면 0.4만 남는다.
+        }
+
+        if (Hp <= 0)
+        {
+            // HP가 0 이하가 될 경우, 플레이어 사망 메서드 호출
+            GameManager.PlayerDead();
         }
     }
 }

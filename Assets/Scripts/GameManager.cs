@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,12 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] HpUI heart;
     [SerializeField] public Party party;
     [SerializeField] public Quest quest;
-    [SerializeField] private Image[] heartImages; // 하트 이미지 5개 
+    [SerializeField] private Image[] heartImages; // 하트 이미지 5개
+    [SerializeField] private TextMeshProUGUI ReviveCount; // 사망 카운트
 
     // --- 게임 변수
     [HideInInspector] public bool isStart = false;   // 시작 확인
     [HideInInspector] public bool isScroll = false;  // 스크롤 확인
     [HideInInspector] public bool isBattle = false;  // 전투 확인
+    [HideInInspector] public bool isDead = false;  // 전투 확인
 
     float currTime;             // 시간을 측정할 변수
     float backSpeed;            // 배경 스크롤링 속도
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else // 달리고 있는 상태라면
+        else if (!isDead) // 달리고 있는 상태라면
         {
             if (quest.GetCurrentQuestTypeAsString().Equals("RunMeters"))
             {
@@ -123,6 +126,39 @@ public class GameManager : MonoBehaviour
     {
         SetScroll(!active); // 배틀 상태에 따라 스크롤 On / Off
         isBattle = active; // 배틀 상태 체크
+    }
+
+    private IEnumerator ReviveCountdown()
+    {
+        int timeLeft = 10;
+        while (timeLeft > 0)
+        {
+            ReviveCount.text = timeLeft.ToString(); // 카운트 다운 텍스트 업데이트
+            yield return new WaitForSeconds(1); // 1초 대기
+            timeLeft--; // 카운트 다운
+        }
+        PlayerRevive(); // 카운트 다운이 끝나면 부활 메소드 호출
+    }
+
+    public void PlayerDead()
+    {
+        playerAnimator.SetTrigger("Dead"); // 사망 애니메이션 켜기
+        isDead = true; // 사망상태 켜기
+        isBattle = false; // 배틀 끄기
+        SetScroll(false); // 스크롤 중지
+        monster.RunAway(); // 몬스터 도망 연출
+        UiManager.SetDeadUi(true);
+
+        StartCoroutine(ReviveCountdown()); // 카운트 다운 시작
+    }
+
+    public void PlayerRevive()
+    {
+        playerAnimator.SetTrigger("Revive"); // 원래 애니메이션으로 돌리기
+        isDead = false; // 사망상태 끄기
+        SetScroll(true); // 스크롤 켜기
+        heart.SetHp(5); // HP 회복
+        UiManager.SetDeadUi(false);
     }
 
     // 힐러 코루틴의 상태를 업데이트하는 메서드
