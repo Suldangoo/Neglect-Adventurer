@@ -1,29 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using BackEnd;
 
 public class BackendPostSystem : MonoBehaviour
 {
+	[System.Serializable]
+	public class PostEvent : UnityEvent<List<PostData>> { }
+	public PostEvent onGetPostListEvent = new PostEvent();
+
 	private	List<PostData>	postList = new List<PostData>();
 
-	private void Update()
+	public void PostListGet()
 	{
-		// 1 클릭 시 수령 가능 우편 확인
-		if ( Input.GetKeyDown("1") )
-		{
-			PostListGet(PostType.Admin);
-		}
-		// 2 클릭 시 0번 우편 수령
-		else if ( Input.GetKeyDown("2") )
-		{
-			PostReceive(PostType.Admin, 0);
-		}
-		// 3 클릭 시 모든 우편 수령
-		else if ( Input.GetKeyDown("3") )
-		{
-			PostReceiveAll(PostType.Admin);
-		}
+		PostListGet(PostType.Admin);
 	}
+
+	public void PostReceive(PostType postType, string inDate)
+	{
+		PostReceive(postType, postList.FindIndex(item => item.inDate.Equals(inDate)));
+	}
+
+	public void PostReceiveAll()
+	{
+		PostReceiveAll(PostType.Admin);
+	}
+
 
 	public void PostListGet(PostType postType)
 	{
@@ -95,6 +97,9 @@ public class BackendPostSystem : MonoBehaviour
 
 				postList.Add(post);
 			}
+
+			// 우편 리스트 불러오기가 완료되었을 때 이벤트 메소드 호출
+			onGetPostListEvent?.Invoke(postList);
 
 			// 저장 가능한 모든 우편(postList) 정보 출력
 			for (int i = 0; i < postList.Count; ++i)
