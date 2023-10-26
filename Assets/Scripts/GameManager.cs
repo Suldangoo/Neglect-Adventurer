@@ -189,7 +189,6 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(party.EquippedCharacterStats("recoverytime"));
             heart.SetHp(party.EquippedCharacterStats("recovery"));
             PlayRecoveryAnimation();
-            Debug.Log($"{party.EquippedCharacterStats("recovery")}만큼 HP 회복!");
         }
     }
 

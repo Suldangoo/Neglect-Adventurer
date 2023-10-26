@@ -19,6 +19,14 @@ public class MonsterData
     public float hpBarOffsetY;           // HP바 y축 위치 보정용 변수
 }
 
+// 던전 관리 클래스
+[System.Serializable]
+public class Dungeon
+{
+    public string dungeonName;                // 던전 이름
+    public List<MonsterData> monstersInDungeon;   // 해당 던전에 등장하는 몬스터 목록
+}
+
 public class Monster : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance;
@@ -43,8 +51,26 @@ public class Monster : MonoBehaviour
     SpriteRenderer sprite; // 스프라이트 렌더러
     ParticleSystem particle; // 파티클
 
-    public List<MonsterData> dungeonMonsters; // 각 던전에서 출현할 몬스터 리스트
+    public List<MonsterData> dungeonMonsters; // 현재 등장 가능한 몬스터 리스트
     private MonsterData currentMonsterData;   // 현재 몬스터 데이터
+
+    public List<Dungeon> dungeons;    // 전체 던전 목록
+    private Dungeon currentDungeon;   // 현재 던전
+
+    private void Start()
+    {
+        // 초기 던전 설정 (예: 첫 번째 던전으로 설정)
+        SetCurrentDungeon(0);
+
+        // 오브젝트 할당
+        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        particle = GetComponent<ParticleSystem>();
+
+        StartCoroutine("HitEffect");
+
+        SetRandomMonster(); // 게임 시작 시 랜덤 몬스터 설정
+    }
 
     void Update()
     {
@@ -76,16 +102,19 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void Start()
+    // 던전 변경 메서드
+    public void SetCurrentDungeon(int dungeonIndex)
     {
-        // 오브젝트 할당
-        sprite = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        particle = GetComponent<ParticleSystem>();
-
-        StartCoroutine("HitEffect");
-
-        SetRandomMonster(); // 게임 시작 시 랜덤 몬스터 설정
+        if (dungeonIndex >= 0 && dungeonIndex < dungeons.Count)
+        {
+            currentDungeon = dungeons[dungeonIndex];
+            // 현재 던전을 바꾸면 몬스터 목록도 바꿔줍니다.
+            dungeonMonsters = currentDungeon.monstersInDungeon;
+        }
+        else
+        {
+            Debug.LogError("Invalid dungeon index!");
+        }
     }
 
     public void SetRandomMonster()
@@ -97,7 +126,7 @@ public class Monster : MonoBehaviour
         hpColor.fillAmount = 1; // HP 바 이미지 채우기
 
         transform.position = new Vector3(Random.Range(15f, 30f), -3 + currentMonsterData.positionOffset, 0); // 몬스터 위치 랜덤하게 초기화 후 위치 보정
-        hpBar.transform.localPosition = new Vector3(currentMonsterData.hpBarOffsetX, currentMonsterData.hpBarOffsetY, 0); // HP바 위치 보정
+        canvas.GetComponent<RectTransform>().anchoredPosition = new Vector2(currentMonsterData.hpBarOffsetX, currentMonsterData.hpBarOffsetY);
 
         // 애니메이션 클립 설정
         AnimatorOverrideController overrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
@@ -138,7 +167,8 @@ public class Monster : MonoBehaviour
         hitDuration = Time.time + 0.1f; // 히트 이펙트 반영시간을 0.1초 이후로 갱신
         particle.Clear(); // 현재 파티클 초기화
         particle.Play(); // 파티클 재생
-        GameObject damageText = Instantiate(dmgText, canvas.transform);
+
+        GameObject damageText = Instantiate(dmgText, canvas.transform); // 데미지 프리팹
         damageText.GetComponent<Text>().text = atk.ToString();
     }
 
@@ -148,6 +178,7 @@ public class Monster : MonoBehaviour
         hpBar.SetActive(false); // HP바 비활성화
         isLive = false; // 생존 상태 체크 해제
         isBattle = false; // 배틀 상태 체크 해제
+
         GameObject goldEffect = Instantiate(goldDrop, canvas.transform); // 골드 드랍 이펙트 프리팹 생성
 
         // 먼저 몬스터 고유의 보상값에서 플러스 마이너스 20%의 랜덤한 값을 계산합니다.
