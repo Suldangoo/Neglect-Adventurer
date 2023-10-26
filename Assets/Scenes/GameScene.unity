@@ -33260,18 +33260,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 292606084}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1671319882}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ExitGame
@@ -42843,7 +42831,7 @@ MonoBehaviour:
     - name: Umbra
       maxHp: 1000
       rewardGold: 25000
-      power: 3.2
+      power: 3
       idleAnimation: {fileID: 7400000, guid: 444454e005a2b304abe3329c957136fa, type: 2}
       attackAnimation: {fileID: 7400000, guid: c7497889c1f2a4f45a33ffe57c43eb0c, type: 2}
       deathAnimation: {fileID: 7400000, guid: 264d50dbd45697647b7b3601e81ce463, type: 2}
@@ -42863,45 +42851,45 @@ MonoBehaviour:
   - dungeonName: Castle
     monstersInDungeon:
     - name: BlueSworder
-      maxHp: 0
-      rewardGold: 0
-      power: 0
+      maxHp: 2000
+      rewardGold: 60000
+      power: 3.7
       idleAnimation: {fileID: 7400000, guid: 6038d6795e689c942a3b2cdc62310b35, type: 2}
       attackAnimation: {fileID: 7400000, guid: 313dc2f0f2709444fb610a9acdb6711a, type: 2}
       deathAnimation: {fileID: 7400000, guid: 34f251050c54b6948b9758d170b96430, type: 2}
-      positionOffset: 0
+      positionOffset: 1.4
       hpBarOffsetX: 0
-      hpBarOffsetY: 0
+      hpBarOffsetY: 1.6
     - name: BoneGolem
-      maxHp: 0
-      rewardGold: 0
-      power: 0
+      maxHp: 3000
+      rewardGold: 100000
+      power: 4
       idleAnimation: {fileID: 7400000, guid: 70b85e0fe95836642acf318d905d4f49, type: 2}
       attackAnimation: {fileID: 7400000, guid: 37fb64ae9c278fe4d9f359f2b7bb3be9, type: 2}
       deathAnimation: {fileID: 7400000, guid: dfab11fb4a9398b4387b4189420f2ae0, type: 2}
-      positionOffset: 0
+      positionOffset: 1.4
       hpBarOffsetX: 0
-      hpBarOffsetY: 0
+      hpBarOffsetY: 2.7
     - name: HammerKing
-      maxHp: 0
-      rewardGold: 0
-      power: 0
+      maxHp: 4000
+      rewardGold: 150000
+      power: 4.5
       idleAnimation: {fileID: 7400000, guid: b3cda69a4d764634d9f73df64fb40cf5, type: 2}
       attackAnimation: {fileID: 7400000, guid: abbe9bf56daddf049ba62804e21a9afb, type: 2}
       deathAnimation: {fileID: 7400000, guid: c539889d9de004944b49a07924bdd694, type: 2}
-      positionOffset: 0
+      positionOffset: 2.32
       hpBarOffsetX: 0
-      hpBarOffsetY: 0
+      hpBarOffsetY: 1.8
     - name: Steelava
-      maxHp: 0
-      rewardGold: 0
-      power: 0
+      maxHp: 1500
+      rewardGold: 40000
+      power: 3.3
       idleAnimation: {fileID: 7400000, guid: 37889a917e362e24090a1714c01b0b78, type: 2}
       attackAnimation: {fileID: 7400000, guid: 8858fbcf0ce2c584e864b3115be4d64c, type: 2}
       deathAnimation: {fileID: 7400000, guid: f03e9117f8f40f544b140df62431309c, type: 2}
-      positionOffset: 0
+      positionOffset: 1.4
       hpBarOffsetX: 0
-      hpBarOffsetY: 0
+      hpBarOffsetY: 1.6
 --- !u!95 &4338039459597413644
 Animator:
   serializedVersion: 3

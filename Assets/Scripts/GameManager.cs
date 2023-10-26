@@ -142,9 +142,9 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDead()
     {
+        isBattle = false; // 배틀 끄기
         playerAnimator.SetTrigger("Dead"); // 사망 애니메이션 켜기
         isDead = true; // 사망상태 켜기
-        isBattle = false; // 배틀 끄기
         SetScroll(false); // 스크롤 중지
         monster.RunAway(); // 몬스터 도망 연출
         UiManager.SetDeadUi(true);
