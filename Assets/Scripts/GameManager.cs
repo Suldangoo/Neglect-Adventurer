@@ -216,9 +216,16 @@ public class GameManager : MonoBehaviour
         terrainSpeed = scrollSpeed / 2f; // 지형 스크롤링 속도
     }
 
+    // 8비트 홈페이지 이동
     public void EightBitURL()
     {
         // 8비트 공식 홈페이지 이동
         Application.OpenURL(webURL);
+    }
+
+    // 게임 종료
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
