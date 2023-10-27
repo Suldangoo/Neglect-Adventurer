@@ -23,8 +23,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] DungeonManager background;   // 백그라운드 스크롤링 오브젝트
     [SerializeField] Animator playerAnimator;        // 플레이어 캐릭터 애니메이터
     [SerializeField] Monster monster; // 몬스터 프리팹
-    [SerializeField] String webURL;
     [SerializeField] HpUI heart;
+
+    [SerializeField] TextMeshProUGUI[] goldTexts; // 골드 텍스트들
+    [SerializeField] TextMeshProUGUI[] diamondTexts; // 다이아 텍스트들
+
+    [SerializeField] string webURL;
     [SerializeField] public Party party;
     [SerializeField] public Quest quest;
     [SerializeField] private Image[] heartImages; // 하트 이미지 5개
@@ -36,9 +40,8 @@ public class GameManager : MonoBehaviour
     public bool isBattle = false;  // 전투 확인
     public bool isDead = false;  // 전투 확인
 
-    float currTime;             // 시간을 측정할 변수
-
     private Coroutine healerRecoveryRoutine;
+    private Coroutine battleRoutine;
 
     // --- 플레이어 변수
 
@@ -60,31 +63,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (isBattle) // 전투 상태라면
-        {
-            // 공격 속도 간격을 위한 시간 측정
-            currTime += Time.deltaTime;
-
-            if (currTime >= attackSpeed) // 공격 속도의 간격이 되었다면
-            {
-                if (monster.isLive)
-                {
-                    // 내 데미지 계산. 데미지 = 내 공격력 + 동료 공격력
-                    float dam = power + party.EquippedCharacterStats("attack");
-
-                    playerAnimator.SetTrigger("Attack"); // 공격 애니메이션 재생
-                    SoundManager.Instance.PlaySound("attack"); // 사운드 재생
-                    monster.Damage(dam); // 몬스터에게 데미지
-                    currTime = 0; // 시간 초기화
-                }
-                else
-                {
-                    SetBattle(false);
-                    currTime = 0; // 시간 초기화
-                }
-            }
-        }
-        else if (!isDead) // 달리고 있는 상태라면
+        if (!isDead && !isBattle) // 달리고 있는 상태라면
         {
             if (quest.GetCurrentQuestTypeAsString().Equals("RunMeters"))
             {
@@ -122,6 +101,16 @@ public class GameManager : MonoBehaviour
     {
         SetScroll(!active); // 배틀 상태에 따라 스크롤 On / Off
         isBattle = active; // 배틀 상태 체크
+
+        if (active && battleRoutine == null)
+        {
+            battleRoutine = StartCoroutine(BattleRoutine()); // 배틀 상태라면, 배틀 코루틴 시작
+        }
+        else if (!active && battleRoutine != null)
+        {
+            StopCoroutine(battleRoutine); // 배틀 상태가 아니라면, 배틀 코루틴 종료
+            battleRoutine = null;
+        }
     }
 
     private IEnumerator ReviveCountdown()
@@ -151,6 +140,9 @@ public class GameManager : MonoBehaviour
             StopCoroutine(healerRecoveryRoutine); // 힐러 코루틴 종료
         }
 
+        StopCoroutine(battleRoutine); // 배틀 코루틴 종료
+        battleRoutine = null;
+
         StartCoroutine(ReviveCountdown()); // 부활 카운트 다운 시작
     }
 
@@ -163,6 +155,29 @@ public class GameManager : MonoBehaviour
         heart.SetHp(5); // HP 회복
         UpdateHealerRecoveryRoutine(); // 힐러 코루틴 시작
         UiManager.SetDeadUi(false); // 부활 UI 켜기
+    }
+
+    IEnumerator BattleRoutine()
+    {
+        while (true)
+        {
+            // 시작 부분에 대기
+            yield return new WaitForSeconds(attackSpeed);
+
+            if (monster.isLive)
+            {
+                // 내 데미지 계산. 데미지 = 내 공격력 + 동료 공격력
+                float dam = power + party.EquippedCharacterStats("attack");
+
+                playerAnimator.SetTrigger("Attack"); // 공격 애니메이션 재생
+                SoundManager.Instance.PlaySound("attack"); // 사운드 재생
+                monster.Damage(dam); // 몬스터에게 데미지
+            }
+            else
+            {
+                SetBattle(false);
+            }
+        }
     }
 
     // 힐러 코루틴의 상태를 업데이트하는 메서드
@@ -248,6 +263,23 @@ public class GameManager : MonoBehaviour
         playerAnimator.SetBool("Scroll", active); // 플레이어 달리기 애니메이션 시작
         background.speed = scrollSpeed * Convert.ToInt32(active);           // 땅 스크롤링
     }
+
+    // 재화 새로고침
+    public void RefreshCurrency()
+    {
+        // 골드 텍스트 갱신
+        foreach (TextMeshProUGUI goldText in goldTexts)
+        {
+            goldText.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");
+        }
+
+        // 다이아 텍스트 갱신
+        foreach (TextMeshProUGUI diamondText in diamondTexts)
+        {
+            diamondText.text = BackendGameData.Instance.UserGameData.diamond.ToString("N0");
+        }
+    }
+
 
     // 8비트 홈페이지 이동
     public void EightBitURL()

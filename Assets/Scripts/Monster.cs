@@ -146,19 +146,6 @@ public class Monster : MonoBehaviour
         speed = GameManager.scrollSpeed; // 현재 스크롤 속도 반영
     }
 
-    public void Attack()
-    {
-        anim.SetTrigger("Attack");
-        SoundManager.Instance.PlaySound("monsterattack"); // 사운드 재생
-
-        // 몬스터의 데미지 계산. 데미지 = 몬스터 공격력 - (내 방어력 + 동료 방어력) / 100
-        float dam = currentMonsterData.power - (GameManager.defense + GameManager.party.EquippedCharacterStats("defense")) / 100f;
-        dam = Mathf.Max(dam, 0);  // 만약 데미지가 음수라면 0으로 설정
-
-        heart.SetHp(-dam);
-        player.Damage();
-    }
-
     public void Damage(float atk)
     {
         hp -= atk; // atk의 피해만큼 데미지를 입음
@@ -191,6 +178,7 @@ public class Monster : MonoBehaviour
         // 최종 보상을 유저에게 지급합니다.
         BackendGameData.Instance.UserGameData.gold += totalReward;
         BackendGameData.Instance.GameDataUpdate(); // 골드 지급 반영
+        GameManager.RefreshCurrency();
 
         // 퀘스트 업데이트
         if (quest.GetCurrentQuestTypeAsString().Equals("KillMonsters"))
@@ -248,8 +236,18 @@ public class Monster : MonoBehaviour
     {
         while (true)
         {
-            Attack();
-            yield return new WaitForSeconds(3.0f);
+            // 공격 속도 2초
+            yield return new WaitForSeconds(2.0f);
+
+            anim.SetTrigger("Attack");
+            SoundManager.Instance.PlaySound("monsterattack"); // 사운드 재생
+
+            // 몬스터의 데미지 계산. 데미지 = 몬스터 공격력 - (내 방어력 + 동료 방어력) / 100
+            float dam = currentMonsterData.power - (GameManager.defense + GameManager.party.EquippedCharacterStats("defense")) / 100f;
+            dam = Mathf.Max(dam, 0);  // 만약 데미지가 음수라면 0으로 설정
+
+            heart.SetHp(-dam);
+            player.Damage();
         }
     }
 

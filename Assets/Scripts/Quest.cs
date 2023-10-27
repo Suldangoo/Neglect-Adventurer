@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Quest : MonoBehaviour
 {
+    GameManager GameManager => GameManager.Instance;
+
     public Image questPanelImage; // 퀘스트 패널 이미지
     public Text notQuestText; // notQuest의 텍스트 컴포넌트
     public GameObject NotQuest; // 퀘스트를 수주하고 있지 않을 때 UI
@@ -200,6 +202,9 @@ public class Quest : MonoBehaviour
 
         // 보상 지급 반영
         BackendGameData.Instance.GameDataUpdate();
+
+        // 재화 새로고침
+        GameManager.RefreshCurrency();
 
         // 보상 지급 및 완료 연출
         StartCoroutine(QuestClearEffect());
