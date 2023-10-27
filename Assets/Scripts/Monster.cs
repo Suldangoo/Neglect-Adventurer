@@ -149,6 +149,7 @@ public class Monster : MonoBehaviour
     public void Attack()
     {
         anim.SetTrigger("Attack");
+        SoundManager.Instance.PlaySound("monsterattack"); // 사운드 재생
 
         // 몬스터의 데미지 계산. 데미지 = 몬스터 공격력 - (내 방어력 + 동료 방어력) / 100
         float dam = currentMonsterData.power - (GameManager.defense + GameManager.party.EquippedCharacterStats("defense")) / 100f;
@@ -175,6 +176,7 @@ public class Monster : MonoBehaviour
     public void Death()
     {
         anim.SetTrigger("Dead");
+        SoundManager.Instance.PlaySound("monsterdie"); // 사운드 재생
         hpBar.SetActive(false); // HP바 비활성화
         isLive = false; // 생존 상태 체크 해제
         isBattle = false; // 배틀 상태 체크 해제

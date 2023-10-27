@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
                     float dam = power + party.EquippedCharacterStats("attack");
 
                     playerAnimator.SetTrigger("Attack"); // 공격 애니메이션 재생
+                    SoundManager.Instance.PlaySound("attack"); // 사운드 재생
                     monster.Damage(dam); // 몬스터에게 데미지
                     currTime = 0; // 시간 초기화
                 }
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         isBattle = false; // 배틀 끄기
         playerAnimator.SetTrigger("Dead"); // 사망 애니메이션 켜기
+        SoundManager.Instance.PlaySound("dead"); // 사운드 재생
         isDead = true; // 사망상태 켜기
         SetScroll(false); // 스크롤 중지
         monster.RunAway(); // 몬스터 도망 연출
@@ -151,6 +153,7 @@ public class GameManager : MonoBehaviour
     public void PlayerRevive()
     {
         playerAnimator.SetTrigger("Revive"); // 원래 애니메이션으로 돌리기
+        SoundManager.Instance.PlaySound("revive"); // 사운드 재생
         isDead = false; // 사망상태 끄기
         SetScroll(true); // 스크롤 켜기
         heart.SetHp(5); // HP 회복
@@ -185,6 +188,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(party.EquippedCharacterStats("recoverytime"));
             heart.SetHp(party.EquippedCharacterStats("recovery"));
+            SoundManager.Instance.PlaySound("heal"); // 사운드 재생
             PlayRecoveryAnimation();
         }
     }
@@ -230,9 +234,9 @@ public class GameManager : MonoBehaviour
     public void UpdateState()
     {
         power = 10f + (BackendGameData.Instance.UserGameData.atkLv - 1) * 2;            // 공격력
-        attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.05f;   // 공격속도
+        attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.01f;   // 공격속도
         defense = 0f + (BackendGameData.Instance.UserGameData.defLv - 1) * 2;           // 방어력
-        scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1);           // 스크롤링 속도 ≒ 이동속도
+        scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1) * 0.1f;           // 스크롤링 속도 ≒ 이동속도
     }
 
     public void SetScroll(bool active) {

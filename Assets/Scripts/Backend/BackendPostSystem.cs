@@ -18,12 +18,14 @@ public class BackendPostSystem : MonoBehaviour
 
 	public void PostReceive(PostType postType, string inDate)
 	{
+		SoundManager.Instance.PlaySound("click"); // 사운드 재생
 		PostReceive(postType, postList.FindIndex(item => item.inDate.Equals(inDate)));
 	}
 
 	public void PostReceiveAll()
 	{
-		PostReceiveAll(PostType.Admin);
+        SoundManager.Instance.PlaySound("click"); // 사운드 재생
+        PostReceiveAll(PostType.Admin);
 	}
 
 
