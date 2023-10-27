@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
     // 게임 시작 함수
     public void TouchStart() {
         // 게임 시작 터치 시
+        SoundManager.Instance.PlaySound("click");
         UiManager.SetStartUi(false); // 시작 UI 끄기
         UiManager.SetLoginUi(true); // 로그인 UI 켜기
     }

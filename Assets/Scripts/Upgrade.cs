@@ -27,6 +27,11 @@ public class Upgrade : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textGold;
 
+    [TextArea(2, 5)]
+    [SerializeField] private string[] upgradeLevelTexts; // 플레이어 설명
+    [SerializeField] private TextMeshProUGUI totalUpgradeLevelText; // 설명 텍스트
+
+
     private void Awake()
     {
         // 업그레이드 UI가 켜지면 수치 갱신
@@ -42,6 +47,8 @@ public class Upgrade : MonoBehaviour
 
         GameManager.UpdateState(); // 실제 플레이어 스탯 업데이트
         BackendGameData.Instance.GameDataUpdate(); // 서버에 플레이어 스탯 갱신
+
+        totalUpgradeLevelText.text = GetUpgradeText(); // 플레이어 설명 갱신
 
         // 검술 단련 텍스트 갱신
         if (value == 0 || value == 1)
@@ -88,6 +95,7 @@ public class Upgrade : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.atkLv)
         {
+            SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.atkLv;
             BackendGameData.Instance.UserGameData.atkLv += 1;
             modifyState(1);
@@ -98,6 +106,7 @@ public class Upgrade : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.defLv)
         {
+            SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.defLv;
             BackendGameData.Instance.UserGameData.defLv += 1;
             modifyState(2);
@@ -108,6 +117,7 @@ public class Upgrade : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.dexLv)
         {
+            SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
             BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.dexLv;
             BackendGameData.Instance.UserGameData.dexLv += 1;
             modifyState(3);
@@ -118,9 +128,28 @@ public class Upgrade : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.lukLv)
         {
+            SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
             BackendGameData.Instance.UserGameData.gold  -= 1000 * BackendGameData.Instance.UserGameData.lukLv;
             BackendGameData.Instance.UserGameData.lukLv += 1;
             modifyState(4);
         }
     }
+
+    // 플레이어 설명 텍스트
+    private string GetUpgradeText()
+    {
+        int totalLevel = BackendGameData.Instance.UserGameData.atkLv + BackendGameData.Instance.UserGameData.defLv + BackendGameData.Instance.UserGameData.dexLv + BackendGameData.Instance.UserGameData.lukLv;
+
+        if (totalLevel >= 40)
+        {
+            return upgradeLevelTexts[1];
+        }
+        else if (totalLevel >= 20)
+        {
+            return upgradeLevelTexts[0];
+        }
+
+        return string.Empty;
+    }
+
 }

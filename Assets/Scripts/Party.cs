@@ -304,6 +304,9 @@ public class Party : MonoBehaviour
         int emptySlot = System.Array.FindIndex(equippedCharacterIndices, index => index == -1);
         if (emptySlot != -1)
         {
+            // 사운드 플레이
+            SoundManager.Instance.PlaySound("select");
+
             equippedCharacterImages[emptySlot].sprite = guild.characterSprites[characterIndex];
             onGameEquippedCharacterImages[emptySlot].sprite = guild.characterSprites[characterIndex];
             equippedCharacterImages[emptySlot].enabled = true; // 이미지를 활성화

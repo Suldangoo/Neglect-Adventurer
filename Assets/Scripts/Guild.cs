@@ -73,6 +73,9 @@ public class Guild : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= COST_NORMAL_ONE_PICK)
         {
+            // 사운드 플레이
+            SoundManager.Instance.PlaySound("pickup");
+
             // 골드 감소
             BackendGameData.Instance.UserGameData.gold -= COST_NORMAL_ONE_PICK;
             // 뽑기 로직
@@ -95,6 +98,9 @@ public class Guild : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.diamond >= COST_RARE_ONE_PICK)
         {
+            // 사운드 플레이
+            SoundManager.Instance.PlaySound("pickup");
+
             // 다이아 감소
             BackendGameData.Instance.UserGameData.diamond -= COST_RARE_ONE_PICK;
 
@@ -118,6 +124,9 @@ public class Guild : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.gold >= COST_NORMAL_TEN_PICK)
         {
+            // 사운드 플레이
+            SoundManager.Instance.PlaySound("pickup");
+
             // 골드 감소
             BackendGameData.Instance.UserGameData.gold -= COST_NORMAL_TEN_PICK;
 
@@ -141,6 +150,9 @@ public class Guild : MonoBehaviour
     {
         if (BackendGameData.Instance.UserGameData.diamond >= COST_RARE_TEN_PICK)
         {
+            // 사운드 플레이
+            SoundManager.Instance.PlaySound("pickup");
+
             // 다이아 감소
             BackendGameData.Instance.UserGameData.diamond -= COST_RARE_TEN_PICK;
 
