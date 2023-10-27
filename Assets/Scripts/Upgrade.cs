@@ -140,7 +140,19 @@ public class Upgrade : MonoBehaviour
     {
         int totalLevel = BackendGameData.Instance.UserGameData.atkLv + BackendGameData.Instance.UserGameData.defLv + BackendGameData.Instance.UserGameData.dexLv + BackendGameData.Instance.UserGameData.lukLv;
 
-        if (totalLevel >= 40)
+        if (totalLevel >= 300)
+        {
+            return upgradeLevelTexts[4];
+        }
+        else if (totalLevel >= 150)
+        {
+            return upgradeLevelTexts[3];
+        }
+        else if (totalLevel >= 80)
+        {
+            return upgradeLevelTexts[2];
+        }
+        else if (totalLevel >= 40)
         {
             return upgradeLevelTexts[1];
         }
