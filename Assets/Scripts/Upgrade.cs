@@ -32,7 +32,7 @@ public class Upgrade : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalUpgradeLevelText; // 설명 텍스트
 
 
-    private void Awake()
+    private void OnEnable()
     {
         // 업그레이드 UI가 켜지면 수치 갱신
         modifyState(0);
@@ -140,28 +140,26 @@ public class Upgrade : MonoBehaviour
     {
         int totalLevel = BackendGameData.Instance.UserGameData.atkLv + BackendGameData.Instance.UserGameData.defLv + BackendGameData.Instance.UserGameData.dexLv + BackendGameData.Instance.UserGameData.lukLv;
 
-        if (totalLevel >= 300)
+        if (totalLevel >= 200)
         {
             return upgradeLevelTexts[4];
         }
-        else if (totalLevel >= 150)
+        else if (totalLevel >= 100)
         {
             return upgradeLevelTexts[3];
         }
-        else if (totalLevel >= 80)
+        else if (totalLevel >= 40)
         {
             return upgradeLevelTexts[2];
         }
-        else if (totalLevel >= 40)
+        else if (totalLevel >= 20)
         {
             return upgradeLevelTexts[1];
         }
-        else if (totalLevel >= 20)
+        else
         {
             return upgradeLevelTexts[0];
         }
-
-        return string.Empty;
     }
 
 }

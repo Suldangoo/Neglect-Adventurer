@@ -156,8 +156,6 @@ public class Monster : MonoBehaviour
         dam = Mathf.Max(dam, 0);  // 만약 데미지가 음수라면 0으로 설정
 
         heart.SetHp(-dam);
-        Debug.Log($"몬스터의 공격! {dam} 만큼의 피해를 입었다!");
-
         player.Damage();
     }
 

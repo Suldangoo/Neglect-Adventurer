@@ -31,10 +31,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI ReviveCount; // 사망 카운트
 
     // --- 게임 변수
-    [HideInInspector] public bool isStart = false;   // 시작 확인
-    [HideInInspector] public bool isScroll = false;  // 스크롤 확인
-    [HideInInspector] public bool isBattle = false;  // 전투 확인
-    [HideInInspector] public bool isDead = false;  // 전투 확인
+    public bool isStart = false;   // 시작 확인
+    public bool isScroll = false;  // 스크롤 확인
+    public bool isBattle = false;  // 전투 확인
+    public bool isDead = false;  // 전투 확인
 
     float currTime;             // 시간을 측정할 변수
 
@@ -138,16 +138,20 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDead()
     {
-        isBattle = false; // 배틀 끄기
         playerAnimator.SetTrigger("Dead"); // 사망 애니메이션 켜기
         SoundManager.Instance.PlaySound("dead"); // 사운드 재생
         isDead = true; // 사망상태 켜기
+        isBattle = false; // 배틀 끄기
         SetScroll(false); // 스크롤 중지
         monster.RunAway(); // 몬스터 도망 연출
-        StopCoroutine(healerRecoveryRoutine); // 힐러 코루틴 종료
-        UiManager.SetDeadUi(true);
+        UiManager.SetDeadUi(true); // 사망 UI 켜기
 
-        StartCoroutine(ReviveCountdown()); // 카운트 다운 시작
+        if (healerRecoveryRoutine != null)
+        {
+            StopCoroutine(healerRecoveryRoutine); // 힐러 코루틴 종료
+        }
+
+        StartCoroutine(ReviveCountdown()); // 부활 카운트 다운 시작
     }
 
     public void PlayerRevive()
@@ -158,7 +162,7 @@ public class GameManager : MonoBehaviour
         SetScroll(true); // 스크롤 켜기
         heart.SetHp(5); // HP 회복
         UpdateHealerRecoveryRoutine(); // 힐러 코루틴 시작
-        UiManager.SetDeadUi(false);
+        UiManager.SetDeadUi(false); // 부활 UI 켜기
     }
 
     // 힐러 코루틴의 상태를 업데이트하는 메서드
