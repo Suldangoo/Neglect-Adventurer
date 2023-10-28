@@ -7,6 +7,19 @@ public class Upgrade : MonoBehaviour
 {
     GameManager GameManager => GameManager.Instance; // 게임 매니저 인스턴스
 
+    // -- 업그레이드 밸런싱 변수
+
+    [SerializeField] int baseCost; // 기본금
+    [SerializeField] float growthRate; // 기본 지수 증가율
+    [SerializeField] float dexGrowthRate; // 기본 지수 증가율
+
+    [SerializeField]
+    private TextMeshProUGUI textGold;
+
+    [TextArea(2, 5)]
+    [SerializeField] private string[] upgradeLevelTexts; // 플레이어 설명
+    [SerializeField] private TextMeshProUGUI totalUpgradeLevelText; // 설명 텍스트
+
     [SerializeField] Text atkLevel; // 검술 레벨
     [SerializeField] Text atk;      // 검술 공격력
     [SerializeField] Text atkSpeed; // 검술 공격속도
@@ -23,14 +36,6 @@ public class Upgrade : MonoBehaviour
     [SerializeField] Text lukLevel; // 행운 레벨
     [SerializeField] Text luk;      // 행운력
     [SerializeField] Text lukCost;  // 행운 수련비용
-
-    [SerializeField]
-    private TextMeshProUGUI textGold;
-
-    [TextArea(2, 5)]
-    [SerializeField] private string[] upgradeLevelTexts; // 플레이어 설명
-    [SerializeField] private TextMeshProUGUI totalUpgradeLevelText; // 설명 텍스트
-
 
     private void OnEnable()
     {
@@ -56,7 +61,7 @@ public class Upgrade : MonoBehaviour
             atkLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.atkLv.ToString();
             atk.text = "현재 공격력 : " + GameManager.power.ToString();
             atkSpeed.text = "현재 공격속도 : " + GameManager.attackSpeed.ToString();
-            atkCost.text = (1000 * BackendGameData.Instance.UserGameData.atkLv).ToString("#,##0");
+            atkCost.text = ((int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.atkLv))).ToString("N0");
         }
 
         // 방어 단련 텍스트 갱신
@@ -64,7 +69,7 @@ public class Upgrade : MonoBehaviour
         {
             defLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.defLv.ToString();
             def.text = "현재 방어력 : " + GameManager.defense.ToString();
-            defCost.text = (1000 * BackendGameData.Instance.UserGameData.defLv).ToString("#,##0");
+            defCost.text = ((int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.defLv))).ToString("N0");
         }
 
         // 민첩 단련 텍스트 갱신
@@ -72,7 +77,7 @@ public class Upgrade : MonoBehaviour
         {
             dexLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.dexLv.ToString();
             dex.text = "현재 이동속도 : " + GameManager.scrollSpeed.ToString();
-            dexCost.text = (1000 * BackendGameData.Instance.UserGameData.dexLv).ToString("#,##0");
+            dexCost.text = ((int)(baseCost * Mathf.Pow(dexGrowthRate, BackendGameData.Instance.UserGameData.dexLv))).ToString("N0");
         }
 
         // 행운 단련 텍스트 갱신
@@ -80,7 +85,7 @@ public class Upgrade : MonoBehaviour
         {
             lukLevel.text = "Lv. " + BackendGameData.Instance.UserGameData.lukLv.ToString();
             luk.text = "골드획득량 + " + (BackendGameData.Instance.UserGameData.lukLv - 1).ToString() + "%";
-            lukCost.text = (1000 * BackendGameData.Instance.UserGameData.lukLv).ToString("#,##0");
+            lukCost.text = ((int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.lukLv))).ToString("N0");
         }
 
         textGold.text = BackendGameData.Instance.UserGameData.gold.ToString("N0");  // 골드 표시 갱신
@@ -93,10 +98,11 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeAtk()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.atkLv)
+        int cost = (int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.atkLv));
+        if (BackendGameData.Instance.UserGameData.gold >= cost)
         {
             SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
-            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.atkLv;
+            BackendGameData.Instance.UserGameData.gold -= cost;
             BackendGameData.Instance.UserGameData.atkLv += 1;
             modifyState(1);
         }
@@ -104,10 +110,11 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDef()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.defLv)
+        int cost = (int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.defLv));
+        if (BackendGameData.Instance.UserGameData.gold >= cost)
         {
             SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
-            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.defLv;
+            BackendGameData.Instance.UserGameData.gold -= cost;
             BackendGameData.Instance.UserGameData.defLv += 1;
             modifyState(2);
         }
@@ -115,10 +122,11 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeDex()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.dexLv)
+        int cost = (int)(baseCost * Mathf.Pow(dexGrowthRate, BackendGameData.Instance.UserGameData.dexLv));
+        if (BackendGameData.Instance.UserGameData.gold >= cost)
         {
             SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
-            BackendGameData.Instance.UserGameData.gold -= 1000 * BackendGameData.Instance.UserGameData.dexLv;
+            BackendGameData.Instance.UserGameData.gold -= cost;
             BackendGameData.Instance.UserGameData.dexLv += 1;
             modifyState(3);
         }
@@ -126,14 +134,16 @@ public class Upgrade : MonoBehaviour
 
     public void upgradeLuk()
     {
-        if (BackendGameData.Instance.UserGameData.gold >= 1000 * BackendGameData.Instance.UserGameData.lukLv)
+        int cost = (int)(baseCost * Mathf.Pow(growthRate, BackendGameData.Instance.UserGameData.lukLv));
+        if (BackendGameData.Instance.UserGameData.gold >= cost)
         {
             SoundManager.Instance.PlaySound("inchant"); // 사운드 재생
-            BackendGameData.Instance.UserGameData.gold  -= 1000 * BackendGameData.Instance.UserGameData.lukLv;
+            BackendGameData.Instance.UserGameData.gold -= cost;
             BackendGameData.Instance.UserGameData.lukLv += 1;
             modifyState(4);
         }
     }
+
 
     // 플레이어 설명 텍스트
     private string GetUpgradeText()

@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 게임 시작 함수
+    // 맨 처음 게임 시작
     public void TouchStart() {
         // 게임 시작 터치 시
         SoundManager.Instance.PlaySound("click");
@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         UiManager.SetLoginUi(true); // 로그인 UI 켜기
     }
 
+    // 로그인 후 게임 시작
     public void GameStart()
     {
         UpdateState(); // 유저의 스테이터스 갱신
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 사망 시 부활 카운트다운 코루틴
     private IEnumerator ReviveCountdown()
     {
         int timeLeft = 10;
@@ -125,6 +127,7 @@ public class GameManager : MonoBehaviour
         PlayerRevive(); // 카운트 다운이 끝나면 부활 메소드 호출
     }
 
+    // 플레이어 사망 메서드
     public void PlayerDead()
     {
         playerAnimator.SetTrigger("Dead"); // 사망 애니메이션 켜기
@@ -146,6 +149,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ReviveCountdown()); // 부활 카운트 다운 시작
     }
 
+    // 플레이어 부활 메서드
     public void PlayerRevive()
     {
         playerAnimator.SetTrigger("Revive"); // 원래 애니메이션으로 돌리기
@@ -157,6 +161,7 @@ public class GameManager : MonoBehaviour
         UiManager.SetDeadUi(false); // 부활 UI 켜기
     }
 
+    // 전투 코루틴
     IEnumerator BattleRoutine()
     {
         while (true)
@@ -253,11 +258,12 @@ public class GameManager : MonoBehaviour
     public void UpdateState()
     {
         power = 10f + (BackendGameData.Instance.UserGameData.atkLv - 1) * 2;            // 공격력
-        attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.01f;   // 공격속도
+        attackSpeed = 1f - (BackendGameData.Instance.UserGameData.atkLv - 1) * 0.005f;   // 공격속도
         defense = 0f + (BackendGameData.Instance.UserGameData.defLv - 1) * 2;           // 방어력
-        scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1) * 0.1f;           // 스크롤링 속도 ≒ 이동속도
+        scrollSpeed = 5f + (BackendGameData.Instance.UserGameData.dexLv - 1) * 0.3f;    // 스크롤링 속도 ≒ 이동속도
     }
 
+    // 스크롤 켜고 끄는 메서드
     public void SetScroll(bool active) {
         isScroll = active; // 스크롤 상태 체크
         playerAnimator.SetBool("Scroll", active); // 플레이어 달리기 애니메이션 시작
@@ -279,7 +285,6 @@ public class GameManager : MonoBehaviour
             diamondText.text = BackendGameData.Instance.UserGameData.diamond.ToString("N0");
         }
     }
-
 
     // 8비트 홈페이지 이동
     public void EightBitURL()

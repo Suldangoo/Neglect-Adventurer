@@ -88,16 +88,19 @@ public class Quest : MonoBehaviour
         switch (questType)
         {
             case QuestType.KillMonsters:
+                // 30마리 토벌 ~ 200마리 토벌 랜덤
                 questData.questGoal = Random.Range(3, 21) * 10;
                 questData.reward = questData.questGoal / 2;
                 break;
             case QuestType.CollectGold:
+                // 50,000골드 획득 ~ 500,000골드 획득 랜덤
                 questData.questGoal = Random.Range(5, 51) * 10000;
                 questData.reward = questData.questGoal / 10000;
                 break;
             case QuestType.RunMeters:
+                // 200미터 달리기 ~ 1,500미터 달리기 랜덤
                 questData.questGoal = Random.Range(2, 16) * 100;
-                questData.reward = questData.questGoal / 10;
+                questData.reward = questData.questGoal / 20;
                 break;
             default:
                 questData.questGoal = 0;
