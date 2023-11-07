@@ -10,7 +10,7 @@ using BackEnd;
 public class Login : LoginBase
 {
     GameManager GameManager => GameManager.Instance; // 게임 매니저 인스턴스
-    UiManager UiManager => UiManager.Instance; // 게임 매니저 인스턴스
+    UiManager UiManager => UiManager.Instance; // UI 매니저 인스턴스
 
     [SerializeField]
     private Image imageID; // ID 필드 색상 변경
@@ -55,7 +55,16 @@ public class Login : LoginBase
 
         var bro = Backend.BMember.CustomLogin(id, pw);
 
-        if (bro.IsSuccess())
+        if (bro.IsMaintenanceError())
+        {
+            Debug.Log("서버가 점검중입니다.");
+
+            UiManager.SetLoginUi(false);
+            UiManager.SetnotificationUi(true);
+
+            return;
+        }
+        else if (bro.IsSuccess())
         {
             UiManager.SetLoginUi(false);
             UiManager.SetGameUi(true);
