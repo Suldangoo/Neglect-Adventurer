@@ -65,15 +65,10 @@ public class GoogleLogin : MonoBehaviour
         // 페더레이션 유저의 뒤끝 가입 여부 확인
         var checkUserResult = Backend.BMember.CheckUserInBackend(GetTokens(), FederationType.Google);
 
-        if (checkUserResult.IsClientRequestFailError()) // 클라이언트의 일시적인 네트워크 끊김 시
-        {
-            Debug.Log("네트워크가 불안정합니다. 다시 시도해보세요.");
-        }
-        else if (checkUserResult.IsServerError()) // 서버의 이상 발생 시
-        {
-            Debug.Log("현재 서버가 불안정합니다. 나중에 다시 시도해보세요.");
-        }
-        else if (checkUserResult.IsMaintenanceError()) // 서버 상태가 '점검'일 시
+        // 로그인 (회원가입)
+        BackendReturnObject bro = Backend.BMember.AuthorizeFederation(GetTokens(), FederationType.Google, "GPGS");
+
+        if (bro.IsMaintenanceError()) // 서버 상태가 '점검'일 시
         {
             Debug.Log("서버가 점검중입니다.");
 
@@ -82,32 +77,28 @@ public class GoogleLogin : MonoBehaviour
 
             return;
         }
-        else if (checkUserResult.IsBadAccessTokenError())
-        {
-            var checkToken = Backend.BMember.RefreshTheBackendToken();
-
-            if (checkToken.IsSuccess() == false && checkToken.IsDeviceBlockError())
-            {
-                Debug.Log("해당 디바이스는 차단되었습니다.");
-            }
-        }
-
-        // 로그인 (회원가입)
-        BackendReturnObject bro = Backend.BMember.AuthorizeFederation(GetTokens(), FederationType.Google, "GPGS");
-
-        if (checkUserResult.GetStatusCode() == "200")
+        else if (checkUserResult.GetStatusCode() == "200")
         {
             // 이미 가입한 유저
             UiManager.SetStartUi(false);
             UiManager.SetGameUi(true);
         }
-        else
+        else if (checkUserResult.GetStatusCode() == "204")
         {
             // 가입하지 않은 유저
             BackendGameData.Instance.GameDataInsert();
 
             UiManager.SetStartUi(false);
             UiManager.SetnicknameUi(true);
+        }
+        else
+        {
+            Debug.Log("서버가 점검중입니다.");
+
+            UiManager.SetStartUi(false);
+            UiManager.SetnotificationUi(true);
+
+            return;
         }
     }
 }
