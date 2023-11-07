@@ -76,6 +76,10 @@ public class GoogleLogin : MonoBehaviour
         else if (checkUserResult.IsMaintenanceError()) // 서버 상태가 '점검'일 시
         {
             Debug.Log("서버가 점검중입니다.");
+
+            UiManager.SetStartUi(false);
+            UiManager.SetnotificationUi(true);
+
             return;
         }
         else if (checkUserResult.IsBadAccessTokenError())

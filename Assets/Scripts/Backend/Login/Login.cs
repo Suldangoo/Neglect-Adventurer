@@ -55,7 +55,16 @@ public class Login : LoginBase
 
         var bro = Backend.BMember.CustomLogin(id, pw);
 
-        if (bro.IsSuccess())
+        if (bro.IsMaintenanceError())
+        {
+            Debug.Log("서버가 점검중입니다.");
+
+            UiManager.SetLoginUi(false);
+            UiManager.SetnotificationUi(true);
+
+            return;
+        }
+        else if (bro.IsSuccess())
         {
             UiManager.SetLoginUi(false);
             UiManager.SetGameUi(true);

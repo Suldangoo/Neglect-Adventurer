@@ -18,7 +18,10 @@ public class UiManager : MonoBehaviour
     GameObject startUI;     // 게임 시작 UI
 
     [SerializeField]
-    GameObject nicknameUI;     // 게임 시작 UI
+    GameObject nicknameUI;     // 닉네임 설정 UI
+
+    [SerializeField]
+    GameObject notificationUI; // 서버 점검 판넬 UI
 
     [SerializeField]
     GameObject loginUI;     // 로그인 UI
@@ -65,6 +68,11 @@ public class UiManager : MonoBehaviour
     {
         nicknameUI.SetActive(active);
     } // 닉네임 생성 UI 켜고 끄기
+
+    public void SetnotificationUi(bool active)
+    {
+        notificationUI.SetActive(active);
+    } // 서버점검 UI 켜고 끄기
 
     public void SetLoginUi(bool active)
     {
