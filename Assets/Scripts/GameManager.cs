@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
     }
 
     // 8비트 홈페이지 이동
-    public void EightBitURL()
+    public void WebURL()
     {
         // 8비트 공식 홈페이지 이동
         Application.OpenURL(webURL);

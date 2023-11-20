@@ -21,7 +21,7 @@ public class CustomLogin : MonoBehaviour
                 // 단일 문자를 입력하면 현재 입력에 추가
                 currentInput += inputKey;
             }
-            else if (inputKey == "\b" && currentInput.Length > 0)
+            else if (inputKey == "\b")
             {
                 // 백스페이스를 누르면 문자열 초기화
                 currentInput = "";
