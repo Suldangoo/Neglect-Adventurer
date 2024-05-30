@@ -20,7 +20,12 @@
 [Aa]ssets/Plugins/Editor/JetBrains*
 
 # keystore
-[Aa]ssets/*.keystore.meta
+*.keystore
+GoogleHash.keystore
+GoogleHash.keystore.meta
+GooglePlayGames.meta
+TheBackend.meta
+ExternalDependencyManager.meta
 
 # Visual Studio cache directory
 .vs/
