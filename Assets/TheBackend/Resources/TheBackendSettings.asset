@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 660911240, guid: f624596d5fe1bd5459a5da424a8abc1b, type: 3}
   m_Name: TheBackendSettings
   m_EditorClassIdentifier: 
-  clientAppID: 87f6b110-5093-11ee-9741-adc9f86d82dc5578
-  signatureKey: 87f6b111-5093-11ee-9741-adc9f86d82dc5578
+  clientAppID: 
+  signatureKey: 
   functionAuthKey: 
-  packageName: com.DefaultCompany.2DProject
+  packageName: com.Suldangoo.NeglectAdventurer
   isAllPlatform: 1
   sendLogReport: 1
   rateCountActive: 0
